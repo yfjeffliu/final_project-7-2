@@ -125,3 +125,23 @@ class Ability:
         
         
 
+class Play:
+    def __init__(self, subject:RequestSubject):
+        subject.register(self)
+
+    def update(self, user_request: str, model:GameModel):
+        """music on"""
+        if user_request == "pause":
+            pygame.mixer.music.unpause()
+            model.pause = not model.pause
+            #model.sound.play()
+class Pause:
+    def __init__(self, subject:RequestSubject):
+        subject.register(self)
+
+    def update(self, user_request: str, model:GameModel):
+        """music on"""
+        if user_request == "continue":
+            pygame.mixer.music.unpause()
+            model.pause = not model.pause
+            #model.sound.play()

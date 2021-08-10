@@ -2,11 +2,10 @@ import pygame
 import os
 from event.event_setting import MUTE_IMAGE,PLAY_IMAGE,SOUND_IMAGE,PAUSE_IMAGE
 pygame.init()
-MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_space.png")), (125, 55))
-UPGRADE_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (125, 55))
-SELL_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "sell.png")), (40, 40))
+MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_space.png")), (125, 65))
+UPGRADE_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (125, 65))
 NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(180,18))
-BUY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (125, 55))
+BUY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (125, 65))
 
 ABILITY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "ability_menu_icon.png")), (100, 100))
 ABILITY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "special_skill.png")), (130, 120))
@@ -49,7 +48,7 @@ class Menu:
 class BuildMenu(Menu):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self._buttons = [Button(BUY_BTN_IMAGE, "TV", self.rect.centerx, self.rect.centery-20)
+        self._buttons = [Button(BUY_BTN_IMAGE, "TV", self.rect.centerx, self.rect.centery)
         ]
 
 
@@ -69,7 +68,7 @@ class MainMenu:
 class UpgradeMenu(Menu):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self._buttons = [Button(UPGRADE_BTN_IMAGE, "upgrade", self.rect.centerx, self.rect.centery-20 )
+        self._buttons = [Button(UPGRADE_BTN_IMAGE, "upgrade", self.rect.centerx, self.rect.centery )
                          ]
 
 

@@ -22,7 +22,7 @@ class Game:
         game_control = GameControl(self.game_model, self.game_view)  # deal with the game flow and user request
         self.keep_going = False
         while (not self.quit_game) and (not self.keep_going) and not self.all_pass and not self.fail:
-            pygame.time.Clock().tick(FPS*20)  # control the frame rate
+            pygame.time.Clock().tick(FPS)  # control the frame rate
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
             game_control.update_view()  # update the view

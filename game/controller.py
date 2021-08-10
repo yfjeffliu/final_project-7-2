@@ -83,7 +83,7 @@ class GameControl:
                 self.count += 1
         elif self.wait == 0:
             self.view.draw_wait(self.wait)
-            self.model.enemies.add(10,self.model.stage)
+            self.model.enemies.add(2,self.model.stage)
             self.model.stage += 1
             self.view.draw_progress(self.model.get_progress,10)
             self.wait -= 1

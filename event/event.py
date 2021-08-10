@@ -310,7 +310,7 @@ class Events:
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,40,248,85)#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
-            show_text(self.win,text,40,574,390,BLUE)#下一關%數
+            show_text(self.win,text,40,574,390,(64, 155, 163))#下一關%數
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -360,14 +360,14 @@ class Events:
             show_text(self.win,text,30,550,470)
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,30,735,470)
-            text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
+            text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
             show_text(self.win,text,40,500,357)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     if 750<x<750+186 and 379<y<379+55:
-                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money * percentage[game.game_model.stage]/100))
+                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money * percentage[game.game_model.stage-1]/100))
                         file = open('dict.txt', 'w') 
                         for k,v in dict_temp.items():
 	                        file.write(str(k)+' '+str(v)+'\n')
