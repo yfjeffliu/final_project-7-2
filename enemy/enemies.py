@@ -23,16 +23,21 @@ class Enemy:
         num = random.randint(1,3)
         if num == 1:
             self.image = pygame.transform.scale(ENEMY_IMAGE1[player], (40, 50))
+            self.health = 10
+            self.max_health = 10
         elif num == 2:
             self.image = pygame.transform.scale(ENEMY_IMAGE2[player], (40, 50))
+            self.health = 20
+            self.max_health = 20
         else :
             self.image = pygame.transform.scale(ENEMY_IMAGE3[player], (40, 50))
+            self.health = 30
+            self.max_health = 30
         self.rect = self.image.get_rect()
         self.rect.center = self.path[self.path_index]
         self.path_index = 0
         self.move_count = 0
-        self.health = 10
-        self.max_health = 10
+        
     def move(self):
         x1, y1 = self.path[self.path_index]
         x2, y2 = self.path[self.path_index + 1]
