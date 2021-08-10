@@ -103,8 +103,6 @@ class Events:
                                 run = True
                     else:
                         run = False
-                        
-                
             for event in pygame.event.get():
                 # quit
                 if event.type == pygame.QUIT:
@@ -352,8 +350,7 @@ class Events:
                         for k,v in dict_temp.items():
 	                        file.write(str(k)+' '+str(v)+'\n')
                         file.close()
-                        return False
-                
+                        return False              
     def game_fail(self,game):
         self.using_player=0
         percentage = [0,10,20,40,60]

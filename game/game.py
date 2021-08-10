@@ -20,8 +20,6 @@ class Game:
         # initialization
         pygame.init()
         game_control = GameControl(self.game_model, self.game_view)  # deal with the game flow and user request
-        
-        
         self.keep_going = False
         while (not self.quit_game) and (not self.keep_going) and not self.all_pass and not self.fail:
             pygame.time.Clock().tick(FPS*20)  # control the frame rate
@@ -47,10 +45,3 @@ class Game:
         return self.quit_game
     def mute(self,mute):
         self.game_model.mute = mute
-        
-def show_all_pass(win):
-    win.blit(ALL_PASS_BG,(0,0))
-    pygame.display.update()
-def show_pass_stage(win):
-    win.blit(WIN_STAGE_BG,(0,0))
-    pygame.display.update()
