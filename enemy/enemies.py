@@ -15,6 +15,7 @@ class Enemy:
         self.path_index = 0
         self.move_count = 0
         self.stride = 1
+        # 根據關卡(變數stage=1~5 datatype:int)產生怪物 設定image、血量
         num = random.randint(1,3)
         if num == 1:
             self.image = pygame.transform.scale(ENEMY_IMAGE1[player], (40, 50))
