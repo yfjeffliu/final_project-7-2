@@ -1,3 +1,7 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from game.model import GameModel
 import pygame
 import math
 import os
@@ -10,7 +14,7 @@ ENEMY_IMAGE2 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem2.
 ENEMY_IMAGE3 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem3.png"))]
 
 class Enemy:
-    def __init__(self,player,stage):
+    def __init__(self,player:int,stage:int):
         self.path = PATH[player]
         self.path_index = 0
         self.move_count = 0
@@ -51,14 +55,14 @@ class Enemy:
 
 
 class EnemyGroup:
-    def __init__(self,player):
+    def __init__(self,player:int):
         self.campaign_count = 0
         self.campaign_max_count = 60   # (unit: frame)
         self.__reserved_members = []
         self.__expedition = []
         self.count = 0
         self.player = player
-    def advance(self, model):
+    def advance(self, model:GameModel):
         """Bonus.2"""
         # use model.hp and model.money to access the hp and money information
         self.campaign()
@@ -80,7 +84,7 @@ class EnemyGroup:
         else:
             self.campaign_count += 1
 
-    def add(self, num,stage):
+    def add(self, num:int,stage:int):
         self.count = num
         """Generate the enemies for next wave"""
         if self.is_empty():
@@ -94,7 +98,7 @@ class EnemyGroup:
         """Return whether the enemy is empty (so that we can move on to next wave)"""
         return False if self.__reserved_members or self.__expedition else True
 
-    def retreat(self, enemy):
+    def retreat(self, enemy:Enemy):
         """Remove the enemy from the expedition"""
         self.count -= 1
         self.__expedition.remove(enemy)

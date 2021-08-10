@@ -77,7 +77,7 @@ class StartMenu:
 
 
 class Buttons:
-    def __init__(self,image, x, y, width, height):
+    def __init__(self,image:pygame.Surface, x:int, y:int, width:int, height:int):
         self.rect = pygame.Rect(x, y, width, height)
         self.frame = None
         self.image = image
@@ -94,6 +94,6 @@ class Buttons:
         else:
             self.frame = None
 
-    def draw_frame(self, win):
+    def draw_frame(self, win:pygame.Surface):
         if self.frame is not None:
             pygame.draw.rect(win, BLACK, self.frame, 10)

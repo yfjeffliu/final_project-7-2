@@ -1,10 +1,11 @@
+from __future__ import annotations
 import pygame
 import os
 from settings import *
 import pygame.freetype
 
 class an_event:
-    def __init__(self,question,select1,select2,select3) -> None:
+    def __init__(self,question:an_question,select1:an_decision,select2:an_decision,select3:an_decision) -> None:
         self.question = question
         self.select1 = select1
         self.select2 = select2
@@ -13,7 +14,7 @@ class an_event:
 
 
 class an_decision():
-    def __init__(self, num,image , impact,notify_image) -> None:
+    def __init__(self, num:int,image:pygame.Surface , impact:list,notify_image:pygame.Surface) -> None:
         self.impact = impact
         self.notify =notify_image
         self.image = pygame.transform.scale(image, (400, 60))
@@ -23,7 +24,7 @@ class an_decision():
         self.selected = None
         
 class an_question:
-    def __init__(self,num,image) -> None:
+    def __init__(self,num:int,image:pygame.Surface) -> None:
         if image.get_height()>300:
             self.image = pygame.transform.scale(image, (590, 80))
         else:
@@ -33,12 +34,12 @@ class an_question:
         self.image_rect.center=(400,120)
         pass
 class Buttons:
-    def __init__(self,name,image,x,y) -> None:
+    def __init__(self,name:str,image:pygame.Surface,x:int,y:int) -> None:
         self.name = name
         self.image = image
         self.image_rect = self.image.get_rect()
         self.image_rect.center = x,y
-    def is_clicked(self,x,y):
+    def is_clicked(self,x:int,y:int):
         return True if self.image_rect.collidepoint(x,y)  else False
 #images
 BACKGROUND_IMAGE_CHOOSE_PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "choose_character.png")), (WIN_WIDTH, WIN_HEIGHT))

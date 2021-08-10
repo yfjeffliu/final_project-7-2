@@ -1,9 +1,14 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from game.model import GameModel
+    from game.view import GameView
 import pygame
 
 
 # controller
 class GameControl:
-    def __init__(self, game_model, game_view):
+    def __init__(self, game_model:GameModel, game_view:GameView):
         self.model = game_model
         self.view = game_view
         self.events = {"game quit": False,
@@ -58,7 +63,6 @@ class GameControl:
         self.view.draw_plots(self.model.plots)
         self.view.draw_money(self.model.money)
         self.view.draw_tower_money(self.model.tower_money)
-        #self.view.draw_wave(self.model.wave)
         self.view.draw_main_menu(self.model.get_main_menu(),self.model.mute,self.model.pause,self.model.show_ability)
         
         if self.model.show_notify:
@@ -79,12 +83,12 @@ class GameControl:
                 self.count += 1
         elif self.wait == 0:
             self.view.draw_wait(self.wait)
-            self.model.enemies.add(20,self.model.stage)
+            self.model.enemies.add(10,self.model.stage)
             self.model.stage += 1
-            self.view.draw_progress(self.model.get_progress,2)
+            self.view.draw_progress(self.model.get_progress,10)
             self.wait -= 1
         else:
-            self.view.draw_progress(self.model.get_progress,2)
+            self.view.draw_progress(self.model.get_progress,10)
             pass
     @property
     def quit_game(self):

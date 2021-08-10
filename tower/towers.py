@@ -1,4 +1,5 @@
-from tower.attack_strategy import AOE, SingleAttack, Snipe
+from __future__ import annotations
+from tower.attack_strategy import AOE, SingleAttack, Snipe,AttackStrategy
 import os
 import pygame
 
@@ -9,7 +10,7 @@ TOWER2_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/g
 TOWER3_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv3.png")), (70, 70))]
 
 class Vacancy:
-    def __init__(self, x, y):
+    def __init__(self, x:int, y:int):
         self.image = PLOT_IMAGE
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
@@ -26,7 +27,7 @@ class Vacancy:
 # tower (product)
 class Tower:
     """ super class of towers """
-    def __init__(self, x: int, y: int, attack_strategy, image):
+    def __init__(self, x: int, y: int, attack_strategy:AttackStrategy, image:pygame.Surface):
         self.image = image  # image of the tower
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)  # center of the tower
@@ -38,7 +39,7 @@ class Tower:
         self.attack_strategy = attack_strategy  # chose an attack strategy (AOE, single attack ....)
         self.value = [100, 140, 200, 300, 380, 460]
     @classmethod
-    def TV(cls, x, y,player):
+    def TV(cls, x:int, y:int,player:int):
         tv = cls(x, y, SingleAttack(), TOWER1_IMAGE[player])
         tv._range = [130, 140, 150, 160, 170, 180]
         tv._damage = [2.0, 2.1, 2.2, 2.3, 2.4, 2.5]

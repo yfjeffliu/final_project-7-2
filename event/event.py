@@ -1,3 +1,4 @@
+from __future__ import annotations
 from color_settings import BLUE
 from event.event_gov import set_gov
 import random
@@ -42,7 +43,6 @@ class Events:
         self.notify = None
         self.last_page = False
         self.read = False
-        
         pass
     def run(self):
         clock = pygame.time.Clock()
@@ -120,7 +120,7 @@ class Events:
             if event.type == pygame.QUIT:
                     run = False
         return run
-    def get_click_choose_player(self,x,y):
+    def get_click_choose_player(self,x:int,y:int):
         
         if self.start_image_rect.collidepoint(x,y) and self.player != 0:
             self.using_player = self.player
@@ -136,7 +136,7 @@ class Events:
             self.players.player_btn[0].selected = False
             self.players.player_btn[1].selected = False
             self.player = 0
-    def button_clicked(self,x,y):
+    def button_clicked(self,x:int,y:int):
         button_name = ''
         for btn in self.buttons:
             if btn.image_rect.collidepoint(x,y):
@@ -236,7 +236,7 @@ class Events:
         self.using_event=get_using_event(self.using_player,self.event_list[self.num])
         self.chosen = []
         self.num += 1
-    def make_decision(self,x,y):
+    def make_decision(self,x:int,y:int):
         if self.start_round_rect.collidepoint(x,y) and self.chosen != []:
             self.next=1
             self.using_event.select1.selected = False
@@ -285,7 +285,7 @@ class Events:
             self.win.blit(self.buttons_white[2].image,self.buttons_white[2].image_rect)
         else:
             self.win.blit(self.buttons_white[3].image,self.buttons_white[3].image_rect)
-    def impact_model(self,game):
+    def impact_model(self,game:Game):
         money_get = random.randint(self.chosen[1],self.chosen[0])
         blood_get = random.randint(self.chosen[3],self.chosen[2])
         tower_upgrade = random.randint(self.chosen[5],self.chosen[4])+5
@@ -294,7 +294,7 @@ class Events:
         game.game_model.hp += blood_get
         game.game_model.notify = self.notify
         game.game_model.tower_money += tower_upgrade
-    def keep_going(self,game):
+    def keep_going(self,game:Game):
         self.next = 0
         self.chosen = []
         percentage = [0,10,20,40,60]
@@ -327,7 +327,7 @@ class Events:
                         return False,False
                 if event.type == pygame.QUIT:
                     return True,True
-    def all_pass(self,game):
+    def all_pass(self,game:Game):
         self.using_player=0
         while True:
             self.win.blit(ALL_PASS_BG,(0,0))
@@ -351,7 +351,7 @@ class Events:
 	                        file.write(str(k)+' '+str(v)+'\n')
                         file.close()
                         return False              
-    def game_fail(self,game):
+    def game_fail(self,game:Game):
         self.using_player=0
         percentage = [0,10,20,40,60]
         while True:
@@ -375,16 +375,16 @@ class Events:
                         return False
                 if event.type == pygame.QUIT:
                     return True
-def get_using_event(player,num):
+def get_using_event(player:int,num:int):
     if player == 1:
         return set_gov(num)
     pass
-def show_text(win,text,size,x,y,color = BROWNGRAY):
+def show_text(win:pygame.Surface,text:str,size:int,x:int,y:int,color:tuple = BROWNGRAY):
     font = pygame.font.Font(FONT, size)
     text = font.render(text, True, color)
     text_rect = text.get_rect(topleft=(x, y))
     win.blit(text, text_rect)
-def draw_hp(win, hp,max_hp):
+def draw_hp(win:pygame.Surface, hp:int,max_hp:int):
     # draw_lives
     hp_image_rect = HEART_FULL_IMAGE.get_rect()
     for i in range(1,max_hp, 2):

@@ -4,12 +4,12 @@ import os
 from tower.towers import Tower, Vacancy
 from enemy.enemies import EnemyGroup
 from menu.menus import UpgradeMenu, BuildMenu, MainMenu
-from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerSeller, Muse, Music,Show_Hide_Notify,Ability
+from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller, Muse, Music,Show_Hide_Notify,Ability
 from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE
 
 
 class GameModel:
-    def __init__(self,player):
+    def __init__(self,player:int):
         self.player = player-1
         # data
         self.bg_image = pygame.transform.scale(BACKGROUND_IMAGE[0], (WIN_WIDTH, WIN_HEIGHT))
@@ -25,10 +25,10 @@ class GameModel:
         self.selected_button = None
         # apply observer pattern
         self.subject = RequestSubject(self)
-        self.seller = TowerSeller()
+        self.seller = TowerKiller()
         self.developer = TowerDeveloper(self.subject)
         self.factory = TowerFactory(self.subject)
-        #self.generator = EnemyGenerator(self.subject)
+        
         self.muse = Muse(self.subject)
         self.music = Music(self.subject)
         self.ctrl_notify = Show_Hide_Notify(self.subject)

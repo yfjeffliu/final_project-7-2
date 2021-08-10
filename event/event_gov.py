@@ -4,7 +4,7 @@ from color_settings import *
 from event.event_setting import *
 from event.data import gov_problem,gov_decision,gov_impact
    
-def set_gov(num):
+def set_gov(num:int):
     event_img = gov_problem[num-1]
     event_select_img = gov_decision[num-1]
     event_impact = gov_impact[num-1]

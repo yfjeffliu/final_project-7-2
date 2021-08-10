@@ -26,7 +26,7 @@ else:
 WFH_WORD_IMAGE = my_font.render('居家工作者',True,(80, 61, 50, 1))
 
 class Players:
-    def __init__(self,gov,wfh):
+    def __init__(self,gov:str,wfh:str):
         self.player=0
         if gov == '1':
             self.gov = True
@@ -41,14 +41,14 @@ class Players:
         self.player_btn = [Player_btn(GOV_ICON_IMAGE,GOV_WORD_IMAGE,300,300,self.gov),Player_btn(WFH_ICON_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh)]
         pass
 
-    def get_click_choose_player(self,x,y):
+    def get_click_choose_player(self,x:int,y:int):
         if self.player_btn[1].icon_image_rect.collidepoint(x,y):
             self.player = 1
         elif self.player_btn[2].icon_image_rect.collidepoint(x,y):
             self.player = 2
 
 class Player_btn:
-    def __init__(self,icon_image,word_image,x,y,unlock):
+    def __init__(self,icon_image:pygame.Surface,word_image:pygame.Surface,x:int,y:int,unlock:bool):
         self.icon_image=icon_image
         self.word_image=word_image
         self.icon_image_rect=self.icon_image.get_rect()

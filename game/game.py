@@ -6,7 +6,7 @@ from settings import FPS,ALL_PASS_BG, WIN_STAGE_BG
 
 
 class Game:
-    def __init__(self,player) -> None:
+    def __init__(self,player:int) -> None:
         print('build game')
         self.game_model = GameModel(player)  # core of the game (database, game logic...)
         self.game_view = GameView(player)  # render everything
@@ -43,5 +43,5 @@ class Game:
                 pass
         print(self.keep_going,self.fail,self.all_pass,self.quit_game)
         return self.quit_game
-    def mute(self,mute):
+    def mute(self,mute:bool):
         self.game_model.mute = mute
