@@ -11,7 +11,7 @@ from event.event_setting import *
 class GameView:
     def __init__(self,player:int):
         self.win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-        self.font = pygame.font.SysFont("comicsans", 30)
+        
         self.player = player
     def draw_stage(self,stage:int):
         font = pygame.font.Font(FONT, 22)
