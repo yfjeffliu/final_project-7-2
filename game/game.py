@@ -24,7 +24,7 @@ class Game:
         
         self.keep_going = False
         while (not self.quit_game) and (not self.keep_going) and not self.all_pass and not self.fail:
-            pygame.time.Clock().tick(FPS)  # control the frame rate
+            pygame.time.Clock().tick(FPS*20)  # control the frame rate
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
             game_control.update_view()  # update the view
@@ -32,20 +32,17 @@ class Game:
             self.keep_going = game_control.keep_going
             self.fail = game_control.fail
             self.quit_game = game_control.quit_game
-        self.fail = True
         if self.quit_game:
             pass
         elif self.fail:
             self.keep_going = False
-            print('fail')
         elif self.keep_going :
             self.game_model.seller.update(self.game_model)
-            if self.game_model.stage == 1:
+            if self.game_model.stage == 2:
                 self.all_pass = True
                 self.keep_going = False
-                print('all pass')
             else:
-                print('keepgoing')
+                pass
         print(self.keep_going,self.fail,self.all_pass,self.quit_game)
         return self.quit_game
     def mute(self,mute):

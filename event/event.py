@@ -1,3 +1,4 @@
+from color_settings import BLUE
 from event.event_gov import set_gov
 import random
 from event.player import *
@@ -205,7 +206,7 @@ class Events:
         self.win.blit(self.using_event.select2.image, self.using_event.select2.image_rect)     #show wfh
         self.win.blit(self.using_event.select3.image, self.using_event.select3.image_rect)     #show wfh
         self.start_round_rect = self.start_round.get_rect()
-        self.start_round_rect.center = (512,500)
+        self.start_round_rect.center = (365,520)
         self.win.blit(self.start_round,self.start_round_rect)
         self.draw_event_frame()
         level_image_rect = LEVEL1.get_rect()
@@ -296,65 +297,84 @@ class Events:
         game.game_model.notify = self.notify
         game.game_model.tower_money += tower_upgrade
     def keep_going(self,game):
-        print('keep going')
         self.next = 0
         self.chosen = []
+        percentage = [0,10,20,40,60]
         while True:
             #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG,(0,0))
-            font = pygame.font.Font(FONT, 22)
-            text = font.render('level  ' + str(stage)+'money  ' + str(money), True, WHITE)
-            text_rect = text.get_rect(midright=(300, 535))
-            self.win.blit(text, text_rect)
+            text = '*' + str(game.game_model.tower_money) #塔防幣
+            show_text(self.win,text,30,550,470)
+            text = '#' + str(game.game_model.money) #金錢
+            show_text(self.win,text,30,735,470)
+            text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
+            show_text(self.win,text,40,500,335) #中間遊戲幣
+            text = str( percentage[game.game_model.stage])+'%'
+            show_text(self.win,text,40,248,85)#左上目前%數
+            text = str( percentage[game.game_model.stage+1])+'%'
+            show_text(self.win,text,40,574,390,BLUE)#下一關%數
+            draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    return False
+                    x, y = pygame.mouse.get_pos()
+                    if 86<x<86+186 and 379<y<379+55:
+                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money * percentage[game.game_model.stage]))
+                        file = open('dict.txt', 'w') 
+                        for k,v in dict_temp.items():
+	                        file.write(str(k)+' '+str(v)+'\n')
+                        file.close()
+                        return False,True
+                    elif 750<x<750+186 and 379<y<379+55:
+                        return False,False
                 if event.type == pygame.QUIT:
-                    return True
+                    return True,True
     def all_pass(self,game):
         self.using_player=0
-        print('all pass')
         while True:
             self.win.blit(ALL_PASS_BG,(0,0))
-            font = pygame.font.Font(FONT, 22)
-            text = font.render('level  ' + str(game.game_model.stage)+'money  ' + str(game.game_model.money), True, WHITE)
-            text_rect = text.get_rect(midright=(300, 535))
-            self.win.blit(text, text_rect)
-            self.using_player=0
+            text = '*' + str(game.game_model.tower_money)#塔防幣
+            show_text(self.win,text,30,550,470)
+            text = '#' + str(game.game_model.money)#金錢
+            show_text(self.win,text,30,735,470)
+            text = str(int(game.game_model.money))#中間遊戲幣
+            show_text(self.win,text,40,500,350)
+            draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return True
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    return False
+                    x, y = pygame.mouse.get_pos()
+                    if 750<x<750+186 and 364<y<364+55:
+                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money))
+                        file = open('dict.txt', 'w') 
+                        for k,v in dict_temp.items():
+	                        file.write(str(k)+' '+str(v)+'\n')
+                        file.close()
+                        return False
                 
     def game_fail(self,game):
         self.using_player=0
-        print('game fail')
+        percentage = [0,10,20,40,60]
         while True:
             self.win.blit(FAIL_BG,(0,0))
-            text = '*' + str(game.game_model.tower_money)
+            text = '*' + str(game.game_model.tower_money)#塔防幣
             show_text(self.win,text,30,550,470)
-            text = '#' + str(game.game_model.money)
+            text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,30,735,470)
-            self.using_player=0
-            percentage = 0
-            if game.game_model.stage == 1:
-                percentage = 10
-            elif game.game_model.stage == 2:
-                percentage = 20
-            elif game.game_model.stage == 3:
-                percentage = 40
-            elif game.game_model.stage == 4:
-                percentage = 60
-            text = str(int(game.game_model.money * percentage / 100))
-            show_text(self.win,text,30,500,357)
+            text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
+            show_text(self.win,text,40,500,357)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     if 750<x<750+186 and 379<y<379+55:
+                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money * percentage[game.game_model.stage]/100))
+                        file = open('dict.txt', 'w') 
+                        for k,v in dict_temp.items():
+	                        file.write(str(k)+' '+str(v)+'\n')
+                        file.close()
                         return False
                 if event.type == pygame.QUIT:
                     return True
@@ -367,3 +387,17 @@ def show_text(win,text,size,x,y,color = BROWNGRAY):
     text = font.render(text, True, color)
     text_rect = text.get_rect(topleft=(x, y))
     win.blit(text, text_rect)
+def draw_hp(win, hp,max_hp):
+    # draw_lives
+    hp_image_rect = HEART_FULL_IMAGE.get_rect()
+    for i in range(1,max_hp, 2):
+        hp_image_rect.center = (200+i*18, 480)
+        if i < hp:
+            win.blit(HEART_FULL_IMAGE, hp_image_rect.center)
+        elif i == hp:
+            if hp == 0:
+                win.blit(HEART_FULL_IMAGE, hp_image_rect.center)
+            else:
+                win.blit(HEART_HALF_IMAGE, hp_image_rect.center)
+        else:
+            win.blit(HEART_EMPTY_IMAGE, hp_image_rect.center)

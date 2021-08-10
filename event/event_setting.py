@@ -18,16 +18,17 @@ class an_decision():
         self.notify =notify_image
         self.image = pygame.transform.scale(image, (400, 60))
         self.image_rect = self.image.get_rect()
-        self.image_rect.center = (175+200,200+(num-1)*100+30)
-        self.frame = pygame.Rect(175+200 - 205, 200+(num-1)*100+30 - 35, 405 + 5, 60 + 10)
+        self.image_rect.center = (165+200,200+(num-1)*100+30)
+        self.frame = pygame.Rect(165+200 - 205, 200+(num-1)*100+30 - 35, 405 + 5, 60 + 10)
         self.selected = None
         
 class an_question:
     def __init__(self,num,image) -> None:
         if image.get_height()>300:
-            self.image = pygame.transform.scale(image, (590, 90))
+            self.image = pygame.transform.scale(image, (590, 80))
         else:
-            self.image = pygame.transform.scale(image, (590, 45))
+            self.image = pygame.transform.scale(image, (590, 40))
+            
         self.image_rect = self.image.get_rect()
         self.image_rect.center=(400,120)
         pass
