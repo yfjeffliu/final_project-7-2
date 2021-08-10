@@ -36,7 +36,7 @@ class Game:
             self.keep_going = False
         elif self.keep_going :
             self.game_model.seller.update(self.game_model)
-            if self.game_model.stage == 2:
+            if self.game_model.stage == 5:
                 self.all_pass = True
                 self.keep_going = False
             else:
