@@ -1,0 +1,369 @@
+from event.event_gov import set_gov
+import random
+from event.player import *
+from event.event_setting import *
+from game.game import Game
+
+dict_temp = {}
+# 打开文本文件
+file = open('dict.txt','r')
+# 遍历文本文件的每一行，strip可以移除字符串头尾指定的字符（默认为空格或换行符）或字符序列
+for line in file.readlines():
+    line = line.strip()
+    k = line.split(' ')[0]
+    v = line.split(' ')[1]
+    dict_temp[k] = v
+# 依旧是关闭文件
+file.close()
+
+class Events:
+    def __init__(self) :
+        self.players=Players(dict_temp['gov'],dict_temp['wfh'])
+        self.start_image = START_IMAGE
+        self.start_round = START_ROUND
+        self.using_player = 0
+        self.player=0
+        self.event = None
+        self.event_list = [0,1,2,3,4,5]
+        random.shuffle(self.event_list)
+        self.num = 0
+        self.buttons = [Buttons('mute',MUTE_IMAGE_BLACK,965,60),Buttons('sound',SOUND_IMAGE_BLACK,965,60),Buttons('play',PLAY_IMAGE_BLACK,920,60)
+                        ,Buttons('pause',PAUSE_IMAGE_BLACK,920,60),Buttons('last_page',LAST_PAGE_IMAGE_BLACK,40,520)]
+        self.buttons_white = [Buttons('mute',MUTE_IMAGE,965,60),Buttons('sound',SOUND_IMAGE,965,60),Buttons('play',PLAY_IMAGE,920,60)
+                        ,Buttons('pause',PAUSE_IMAGE,920,60)]
+        self.mute = False
+        self.pause = False
+        self.using_event=None
+        #self.num=random.randint(1, 5)
+        self.chosen = []
+        self.next=0
+        self.win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+        self.notify = None
+        self.last_page = False
+        self.read = False
+        
+        pass
+    def run(self):
+        clock = pygame.time.Clock()
+        self.win.blit(BACKGROUND_IMAGE_CHOOSE_PLAYER,(0,0))
+        run = True
+        while run:
+            clock.tick(FPS)
+            self.win.blit(BACKGROUND_IMAGE_CHOOSE_PLAYER,(0,0))
+            if self.last_page: #上一頁
+                return True
+            if self.using_player == 0:
+                run = self.choose_player()
+                self.read = False
+                self.using_event = None
+                self.num = 0
+                self.next = 0
+            else:
+                while not self.read:
+                    quit = self.message_page_show()
+                    if quit: #press X in message_page
+                        return False
+                run2 = True
+                game = Game(self.player)
+                while run2 :
+                    run2 = self.event_happen()
+                    if self.next == 1:
+                        print(self.chosen)
+                        self.impact_model(game)
+                        self.using_event=None
+                        game.mute(self.mute)
+                        quit=game.run()
+                        if quit:
+                            return False
+                        elif game.all_pass:
+                            quit = self.all_pass(game)
+                            if quit:
+                                return False
+                            else:
+                                run2 = False
+                                run = True
+                        elif game.keep_going:
+                            
+                            quit,exit = self.keep_going(game)
+                            if quit:
+                                return False
+                            else:
+                                run2 = True
+                                if exit:
+                                    self.using_player = 0
+                                    run2 = False
+                                    run = True
+                        elif game.fail:
+                            quit = self.game_fail(game)
+                            if quit:
+                                return False
+                            else:
+                                run2 = False
+                                run = True
+                    else:
+                        run = False
+                        
+                
+            for event in pygame.event.get():
+                # quit
+                if event.type == pygame.QUIT:
+                    return False
+            pygame.display.update()
+    def choose_player(self):
+        run = True
+        self.draw_choose_player()
+        self.draw_player_frame()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                self.get_click_choose_player(x,y)
+                self.button_clicked(x,y)
+            if event.type == pygame.QUIT:
+                    run = False
+        return run
+    def get_click_choose_player(self,x,y):
+        
+        if self.start_image_rect.collidepoint(x,y) and self.player != 0:
+            self.using_player = self.player
+        if (self.players.player_btn[0].icon_image_rect.collidepoint(x,y) or self.players.player_btn[0].word_image_rect.collidepoint(x,y)) and self.players.player_btn[0].unlock:
+            self.players.player_btn[0].selected = True
+            self.players.player_btn[1].selected = False
+            self.player = 1
+        elif (self.players.player_btn[1].icon_image_rect.collidepoint(x,y) or self.players.player_btn[1].word_image_rect.collidepoint(x,y)) and self.players.player_btn[1].unlock:
+            self.players.player_btn[1].selected = True
+            self.players.player_btn[0].selected = False
+            self.player = 2
+        else: 
+            self.players.player_btn[0].selected = False
+            self.players.player_btn[1].selected = False
+            self.player = 0
+    def button_clicked(self,x,y):
+        button_name = ''
+        for btn in self.buttons:
+            if btn.image_rect.collidepoint(x,y):
+                button_name = btn.name
+        if button_name == 'sound':
+            self.mute = not self.mute
+        if button_name =='pause':
+            self.pause = not self.pause
+        if button_name == 'last_page':
+            self.last_page = True
+    def draw_choose_player(self):
+        self.win.blit(BACKGROUND_IMAGE_CHOOSE_PLAYER,(0,0))
+        #icon of player
+        self.win.blit(self.players.player_btn[0].icon_image, self.players.player_btn[0].icon_image_rect)     #show gov
+        self.win.blit(self.players.player_btn[0].word_image, self.players.player_btn[0].word_image_rect)     #show gov
+        self.win.blit(self.players.player_btn[1].icon_image, self.players.player_btn[1].icon_image_rect)     #show gov
+        self.win.blit(self.players.player_btn[1].word_image, self.players.player_btn[1].word_image_rect)     #show gov
+        #start button
+        self.start_image_rect = self.start_image.get_rect() 
+        self.start_image_rect.center = (512,500)
+        self.win.blit(self.start_image,self.start_image_rect)
+        #back money
+        bank_image = BACK_MENU
+        self.win.blit(bank_image,(20,25))
+        font = pygame.font.Font(FONT, 22)
+        text = font.render('$ ' + str(dict_temp['money']), True, BROWNGRAY)
+        self.win.blit(text, (130,75))
+        
+        self.draw_button_black()
+    def message_page_show(self):
+        self.win.blit(BACKGROUND_IMAGE_MESSAGE,(0,0))
+        self.draw_button_black()
+        read_button = Buttons('read',READ_BUTTON,555,490)
+        for event in pygame.event.get():
+            # quit
+            if event.type == pygame.QUIT:
+                return True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                self.button_clicked(x,y)
+                if read_button.image_rect.collidepoint(x,y):
+                    self.read = True
+        pygame.display.update()
+    def draw_player_frame(self):
+        for btn in self.players.player_btn:
+            if btn.selected :
+                pygame.draw.rect(self.win, BLACK, btn.frame, 10)
+    def event_happen(self):
+        run2 = True
+        if self.using_event == None:
+            self.set_using_event()
+        self.events_draw()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                self.make_decision(x,y)
+                self.button_clicked(x,y)
+            if event.type == pygame.QUIT:
+                    run2 = False
+        return run2
+    def events_draw(self):
+        self.win.blit(BACKGROUND_IMAGE_EVENT,(0,0)) #色碼,X點、Y點、寬、高
+        self.win.blit(self.using_event.question.image, self.using_event.question.image_rect)     #show choose player
+        self.win.blit(self.using_event.select1.image, self.using_event.select1.image_rect)     #show gov
+        self.win.blit(self.using_event.select2.image, self.using_event.select2.image_rect)     #show wfh
+        self.win.blit(self.using_event.select3.image, self.using_event.select3.image_rect)     #show wfh
+        self.start_round_rect = self.start_round.get_rect()
+        self.start_round_rect.center = (512,500)
+        self.win.blit(self.start_round,self.start_round_rect)
+        self.draw_event_frame()
+        level_image_rect = LEVEL1.get_rect()
+        level_image_rect.center= (105,50)
+        if self.num == 1:
+            level_image = LEVEL1
+        elif self.num == 2:
+            level_image = LEVEL2
+        elif self.num == 3:
+            level_image = LEVEL3
+        elif self.num == 4:
+            level_image = LEVEL4
+        elif self.num == 5:
+            level_image = LEVEL5
+        self.win.blit(level_image,level_image_rect)
+        self.draw_button_white()
+        pygame.display.update()
+        pass
+    def draw_event_frame(self):
+        
+        if self.using_event.select1.selected:
+            pygame.draw.rect(self.win, BLACK, self.using_event.select1.frame, 10)
+        if self.using_event.select2.selected:
+            pygame.draw.rect(self.win, BLACK, self.using_event.select2.frame, 10)
+        if self.using_event.select3.selected:
+            pygame.draw.rect(self.win, BLACK, self.using_event.select3.frame, 10)
+    def set_using_event(self):
+        
+        self.using_event=get_using_event(self.using_player,self.event_list[self.num])
+        self.chosen = []
+        self.num += 1
+    def make_decision(self,x,y):
+        if self.start_round_rect.collidepoint(x,y) and self.chosen != []:
+            self.next=1
+            self.using_event.select1.selected = False
+            self.using_event.select2.selected = False
+            self.using_event.select3.selected = False
+            return
+        if self.using_event.select1.image_rect.collidepoint(x,y):
+            self.using_event.select1.selected = True
+            self.using_event.select2.selected = False
+            self.using_event.select3.selected = False
+            self.notify = self.using_event.select1.notify
+            self.chosen = self.using_event.select1.impact
+        elif self.using_event.select2.image_rect.collidepoint(x,y):
+            self.using_event.select1.selected = False
+            self.using_event.select2.selected = True
+            self.using_event.select3.selected = False
+            self.notify = self.using_event.select2.notify
+            self.chosen = self.using_event.select2.impact
+        elif self.using_event.select3.image_rect.collidepoint(x,y):
+            self.using_event.select1.selected = False
+            self.using_event.select2.selected = False
+            self.using_event.select3.selected = True
+            self.chosen = self.using_event.select3.impact
+            self.notify = self.using_event.select3.notify
+        else:
+            self.using_event.select1.selected = False
+            self.using_event.select2.selected = False
+            self.using_event.select3.selected = False
+            self.chosen = []
+    def draw_button_black(self):
+        self.win.blit(self.buttons[4].image,self.buttons[4].image_rect)
+        if self.mute:
+            self.win.blit(self.buttons[0].image,self.buttons[0].image_rect)
+        else:
+            self.win.blit(self.buttons[1].image,self.buttons[1].image_rect)
+        if self.pause:
+            self.win.blit(self.buttons[2].image,self.buttons[2].image_rect)
+        else:
+            self.win.blit(self.buttons[3].image,self.buttons[3].image_rect)
+    def draw_button_white(self):
+        if self.mute:
+            self.win.blit(self.buttons_white[0].image,self.buttons_white[0].image_rect)
+        else:
+            self.win.blit(self.buttons_white[1].image,self.buttons_white[1].image_rect)
+        if self.pause:
+            self.win.blit(self.buttons_white[2].image,self.buttons_white[2].image_rect)
+        else:
+            self.win.blit(self.buttons_white[3].image,self.buttons_white[3].image_rect)
+    def impact_model(self,game):
+        money_get = random.randint(self.chosen[1],self.chosen[0])
+        blood_get = random.randint(self.chosen[3],self.chosen[2])
+        tower_upgrade = random.randint(self.chosen[5],self.chosen[4])+5
+        game.game_model.money += money_get
+        game.game_model.max_hp += blood_get
+        game.game_model.hp += blood_get
+        game.game_model.notify = self.notify
+        game.game_model.tower_money += tower_upgrade
+    def keep_going(self,game):
+        print('keep going')
+        self.next = 0
+        self.chosen = []
+        while True:
+            #print('keep going',stage,money)
+            self.win.blit(WIN_STAGE_BG,(0,0))
+            font = pygame.font.Font(FONT, 22)
+            text = font.render('level  ' + str(stage)+'money  ' + str(money), True, WHITE)
+            text_rect = text.get_rect(midright=(300, 535))
+            self.win.blit(text, text_rect)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+                if event.type == pygame.QUIT:
+                    return True
+    def all_pass(self,game):
+        self.using_player=0
+        print('all pass')
+        while True:
+            self.win.blit(ALL_PASS_BG,(0,0))
+            font = pygame.font.Font(FONT, 22)
+            text = font.render('level  ' + str(game.game_model.stage)+'money  ' + str(game.game_model.money), True, WHITE)
+            text_rect = text.get_rect(midright=(300, 535))
+            self.win.blit(text, text_rect)
+            self.using_player=0
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+                
+    def game_fail(self,game):
+        self.using_player=0
+        print('game fail')
+        while True:
+            self.win.blit(FAIL_BG,(0,0))
+            text = '*' + str(game.game_model.tower_money)
+            show_text(self.win,text,30,550,470)
+            text = '#' + str(game.game_model.money)
+            show_text(self.win,text,30,735,470)
+            self.using_player=0
+            percentage = 0
+            if game.game_model.stage == 1:
+                percentage = 10
+            elif game.game_model.stage == 2:
+                percentage = 20
+            elif game.game_model.stage == 3:
+                percentage = 40
+            elif game.game_model.stage == 4:
+                percentage = 60
+            text = str(int(game.game_model.money * percentage / 100))
+            show_text(self.win,text,30,500,357)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    if 750<x<750+186 and 379<y<379+55:
+                        return False
+                if event.type == pygame.QUIT:
+                    return True
+def get_using_event(player,num):
+    if player == 1:
+        return set_gov(num)
+    pass
+def show_text(win,text,size,x,y,color = BROWNGRAY):
+    font = pygame.font.Font(FONT, size)
+    text = font.render(text, True, color)
+    text_rect = text.get_rect(topleft=(x, y))
+    win.blit(text, text_rect)

@@ -1,0 +1,104 @@
+import pygame
+import math
+import os
+from settings import PATH, BASE
+from color_settings import *
+import random
+pygame.init()
+ENEMY_IMAGE1 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem1.png"))]
+ENEMY_IMAGE2 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem2.png"))]
+ENEMY_IMAGE3 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem3.png"))]
+
+class Enemy:
+    def __init__(self,player,stage):
+        self.path = PATH[player]
+        self.path_index = 0
+        self.move_count = 0
+        self.stride = 1
+        num = random.randint(1,3)
+        if num == 1:
+            self.image = pygame.transform.scale(ENEMY_IMAGE1[player], (40, 50))
+        elif num == 2:
+            self.image = pygame.transform.scale(ENEMY_IMAGE2[player], (40, 50))
+        else :
+            self.image = pygame.transform.scale(ENEMY_IMAGE3[player], (40, 50))
+        self.rect = self.image.get_rect()
+        self.rect.center = self.path[self.path_index]
+        self.path_index = 0
+        self.move_count = 0
+        self.health = 10
+        self.max_health = 10
+    def move(self):
+        x1, y1 = self.path[self.path_index]
+        x2, y2 = self.path[self.path_index + 1]
+        distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+        max_count = int(distance / self.stride)
+        # compute the unit vector
+        unit_vector_x = (x2 - x1) / distance
+        unit_vector_y = (y2 - y1) / distance
+        # compute the movement
+        delta_x = unit_vector_x * self.stride * self.move_count
+        delta_y = unit_vector_y * self.stride * self.move_count
+        # update the position and counter
+        if self.move_count <= max_count:
+            self.rect.center = (x1 + delta_x, y1 + delta_y)
+            self.move_count += 1
+        else:
+            self.move_count = 0
+            self.path_index += 1
+            self.rect.center = self.path[self.path_index]
+
+
+class EnemyGroup:
+    def __init__(self,player):
+        self.campaign_count = 0
+        self.campaign_max_count = 60   # (unit: frame)
+        self.__reserved_members = []
+        self.__expedition = []
+        self.count = 0
+        self.player = player
+    def advance(self, model):
+        """Bonus.2"""
+        # use model.hp and model.money to access the hp and money information
+        self.campaign()
+        for en in self.__expedition:
+            en.move()
+            if en.health <= 0:
+                self.retreat(en)
+            # delete the object when it reach the base
+            if BASE[self.player].collidepoint(en.rect.centerx, en.rect.centery):
+                model.hp -= 1
+                self.retreat(en)
+
+
+    def campaign(self):
+        """Enemy go on an expedition."""
+        if self.campaign_count > self.campaign_max_count and self.__reserved_members:
+            self.__expedition.append(self.__reserved_members.pop())
+            self.campaign_count = 0
+        else:
+            self.campaign_count += 1
+
+    def add(self, num,stage):
+        self.count = num
+        """Generate the enemies for next wave"""
+        if self.is_empty():
+            self.__reserved_members = [Enemy(self.player,stage) for _ in range(num)]
+
+    def get(self):
+        """Get the enemy list"""
+        return self.__expedition
+
+    def is_empty(self):
+        """Return whether the enemy is empty (so that we can move on to next wave)"""
+        return False if self.__reserved_members or self.__expedition else True
+
+    def retreat(self, enemy):
+        """Remove the enemy from the expedition"""
+        self.count -= 1
+        self.__expedition.remove(enemy)
+
+
+
+
+
