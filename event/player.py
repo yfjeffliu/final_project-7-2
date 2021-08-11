@@ -18,10 +18,9 @@ pygame.init()
 my_font = pygame.font.Font('OtsutomeFont.ttf',36)
 GOV_ICON_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "btn_gover_icon.png")),(CHOOSE_PLAYER_ICON_WIDTH, CHOOSE_PLAYER_ICON_HEIGHT))
 GOV_WORD_IMAGE = my_font.render('政府',True,(80, 61, 50, 1))
-if dict_temp['wfh'] == '1':
-    WFH_ICON_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "btn_wfh_icon.png")),(CHOOSE_PLAYER_ICON_WIDTH, CHOOSE_PLAYER_ICON_HEIGHT))
-else:
-    WFH_ICON_IMAGE= pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "unlock_character.png")),(CHOOSE_PLAYER_ICON_WIDTH+50, CHOOSE_PLAYER_ICON_HEIGHT))
+WFH_ICON_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "btn_wfh_icon.png")),(CHOOSE_PLAYER_ICON_WIDTH, CHOOSE_PLAYER_ICON_HEIGHT))
+
+LOCK_IMAGE= pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "unlock_character.png")),(CHOOSE_PLAYER_ICON_WIDTH+50, CHOOSE_PLAYER_ICON_HEIGHT))
  
 WFH_WORD_IMAGE = my_font.render('居家工作者',True,(80, 61, 50, 1))
 
@@ -38,7 +37,7 @@ class Players:
             self.wfh = False
         
         self.player_rect_list=['',]
-        self.player_btn = [Player_btn(GOV_ICON_IMAGE,GOV_WORD_IMAGE,300,300,self.gov),Player_btn(WFH_ICON_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh)]
+        self.player_btn = [Player_btn(1,GOV_ICON_IMAGE,LOCK_IMAGE,GOV_WORD_IMAGE,300,300,self.gov,1),Player_btn(2,WFH_ICON_IMAGE,LOCK_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh,10)]
         pass
 
     def get_click_choose_player(self,x:int,y:int):
@@ -48,15 +47,24 @@ class Players:
             self.player = 2
 
 class Player_btn:
-    def __init__(self,icon_image:pygame.Surface,word_image:pygame.Surface,x:int,y:int,unlock:bool):
+    def __init__(self,num,icon_image:pygame.Surface,lock_image:pygame.Surface,word_image:pygame.Surface,x:int,y:int,unlock:bool,cost:int):
+        self.num = num
         self.icon_image=icon_image
+        self.lock_image = lock_image
         self.word_image=word_image
         self.icon_image_rect=self.icon_image.get_rect()
+        self.lock_image_rect = self.icon_image.get_rect()
         self.word_image_rect=self.word_image.get_rect()
+        self.lock_image_rect.center=(x-40,y)
         self.icon_image_rect.center=(x,y)
         self.word_image_rect.center=(x,y+85)
+        font = pygame.font.Font(FONT, 30)
+        self.show_buy = False
+        self.buy = font.render('購買', True, BLACK)
+        self.buy_rect =  self.buy.get_rect(topleft=(x, y))
         self.selected = False
         self.unlock =  unlock
+        self.cost = cost
         w, h = 200,200
         self.frame = pygame.Rect(x - 105, y - 105, w + 10, h + 10)
         pass

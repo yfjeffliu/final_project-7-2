@@ -17,7 +17,10 @@ class an_decision():
     def __init__(self, num:int,image:pygame.Surface , impact:list,notify_image:pygame.Surface) -> None:
         self.impact = impact
         self.notify =notify_image
-        self.image = pygame.transform.scale(image, (400, 60))
+        if image.get_height()>350:
+            self.image = pygame.transform.scale(image, (400, 80))
+        else:
+            self.image = pygame.transform.scale(image, (400, 60))
         self.image_rect = self.image.get_rect()
         self.image_rect.center = (165+200,200+(num-1)*100+30)
         self.frame = pygame.Rect(165+200 - 205, 200+(num-1)*100+30 - 35, 405 + 5, 60 + 10)

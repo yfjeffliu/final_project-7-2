@@ -130,17 +130,28 @@ class Events:
         
         if self.start_image_rect.collidepoint(x,y) and self.player != 0:
             self.using_player = self.player
-        if (self.players.player_btn[0].icon_image_rect.collidepoint(x,y) or self.players.player_btn[0].word_image_rect.collidepoint(x,y)) and self.players.player_btn[0].unlock:
-            self.players.player_btn[0].selected = True
-            self.players.player_btn[1].selected = False
-            self.player = 1
-        elif (self.players.player_btn[1].icon_image_rect.collidepoint(x,y) or self.players.player_btn[1].word_image_rect.collidepoint(x,y)) and self.players.player_btn[1].unlock:
-            self.players.player_btn[1].selected = True
-            self.players.player_btn[0].selected = False
-            self.player = 2
-        else: 
-            self.players.player_btn[0].selected = False
-            self.players.player_btn[1].selected = False
+        get = 0
+        for player in self.players.player_btn:
+            if player.buy_rect.collidepoint(x,y) and player.show_buy:
+                player.unlock = True
+                player.show_buy = False
+                dict_temp['money'] = str( int(dict_temp['money']) - player.cost)
+                print(dict_temp)
+                file = open('dict.txt', 'w') 
+                for k,v in dict_temp.items():
+	                file.write(str(k)+' '+str(v)+'\n')
+                file.close()
+            if (player.icon_image_rect.collidepoint(x,y) or player.word_image_rect.collidepoint(x,y)) and player.unlock:
+                player.selected = True
+                self.player = player.num
+                get = player.num
+            elif (player.icon_image_rect.collidepoint(x,y) or player.word_image_rect.collidepoint(x,y)) and not player.unlock:
+                player.show_buy = True
+            else :
+                player.show_buy = False
+                player.selected = False
+            
+        if get == 0:
             self.player = 0
     def button_clicked(self,x:int,y:int):
         button_name = ''
@@ -156,10 +167,14 @@ class Events:
     def draw_choose_player(self):
         self.win.blit(BACKGROUND_IMAGE_CHOOSE_PLAYER,(0,0))
         #icon of player
-        self.win.blit(self.players.player_btn[0].icon_image, self.players.player_btn[0].icon_image_rect)     #show gov
-        self.win.blit(self.players.player_btn[0].word_image, self.players.player_btn[0].word_image_rect)     #show gov
-        self.win.blit(self.players.player_btn[1].icon_image, self.players.player_btn[1].icon_image_rect)     #show gov
-        self.win.blit(self.players.player_btn[1].word_image, self.players.player_btn[1].word_image_rect)     #show gov
+        for player in self.players.player_btn:
+            if player.unlock:
+                self.win.blit(player.icon_image, player.icon_image_rect)     #show gov
+            else:
+                self.win.blit(player.lock_image, player.lock_image_rect)
+            if player.show_buy:
+                self.win.blit(player.buy,player.buy_rect)
+            self.win.blit(player.word_image,player.word_image_rect)
         #start button
         self.start_image_rect = self.start_image.get_rect() 
         self.start_image_rect.center = (512,500)
