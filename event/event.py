@@ -339,11 +339,11 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,30,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,40,500,335) #中間遊戲幣
+            show_text(self.win,text,50,500,335) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
-            show_text(self.win,text,40,248,85)#左上目前%數
+            show_text(self.win,text,30,248,85,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
-            show_text(self.win,text,40,574,390,(64, 155, 163))#下一關%數
+            show_text(self.win,text,30,574,390,(64, 155, 163))#下一關%數
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -369,7 +369,7 @@ class Events:
             text = '#' + str(game.game_model.money)#金錢
             show_text(self.win,text,30,735,470)
             text = str(int(game.game_model.money))#中間遊戲幣
-            show_text(self.win,text,40,500,350)
+            show_text(self.win,text,50,500,350)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -394,7 +394,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,30,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,40,500,357)#中間遊戲幣
+            show_text(self.win,text,50,500,357)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
