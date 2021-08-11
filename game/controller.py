@@ -22,7 +22,6 @@ class GameControl:
         self.count = 0
     def update_model(self):
         """update the model and the view here"""
-        print(self.model.hp ,self.fail)
         if self.model.hp <= 0:
             self.fail = True
         if self.model.enemies_empty() and self.wait <0:
