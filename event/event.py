@@ -135,7 +135,9 @@ class Events:
             if player.buy_rect.collidepoint(x,y) and player.show_buy:
                 player.unlock = True
                 player.show_buy = False
-                dict_temp['money'] = str( int(dict_temp['money']) - player.cost)
+                if int(dict_temp['money']) - player.cost >= 0:
+                    dict_temp['money'] = str( int(dict_temp['money']) - player.cost)
+                    dict_temp[player.name] = str(1)
                 print(dict_temp)
                 file = open('dict.txt', 'w') 
                 for k,v in dict_temp.items():

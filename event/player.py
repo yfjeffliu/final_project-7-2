@@ -37,7 +37,7 @@ class Players:
             self.wfh = False
         
         self.player_rect_list=['',]
-        self.player_btn = [Player_btn(1,GOV_ICON_IMAGE,LOCK_IMAGE,GOV_WORD_IMAGE,300,300,self.gov,1),Player_btn(2,WFH_ICON_IMAGE,LOCK_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh,10)]
+        self.player_btn = [Player_btn(1,'gov',GOV_ICON_IMAGE,LOCK_IMAGE,GOV_WORD_IMAGE,300,300,self.gov,1),Player_btn(2,'wfh',WFH_ICON_IMAGE,LOCK_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh,10)]
         pass
 
     def get_click_choose_player(self,x:int,y:int):
@@ -47,8 +47,9 @@ class Players:
             self.player = 2
 
 class Player_btn:
-    def __init__(self,num,icon_image:pygame.Surface,lock_image:pygame.Surface,word_image:pygame.Surface,x:int,y:int,unlock:bool,cost:int):
+    def __init__(self,num:int,name:str,icon_image:pygame.Surface,lock_image:pygame.Surface,word_image:pygame.Surface,x:int,y:int,unlock:bool,cost:int):
         self.num = num
+        self.name=name
         self.icon_image=icon_image
         self.lock_image = lock_image
         self.word_image=word_image
