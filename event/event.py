@@ -61,10 +61,16 @@ class Events:
                 self.next = 0
             else:
                 while not self.read:
-                    quit = self.message_page_show()
+                    quit,last = self.message_page_show()
                     if quit: #press X in message_page
                         return False
-                run2 = True
+                    if last:    #last page
+                        self.using_player = 0
+                        self.last_page = False
+                        run2 = False
+                        break
+                    else:   #next page
+                        run2 = True
                 game = Game(self.player)
                 while run2 :
                     run2 = self.event_happen()
@@ -173,13 +179,19 @@ class Events:
         for event in pygame.event.get():
             # quit
             if event.type == pygame.QUIT:
-                return True
+                return True,False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 self.button_clicked(x,y)
                 if read_button.image_rect.collidepoint(x,y):
                     self.read = True
+                for btn in self.buttons:
+                    if btn.image_rect.collidepoint(x,y):
+                        button_name = btn.name
+                        if button_name == 'last_page':
+                            return False,True
         pygame.display.update()
+        return False,False
     def draw_player_frame(self):
         for btn in self.players.player_btn:
             if btn.selected :
@@ -301,7 +313,7 @@ class Events:
     def keep_going(self,game:Game):
         self.next = 0
         self.chosen = []
-        percentage = [0,10,20,40,60]
+        percentage = [0,10,20,40,60,100]
         while True:
             #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG,(0,0))
@@ -357,7 +369,7 @@ class Events:
                         return False              
     def game_fail(self,game:Game):
         self.using_player=0
-        percentage = [0,10,20,40,60]
+        percentage = [0,10,20,40,60,100]
         while True:
             self.win.blit(FAIL_BG,(0,0))
             text = '*' + str(game.game_model.tower_money)#塔防幣

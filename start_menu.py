@@ -11,6 +11,7 @@ START_BTN = pygame.transform.scale(pygame.image.load(os.path.join("images1/start
 BTN_INTRO = pygame.transform.scale(pygame.image.load(os.path.join("images1/start_page", "btn_intro.png")), (160, 45))
 BTN_PRODUCER = pygame.transform.scale(pygame.image.load(os.path.join("images1/start_page", "btn_producer.png")), (160, 45))
 
+
 class StartMenu:
     def __init__(self):
         # win
