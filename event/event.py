@@ -270,8 +270,10 @@ class Events:
         self.win.blit(self.buttons[4].image,self.buttons[4].image_rect)
         if self.mute:
             self.win.blit(self.buttons[0].image,self.buttons[0].image_rect)
+            pygame.mixer.music.pause()
         else:
             self.win.blit(self.buttons[1].image,self.buttons[1].image_rect)
+            pygame.mixer.music.unpause()
         if self.pause:
             self.win.blit(self.buttons[2].image,self.buttons[2].image_rect)
         else:
@@ -279,8 +281,10 @@ class Events:
     def draw_button_white(self):
         if self.mute:
             self.win.blit(self.buttons_white[0].image,self.buttons_white[0].image_rect)
+            pygame.mixer.music.pause()
         else:
             self.win.blit(self.buttons_white[1].image,self.buttons_white[1].image_rect)
+            pygame.mixer.music.unpause()
         if self.pause:
             self.win.blit(self.buttons_white[2].image,self.buttons_white[2].image_rect)
         else:

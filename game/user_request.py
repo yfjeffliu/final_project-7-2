@@ -30,6 +30,8 @@ class RequestSubject:
     def notify(self, user_request:str):
         for o in self.__observers:
             o.update(user_request, self.model)
+            if self.model.pause and user_request!= 'music':
+                return
 
 
 
@@ -97,21 +99,17 @@ class Music:
     def update(self, user_request: str, model:GameModel):
         """music on"""
         if user_request == "music":
-            pygame.mixer.music.unpause()
+            
+            
             model.mute = not model.mute
+            if model.mute:
+                pygame.mixer.music.pause()
+            else:
+                pygame.mixer.music.unpause()
             #model.sound.play()
 
 
-class Muse:
-    def __init__(self, subject:RequestSubject):
-        subject.register(self)
 
-    def update(self, user_request: str, model:GameModel):
-        """music off"""
-        if user_request == "mute":
-            pygame.mixer.music.pause()
-            model.mute = not model.mute
-            #model.sound.play()
 
 class Ability:
     def __init__(self,subject:RequestSubject):
@@ -132,16 +130,6 @@ class Play:
     def update(self, user_request: str, model:GameModel):
         """music on"""
         if user_request == "pause":
-            pygame.mixer.music.unpause()
-            model.pause = not model.pause
-            #model.sound.play()
-class Pause:
-    def __init__(self, subject:RequestSubject):
-        subject.register(self)
-
-    def update(self, user_request: str, model:GameModel):
-        """music on"""
-        if user_request == "continue":
-            pygame.mixer.music.unpause()
+            print('check1')
             model.pause = not model.pause
             #model.sound.play()

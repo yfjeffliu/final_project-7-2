@@ -1,11 +1,15 @@
 import pygame
 import os
 from event.event_setting import MUTE_IMAGE,PLAY_IMAGE,SOUND_IMAGE,PAUSE_IMAGE
+from settings import FONT
 pygame.init()
 MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_space.png")), (125, 65))
 UPGRADE_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (125, 65))
 NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(180,18))
 BUY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (125, 65))
+font = pygame.font.Font(FONT, 20)
+text = font.render('確認', True, (0,0,0),(0,255,0))
+
 
 ABILITY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "ability_menu_icon.png")), (100, 100))
 ABILITY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "special_skill.png")), (130, 120))
@@ -47,8 +51,8 @@ class Menu:
 
 class BuildMenu(Menu):
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self._buttons = [Button(BUY_BTN_IMAGE, "TV", self.rect.centerx, self.rect.centery)
+        super().__init__(x, y,BUY_BTN_IMAGE)
+        self._buttons = [Button(text, "TV", self.rect.centerx, self.rect.centery+20)
         ]
 
 
@@ -67,8 +71,8 @@ class MainMenu:
         return self._buttons
 class UpgradeMenu(Menu):
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self._buttons = [Button(UPGRADE_BTN_IMAGE, "upgrade", self.rect.centerx, self.rect.centery )
+        super().__init__(x, y,UPGRADE_BTN_IMAGE)
+        self._buttons = [Button(text, "upgrade", self.rect.centerx, self.rect.centery+20 )
                          ]
 
 

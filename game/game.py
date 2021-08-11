@@ -25,6 +25,7 @@ class Game:
             pygame.time.Clock().tick(FPS)  # control the frame rate
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
+            
             game_control.update_view()  # update the view
             pygame.display.update()
             self.keep_going = game_control.keep_going

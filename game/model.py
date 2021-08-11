@@ -5,8 +5,8 @@ import os
 from pygame.mixer import pause
 from tower.towers import Tower, Vacancy
 from enemy.enemies import EnemyGroup
-from menu.menus import UpgradeMenu, BuildMenu, MainMenu
-from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller, Muse, Music,Show_Hide_Notify,Ability,Play,Pause
+from menu.menus import Menu, UpgradeMenu, BuildMenu, MainMenu
+from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller,  Music,Show_Hide_Notify,Ability,Play
 from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE
 
 
@@ -27,12 +27,12 @@ class GameModel:
         self.selected_button = None
         # apply observer pattern
         self.subject = RequestSubject(self)
+        self.play_req = Play(self.subject)
         self.seller = TowerKiller()
         self.developer = TowerDeveloper(self.subject)
         self.factory = TowerFactory(self.subject)
-        self.play_req = Play(self.subject)
-        self.pause_req = Pause(self.subject)
-        self.muse = Muse(self.subject)
+        
+        #self.muse = Muse(self.subject)
         self.music = Music(self.subject)
         self.ctrl_notify = Show_Hide_Notify(self.subject)
         self.ability = Ability(self.subject)
@@ -134,7 +134,7 @@ class GameModel:
         return self.__menu
 
     @menu.setter
-    def menu(self, new_menu):
+    def menu(self, new_menu:Menu):
         self.__menu = new_menu
 
     @property

@@ -27,19 +27,19 @@ class StartMenu:
                         self.producer_bun,
                         self.start_btn]
         # music and sound
-        #self.sound = pygame.mixer.Sound("./sound/sound.flac")
+        self.sound = pygame.mixer.Sound("./sound/sound.flac")
 
-    #def play_music(self):
-    #    pygame.mixer.music.load("./sound/menu.wav")
-    #    pygame.mixer.music.set_volume(0.2)
-    #    pygame.mixer.music.play(-1)
-    #    self.sound.set_volume(0.2)
+    def play_music(self):
+        pygame.mixer.music.load("./sound/menu.wav")
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1)
+        self.sound.set_volume(0.2)
 
     def menu_run(self):
         run = True
         clock = pygame.time.Clock()
         pygame.display.set_caption("疫起大作戰")
-        #self.play_music()
+        self.play_music()
         while run:
             clock.tick(FPS)
             self.menu_win.blit(self.bg, (0, 0))
