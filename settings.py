@@ -12,6 +12,11 @@ CHOOSE_PLAYER_WORD_HEIGHT = 45
 
 CHOOSE_BTN_WIDTH = 800
 CHOOSE_BTN_HEIGHT = 130
+
+#heart size
+HEART_WIDTH = 28
+HEART_HEIGHT = 28
+
 # frame rate
 FPS = 60
 # color
@@ -38,9 +43,9 @@ BACKGROUND_IMAGE =  [pygame.transform.scale(pygame.image.load(os.path.join("imag
 HP_GRAY_IMAGE = pygame.transform.scale(pygame.image.load("images1/game_page/heart_empty.png"), (40, 40))
 HP_IMAGE = pygame.transform.scale(pygame.image.load("images1/game_page/heart_full.png"), (40, 40))
 MONEY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "money_menu.png")), (160, 45))
-HEART_FULL_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "heart_full.png")), (28, 28))
-HEART_HALF_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "heart_half.png")), (28, 28))
-HEART_EMPTY_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "heart_empty.png")), (28, 28))
+HEART_FULL_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "heart_full.png")), (HEART_WIDTH, HEART_HEIGHT))
+HEART_HALF_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "heart_half.png")), (HEART_WIDTH, HEART_HEIGHT))
+HEART_EMPTY_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "heart_empty.png")), (HEART_WIDTH, HEART_HEIGHT))
 FONT = "OtsutomeFont.ttf"     # wenchi append
 NOTIFY_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "notify.png")), (200, 150))
 PROGRESS_LINE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "progress_line.png")), (330, 27))

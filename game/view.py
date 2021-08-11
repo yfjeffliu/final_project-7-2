@@ -116,16 +116,15 @@ class GameView:
     def draw_hp(self, hp:int,max_hp:int):
         # draw_lives
         hp_image_rect = HEART_FULL_IMAGE.get_rect()
-        for i in range(1,max_hp, 2):
-            
-            hp_image_rect.center = (20+i*20, 34)
+        for i in range(1, 16, 2):
+            hp_image_rect.center = (62 + ((i - 1) / 2) * (HEART_WIDTH + 13), 35 + (HEART_HEIGHT / 2))
             if i < hp:
-                self.win.blit(HEART_FULL_IMAGE, hp_image_rect.center)
+                self.win.blit(HEART_FULL_IMAGE, hp_image_rect)
             elif i == hp:
                 if hp == 0:
-                    self.win.blit(HEART_FULL_IMAGE, hp_image_rect.center)
+                    self.win.blit(HEART_EMPTY_IMAGE, hp_image_rect)
                 else:
-                    self.win.blit(HEART_HALF_IMAGE, hp_image_rect.center)
+                    self.win.blit(HEART_HALF_IMAGE, hp_image_rect)
             else:
-                self.win.blit(HEART_EMPTY_IMAGE, hp_image_rect.center)
+                self.win.blit(HEART_EMPTY_IMAGE, hp_image_rect)
 
