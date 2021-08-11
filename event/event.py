@@ -335,11 +335,11 @@ class Events:
             #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG,(0,0))
             text = '*' + str(game.game_model.tower_money) #塔防幣
-            show_text(self.win,text,30,550,470)
+            show_text(self.win,text,30,556,470)
             text = '#' + str(game.game_model.money) #金錢
-            show_text(self.win,text,30,735,470)
+            show_text(self.win,text,30,727,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,50,500,329) #中間遊戲幣
+            show_text(self.win,text,50,500,350) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,30,248,95,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
@@ -415,8 +415,8 @@ def get_using_event(player:int,num:int):
 def show_text(win:pygame.Surface,text:str,size:int,x:int,y:int,color:tuple = BROWNGRAY):
     font = pygame.font.Font(FONT, size)
     text = font.render(text, True, color)
-    text_rect = text.get_rect(topleft=(x, y))
-    win.blit(text, text_rect)
+    
+    win.blit(text, (x, y))
 def draw_hp(win:pygame.Surface, hp:int,max_hp:int):
     # draw_lives
     hp_image_rect = HEART_FULL_IMAGE.get_rect()

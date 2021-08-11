@@ -58,9 +58,10 @@ class GameControl:
     def update_view(self):
         # render background
         self.view.draw_bg()
+        self.view.draw_towers(self.model.towers)
         self.view.draw_hp(self.model.hp,self.model.max_hp)
         self.view.draw_enemies(self.model.enemies)
-        self.view.draw_towers(self.model.towers)
+        
         self.view.draw_range(self.model.selected_tower)
         self.view.draw_plots(self.model.plots)
         self.view.draw_money(self.model.money)
