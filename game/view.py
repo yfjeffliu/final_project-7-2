@@ -23,7 +23,7 @@ class GameView:
         self.win.blit(PROGRESS_LINE,(350,525))
         color = (210, 209, 209)
         pygame.draw.rect(self.win, color, pygame.Rect(350,525, 330*(total-num)/total,25))
-        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (40, 50)),((350+330*(total-num)/total)-20,525-30)) #icon
+        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (40, 50)),((350+330*(total-num)/total)-20,525-20)) #icon
     def draw_bg(self):
         self.win.blit(BACKGROUND_IMAGE[self.player], (0, 0))
     def draw_wait(self,wait:int):
@@ -64,8 +64,8 @@ class GameView:
             tw = selected_tower
             # create a special surface that is able to render semi-transparent image
             surface = pygame.Surface((WIN_WIDTH, WIN_HEIGHT), pygame.SRCALPHA)
-            transparency = 120
-            pygame.draw.circle(surface, (128, 128, 128, transparency), tw.rect.center, tw.range)
+            transparency = 26
+            pygame.draw.circle(surface, (244, 244, 244, transparency), tw.rect.center, tw.range)
             self.win.blit(surface, (0, 0))
 
     def draw_menu(self, menu:Menu):

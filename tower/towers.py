@@ -30,7 +30,7 @@ class Tower:
     def __init__(self, x: int, y: int, attack_strategy:AttackStrategy, image:pygame.Surface):
         self.image = image  # image of the tower
         self.rect = self.image.get_rect()
-        self.rect.center = (x, y)  # center of the tower
+        self.rect.center = (x, y-10)  # center of the tower
         self.level = 0  # level of the tower
         self._range = [100, 110, 120, 130, 140, 150]  # tower attack range
         self._damage = [2.0, 2.1, 2.2, 2.3, 2.4, 2.5]   # tower damage

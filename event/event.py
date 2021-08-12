@@ -303,10 +303,6 @@ class Events:
         else:
             self.win.blit(self.buttons[1].image,self.buttons[1].image_rect)
             pygame.mixer.music.unpause()
-        if self.pause:
-            self.win.blit(self.buttons[2].image,self.buttons[2].image_rect)
-        else:
-            self.win.blit(self.buttons[3].image,self.buttons[3].image_rect)
     def draw_button_white(self):
         if self.mute:
             self.win.blit(self.buttons_white[0].image,self.buttons_white[0].image_rect)
@@ -314,10 +310,7 @@ class Events:
         else:
             self.win.blit(self.buttons_white[1].image,self.buttons_white[1].image_rect)
             pygame.mixer.music.unpause()
-        if self.pause:
-            self.win.blit(self.buttons_white[2].image,self.buttons_white[2].image_rect)
-        else:
-            self.win.blit(self.buttons_white[3].image,self.buttons_white[3].image_rect)
+
     def impact_model(self,game:Game):
         money_get = random.randint(self.chosen[1],self.chosen[0])
         blood_get = random.randint(self.chosen[3],self.chosen[2])
@@ -335,11 +328,11 @@ class Events:
             #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG,(0,0))
             text = '*' + str(game.game_model.tower_money) #塔防幣
-            show_text(self.win,text,30,556,470)
+            show_text(self.win,text,26,556,470)
             text = '#' + str(game.game_model.money) #金錢
-            show_text(self.win,text,30,727,470)
+            show_text(self.win,text,26,727,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,50,500,350) #中間遊戲幣
+            show_text(self.win,text,50,500,335) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,30,248,95,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
@@ -350,7 +343,8 @@ class Events:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     if 86<x<86+186 and 379<y<379+55:
-                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money * percentage[game.game_model.stage]))
+                        
+                        dict_temp['money'] = str(int(dict_temp['money'])+int(game.game_model.money * percentage[game.game_model.stage]/100))
                         file = open('dict.txt', 'w') 
                         for k,v in dict_temp.items():
 	                        file.write(str(k)+' '+str(v)+'\n')
@@ -365,11 +359,11 @@ class Events:
         while True:
             self.win.blit(ALL_PASS_BG,(0,0))
             text = '*' + str(game.game_model.tower_money)#塔防幣
-            show_text(self.win,text,30,550,470)
+            show_text(self.win,text,26,550,470)
             text = '#' + str(game.game_model.money)#金錢
-            show_text(self.win,text,30,735,470)
+            show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money))#中間遊戲幣
-            show_text(self.win,text,50,500,329)
+            show_text(self.win,text,50,500,335)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -390,11 +384,11 @@ class Events:
         while True:
             self.win.blit(FAIL_BG,(0,0))
             text = '*' + str(game.game_model.tower_money)#塔防幣
-            show_text(self.win,text,30,550,470)
+            show_text(self.win,text,26,550,470)
             text = '#' + str(game.game_model.money) #金錢
-            show_text(self.win,text,30,735,470)
+            show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,50,500,329)#中間遊戲幣
+            show_text(self.win,text,50,500,335)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:

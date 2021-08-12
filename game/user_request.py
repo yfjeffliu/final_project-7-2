@@ -117,6 +117,15 @@ class Ability:
     def update(self, user_request: str, model:GameModel):
         if user_request == 'use_ability' and model.show_ability:
             print('use ability')
+            print(model.player)
+            if model.player == 0:
+                if model.money >= 30:
+                    model.money -= 30
+                    en_list = model.enemies.get()
+                    for i in range(len(en_list)-1,-1,-1):
+                        model.enemies.retreat(en_list[i])
+                        print('kill')
+                
         if user_request == 'show_ability':
             print('show abiltiy')
             model.show_ability = not model.show_ability
@@ -130,6 +139,5 @@ class Play:
     def update(self, user_request: str, model:GameModel):
         """music on"""
         if user_request == "pause":
-            print('check1')
             model.pause = not model.pause
             #model.sound.play()

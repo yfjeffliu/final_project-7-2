@@ -3,8 +3,8 @@ import os
 from event.event_setting import MUTE_IMAGE,PLAY_IMAGE,SOUND_IMAGE,PAUSE_IMAGE
 from settings import FONT
 pygame.init()
-MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_space.png")), (125, 65))
-UPGRADE_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (125, 65))
+MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_space.png")), (135, 70))
+UPGRADE_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (135, 70))
 NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(180,18))
 BUY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (125, 65))
 font = pygame.font.Font(FONT, 20)
@@ -40,7 +40,7 @@ class Menu:
     def __init__(self, x: int, y: int,image = MENU_IMAGE):
         self.image = image
         self.rect = self.image.get_rect()
-        self.rect.center = (x-100, y)
+        self.rect.center = (x-105, y-5)
         self._buttons = []
 
     @property

@@ -12,7 +12,7 @@ from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE
 
 class GameModel:
     def __init__(self,player:int):
-        self.player = player-1
+        self.player = player
         # data
         self.bg_image = pygame.transform.scale(BACKGROUND_IMAGE[0], (WIN_WIDTH, WIN_HEIGHT))
         self.__towers = []

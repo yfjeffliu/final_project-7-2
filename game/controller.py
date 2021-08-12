@@ -72,14 +72,20 @@ class GameControl:
             self.view.draw_notify(self.model.notify)
         self.view.draw_stage(self.model.stage)
         
-        self.view.draw_progress(self.model.get_progress,10)
+       # self.view.draw_progress(self.model.get_progress,10)
         """(Q2) Controller request View to render something"""
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)
         if self.model.pause:
+            if self.wait > 0:
+                self.view.draw_progress(10,10)
+            elif self.wait == 0:
+                self.model.enemies.add(10,self.model.stage)
+            else:
+                self.view.draw_progress(self.model.get_progress,10)
             return
         if self.wait > 0:
-            #self.view.draw_progress(10,10)
+            self.view.draw_progress(10,10)
             self.view.draw_wait(self.wait)
             if self.count >= 25:
                 self.wait -=1
@@ -90,10 +96,10 @@ class GameControl:
             self.view.draw_wait(self.wait)
             self.model.enemies.add(10,self.model.stage)
             self.model.stage += 1
-            #self.view.draw_progress(self.model.get_progress,10)
+            self.view.draw_progress(self.model.get_progress,10)
             self.wait -= 1
         else:
-            #self.view.draw_progress(self.model.get_progress,10)
+            self.view.draw_progress(self.model.get_progress,10)
             pass
     @property
     def quit_game(self):

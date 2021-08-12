@@ -8,6 +8,7 @@ from settings import FPS,ALL_PASS_BG, WIN_STAGE_BG
 class Game:
     def __init__(self,player:int) -> None:
         print('build game')
+        print(player)
         self.game_model = GameModel(player)  # core of the game (database, game logic...)
         self.game_view = GameView(player)  # render everything
         self.keep_going = False
