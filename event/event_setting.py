@@ -29,13 +29,13 @@ class an_decision():
 class an_question:
     def __init__(self,num:int,image:pygame.Surface) -> None:
         if image.get_height()>300:
-            self.image = pygame.transform.scale(image, (590, 80))
+            self.image = pygame.transform.scale(image, (round(((80 / image.get_height()) * image.get_width())), 80))
         else:
-            self.image = pygame.transform.scale(image, (590, 40))
-            
+            self.image = pygame.transform.scale(image, (round(((38 / image.get_height()) * image.get_width())), 38))
         self.image_rect = self.image.get_rect()
-        self.image_rect.center=(400,120)
+        self.image_rect.center = (380, 134)
         pass
+
 class Buttons:
     def __init__(self,name:str,image:pygame.Surface,x:int,y:int) -> None:
         self.name = name
