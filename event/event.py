@@ -43,6 +43,7 @@ class Events:
         self.notify = None
         self.last_page = False
         self.read = False
+        
         pass
     def run(self):
         clock = pygame.time.Clock()
@@ -230,18 +231,49 @@ class Events:
     def events_draw(self):
         self.win.blit(BACKGROUND_IMAGE_EVENT,(0,0)) #色碼,X點、Y點、寬、高
         self.win.blit(self.using_event.question.image, self.using_event.question.image_rect)     #show choose player
-        self.win.blit(self.using_event.select1.image, self.using_event.select1.image_rect)     #show gov
-        self.win.blit(self.using_event.select2.image, self.using_event.select2.image_rect)     #show wfh
-        self.win.blit(self.using_event.select3.image, self.using_event.select3.image_rect)     #show wfh
+        
         self.start_round_rect = self.start_round.get_rect()
         self.start_round_rect.center = (365,520)
         x, y = pygame.mouse.get_pos()
+
         if self.using_event.select1.image_rect.collidepoint(x,y):
             self.win.blit(self.using_event.select1.first_notify,self.using_event.select1.first_notify_rect)
+            self.using_event.select2.first_notify_rect.centerx = 660-112
+            self.using_event.select3.first_notify_rect.centerx = 660-112
+            self.using_event.select2.move_count = 0
+            self.using_event.select3.move_count = 0
+            if self.using_event.select1.move_count < self.using_event.select1.move_max:
+                self.using_event.select1.first_notify_rect.centerx += 2 
+                self.using_event.select1.move_count += 1
+  
         if self.using_event.select2.image_rect.collidepoint(x,y):
             self.win.blit(self.using_event.select2.first_notify,self.using_event.select2.first_notify_rect)
+            self.using_event.select1.first_notify_rect.centerx = 660-112
+            self.using_event.select3.first_notify_rect.centerx = 660-112
+            self.using_event.select1.move_count = 0
+            self.using_event.select3.move_count = 0
+            if self.using_event.select2.move_count < self.using_event.select2.move_max:
+                self.using_event.select2.first_notify_rect.centerx += 2 
+                self.using_event.select2.move_count += 1
+
+     
         if self.using_event.select3.image_rect.collidepoint(x,y):
             self.win.blit(self.using_event.select3.first_notify,self.using_event.select3.first_notify_rect)
+            self.using_event.select2.first_notify_rect.centerx = 660-112
+            self.using_event.select1.first_notify_rect.centerx = 660-112
+            self.using_event.select2.move_count = 0
+            self.using_event.select1.move_count = 0
+            if self.using_event.select3.move_count < self.using_event.select3.move_max:
+                self.using_event.select3.first_notify_rect.centerx += 2 
+                self.using_event.select3.move_count += 1
+        self.win.blit(self.using_event.select1.image, self.using_event.select1.image_rect)     #show gov
+        self.win.blit(self.using_event.select2.image, self.using_event.select2.image_rect)     #show wfh
+        self.win.blit(self.using_event.select3.image, self.using_event.select3.image_rect)     #show wfh
+        
+        '''
+        if self.using_event.select3.image_rect.collidepoint(x,y):
+            self.win.blit(self.using_event.select3.first_notify,self.using_event.select3.first_notify_rect)
+        '''
         self.win.blit(self.start_round,self.start_round_rect)
         self.draw_event_frame()
         level_image_rect = LEVEL1.get_rect()
