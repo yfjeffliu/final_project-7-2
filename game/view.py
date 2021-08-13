@@ -20,10 +20,11 @@ class GameView:
         self.win.blit(text, text_rect)
     
     def draw_progress(self,num:int,total:int):
-        self.win.blit(PROGRESS_LINE,(350,525))
+        self.win.blit(PROGRESS_LINE,(350,525))  #進度條的底
         color = (210, 209, 209)
-        pygame.draw.rect(self.win, color, pygame.Rect(350,525, 330*(total-num)/total,25))
-        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (40, 50)),((350+330*(total-num)/total)-20,525-20)) #icon
+        pygame.draw.rect(self.win, color, pygame.Rect(350,525, 330*(total-num)/total,25))   #劃出進度條(起點X, 起點Y, 寬度, 高度)
+        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (40, 50)),((350+330*(total-num)/total)-20,525-20)) #enemy icon
+
     def draw_bg(self):
         self.win.blit(BACKGROUND_IMAGE[self.player], (0, 0))
     def draw_wait(self,wait:int):
@@ -103,6 +104,7 @@ class GameView:
         self.win.blit(main_menu[5].image,main_menu[5].rect)
         if ability:
             self.win.blit(main_menu[6].image,main_menu[6].rect)
+            self.win.blit(main_menu[7].image,main_menu[7].rect)
         if mute:
             self.win.blit(main_menu[0].image,main_menu[0].rect)
         else:

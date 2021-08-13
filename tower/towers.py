@@ -32,8 +32,8 @@ class Tower:
         self.rect = self.image.get_rect()
         self.rect.center = (x, y-10)  # center of the tower
         self.level = 0  # level of the tower
-        self._range = [100, 110, 120, 130, 140, 150]  # tower attack range
-        self._damage = [2.0, 2.1, 2.2, 2.3, 2.4, 2.5]   # tower damage
+        self._range = [130, 160,190]  # tower attack range
+        self._damage = [2.0,  2.5, 3]  # tower damage
         self.cd_count = 0  # used in self.is_cool_down()
         self.cd_max_count = 60  # used in self.is_cool_down()
         self.attack_strategy = attack_strategy  # chose an attack strategy (AOE, single attack ....)
@@ -41,20 +41,20 @@ class Tower:
     @classmethod
     def TV(cls, x:int, y:int,player:int):
         tv = cls(x, y, SingleAttack(), TOWER1_IMAGE[player])
-        tv._range = [130, 140, 150, 160, 170, 180]
-        tv._damage = [2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
+        tv._range = [130, 160,190]
+        tv._damage = [2.0,  2.5, 3]
         tv.value = [100, 140, 200, 280, 360, 450]
         return tv
     
 
     def attack(self, enemy_group: list):
         # cd
-        if self.level < 2:
+        if self.level < 1:
             self.image = TOWER1_IMAGE[0]
-        elif self.level < 4:
+        elif self.level < 2:
             self.image = TOWER2_IMAGE[0]
         else:
-            self.image = TOWER2_IMAGE[0]
+            self.image = TOWER3_IMAGE[0]
         if self.cd_count < self.cd_max_count:
             self.cd_count += 1
             return
@@ -85,7 +85,13 @@ class Tower:
         :return: bool
         """
         return True if self.rect.collidepoint(x, y) else False
-
+    def touched(self, x: int, y: int) -> bool:
+        """
+        :param x: mouse pos x
+        :param y: mouse pos y
+        :return: bool
+        """
+        return True if self.rect.collidepoint(x, y) else False
 
 
 

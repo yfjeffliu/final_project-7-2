@@ -65,5 +65,5 @@ PAUSE_IMAGE_BLACK = pygame.transform.scale(pygame.image.load(os.path.join("image
 PLAY_IMAGE_BLACK = pygame.transform.scale(pygame.image.load(os.path.join("images1/buttons", "play_black.png")), (25, 25))
 LAST_PAGE_IMAGE_BLACK = pygame.transform.scale(pygame.image.load(os.path.join("images1/buttons", "return_black.png")), (25, 25))
 BACK_MENU = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "bank_menu.png")), (235, 100))
-READ_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "read_button.png")), (235, 100))
+NEXT_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "btn_next_page.png")), (20, 20))
 BACKGROUND_IMAGE_MESSAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "message_page.png")), (WIN_WIDTH, WIN_HEIGHT))

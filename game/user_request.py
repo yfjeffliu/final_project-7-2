@@ -61,7 +61,7 @@ class TowerDeveloper:
         subject.register(self)
 
     def update(self, user_request: str, model:GameModel):
-        if user_request == "upgrade" and model.selected_tower.level < 5:
+        if user_request == "upgrade" and model.selected_tower.level < 2:
             # if the money > upgrade cost of the selected tower , level+1
             # use model.selected_tower to access the selected tower data
             # use model.money to access to money data
@@ -119,16 +119,19 @@ class Ability:
             print('use ability')
             print(model.player)
             if model.player == 0:
-                if model.money >= 30:
+                if model.money >= -1000: 
                     model.money -= 30
                     en_list = model.enemies.get()
                     for i in range(len(en_list)-1,-1,-1):
-                        model.enemies.retreat(en_list[i])
+                        if en_list[i].level == 1:
+                            model.enemies.retreat(en_list[i])
                         print('kill')
                 
         if user_request == 'show_ability':
             print('show abiltiy')
             model.show_ability = not model.show_ability
+
+
         
         
 

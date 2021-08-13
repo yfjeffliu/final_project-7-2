@@ -192,7 +192,8 @@ class Events:
     def message_page_show(self):
         self.win.blit(BACKGROUND_IMAGE_MESSAGE,(0,0))
         self.draw_button_black()
-        read_button = Buttons('read',READ_BUTTON,555,490)
+        read_button = Buttons('read',NEXT_BUTTON,925+10,485+10)
+        self.win.blit(NEXT_BUTTON,(925,485))
         for event in pygame.event.get():
             # quit
             if event.type == pygame.QUIT:
@@ -319,7 +320,7 @@ class Events:
         game.game_model.max_hp += blood_get
         game.game_model.hp += blood_get
         game.game_model.notify = self.notify
-        game.game_model.tower_money += tower_upgrade
+        game.game_model.tower_money += tower_upgrade + 3 
     def keep_going(self,game:Game):
         self.next = 0
         self.chosen = []

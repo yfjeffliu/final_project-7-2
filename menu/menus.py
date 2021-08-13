@@ -3,16 +3,17 @@ import os
 from event.event_setting import MUTE_IMAGE,PLAY_IMAGE,SOUND_IMAGE,PAUSE_IMAGE
 from settings import FONT
 pygame.init()
-MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_space.png")), (135, 70))
-UPGRADE_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (135, 70))
+BUY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (135, 70))
+UPGRADE_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (135,70 ))
+GREEN_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_yes.png")), (130, 30))
 NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(180,18))
-BUY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (125, 65))
-font = pygame.font.Font(FONT, 20)
-text = font.render('確認', True, (0,0,0),(0,255,0))
+
 
 
 ABILITY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "ability_menu_icon.png")), (100, 100))
 ABILITY_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "special_skill.png")), (130, 120))
+YELLOW_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "yellow_yes.png")), (125, 28))
+
 muse_button_image = pygame.transform.scale(MUTE_IMAGE, (34, 29))
 music_button_image = pygame.transform.scale(SOUND_IMAGE, (34, 29))
 continue_button_image = pygame.transform.scale(PLAY_IMAGE, (17, 24))
@@ -37,7 +38,7 @@ class Button:
 
 
 class Menu:
-    def __init__(self, x: int, y: int,image = MENU_IMAGE):
+    def __init__(self, x: int, y: int,image ):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = (x-105, y-5)
@@ -51,11 +52,15 @@ class Menu:
 
 class BuildMenu(Menu):
     def __init__(self, x, y):
-        super().__init__(x, y,BUY_BTN_IMAGE)
-        self._buttons = [Button(text, "TV", self.rect.centerx, self.rect.centery+20)
+        super().__init__(x, y,BUY_MENU_IMAGE)
+        self._buttons = [Button(GREEN_BTN_IMAGE, "TV", self.rect.centerx, self.rect.centery+20)
         ]
 
-
+class UpgradeMenu(Menu):
+    def __init__(self, x, y):
+        super().__init__(x, y,UPGRADE_MENU_IMAGE)
+        self._buttons = [Button(GREEN_BTN_IMAGE, "upgrade", self.rect.centerx, self.rect.centery+20 )
+                         ]
 class MainMenu:
     def __init__(self):
         self._buttons = [Button(muse_button_image, "mute", 753, 540),
@@ -64,16 +69,13 @@ class MainMenu:
                          Button(pause_button_image, "pause", 720, 540),
                          Button(NOTIFY_IMAGE_SHOW,"show_notify", 120, 560),
                          Button(ABILITY_MENU_IMAGE,"show_ability",935,510),
-                         Button(ABILITY_BTN_IMAGE,"use_ability",935,385)]
+                         Button(ABILITY_BTN_IMAGE,"nothing",935,385),
+                         Button(YELLOW_BTN_IMAGE,"use_ability",935,385+45)]
 
     @property
     def buttons(self):
         return self._buttons
-class UpgradeMenu(Menu):
-    def __init__(self, x, y):
-        super().__init__(x, y,UPGRADE_BTN_IMAGE)
-        self._buttons = [Button(text, "upgrade", self.rect.centerx, self.rect.centery+20 )
-                         ]
+
 
 
 

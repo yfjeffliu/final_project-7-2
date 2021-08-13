@@ -40,10 +40,14 @@ class GameControl:
         # event initialization
         self.events = {"game quit": False,
                        "mouse position": None,
-                       "keyboard key": None
+                       "keyboard key": None,
+                       "mouse move":None
                        }
         # update event
+        x, y = pygame.mouse.get_pos()
+        self.events["mouse move"] = [x,y]
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 self.events["game quit"] = True
             # player press action
@@ -52,8 +56,10 @@ class GameControl:
                     self.events["keyboard key"] = pygame.K_n
             # player click action
             if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
                 self.events["mouse position"] = [x, y]
+        
+        print(x,y)
+        
 
     def update_view(self):
         # render background
@@ -62,6 +68,7 @@ class GameControl:
         self.view.draw_hp(self.model.hp,self.model.max_hp)
         self.view.draw_enemies(self.model.enemies)
         
+        self.view.draw_range(self.model.touched_tower)
         self.view.draw_range(self.model.selected_tower)
         self.view.draw_plots(self.model.plots)
         self.view.draw_money(self.model.money)
@@ -76,14 +83,7 @@ class GameControl:
         """(Q2) Controller request View to render something"""
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)
-        if self.model.pause:
-            if self.wait > 0:
-                self.view.draw_progress(10,10)
-            elif self.wait == 0:
-                self.model.enemies.add(10,self.model.stage)
-            else:
-                self.view.draw_progress(self.model.get_progress,10)
-            return
+        
         if self.wait > 0:
             self.view.draw_progress(10,10)
             self.view.draw_wait(self.wait)
@@ -91,7 +91,9 @@ class GameControl:
                 self.wait -=1
                 self.count = 0
             else:
-                self.count += 1
+                if not self.model.pause:
+                    self.count += 1
+               
         elif self.wait == 0:
             self.view.draw_wait(self.wait)
             self.model.enemies.add(10,self.model.stage)

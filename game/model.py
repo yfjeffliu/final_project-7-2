@@ -24,6 +24,7 @@ class GameModel:
         # selected item
         self.selected_plot = None
         self.selected_tower = None
+        self.touched_tower = None
         self.selected_button = None
         # apply observer pattern
         self.subject = RequestSubject(self)
@@ -31,7 +32,7 @@ class GameModel:
         self.seller = TowerKiller()
         self.developer = TowerDeveloper(self.subject)
         self.factory = TowerFactory(self.subject)
-        
+
         #self.muse = Muse(self.subject)
         self.music = Music(self.subject)
         self.ctrl_notify = Show_Hide_Notify(self.subject)
@@ -69,8 +70,17 @@ class GameModel:
             if self.selected_button is not None:
                 return self.selected_button.response
             return "nothing"
+        
+        x,y = events["mouse move"]
+        self.touch_tower(x,y)
+            
         return "nothing"
-
+    def touch_tower(self,x,y):
+        for tw in self.__towers:
+            if tw.touched(x, y):
+                self.touched_tower = tw
+                return
+        self.touched_tower = None
     def select(self, mouse_x: int, mouse_y: int) -> None:
         """change the state of whether the items are selected"""
         # if the item is clicked, select the item
@@ -79,13 +89,15 @@ class GameModel:
                 self.selected_tower = tw
                 self.selected_plot = None
                 return
-
         for pt in self.__plots:
             if pt.clicked(mouse_x, mouse_y):
                 self.selected_tower = None
                 self.selected_plot = pt
                 return
-
+        for en in self.enemies.get():
+                if en.clicked(mouse_x,mouse_y):
+                    en.move_count = -10
+                    print('slow')
         # if the button is clicked, get the button response.
         # and keep selecting the tower/plot.
         if self.__menu is not None:

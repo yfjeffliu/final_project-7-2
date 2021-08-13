@@ -18,25 +18,30 @@ class Enemy:
         self.path = PATH[player]
         self.path_index = 0
         self.move_count = 0
-        self.stride = 1
+        
         # 根據關卡(變數stage=1~5 datatype:int)產生怪物 設定image、血量
         num = random.randint(1, 5*(stage+1))
         if num <= 5:
             self.image = pygame.transform.scale(ENEMY_IMAGE1[player], (40, 50))
             self.health = 10
             self.max_health = 10
+            self.stride = 1
+            self.level = 1
         elif (num % 2 == 0) & (num <= 17):
             self.image = pygame.transform.scale(ENEMY_IMAGE2[player], (40, 50))
             self.health = 20
             self.max_health = 20
+            self.stride = 1.2
+            self.level = 2
         else:
             self.image = pygame.transform.scale(ENEMY_IMAGE3[player], (40, 50))
             self.health = 30
             self.max_health = 30
+            self.stride = 1.5
+            self.level = 3
         self.rect = self.image.get_rect()
         self.rect.center = self.path[self.path_index]
-        self.path_index = 0
-        self.move_count = 0
+
         
     def move(self):
         x1, y1 = self.path[self.path_index]
@@ -57,7 +62,11 @@ class Enemy:
             self.move_count = 0
             self.path_index += 1
             self.rect.center = self.path[self.path_index]
-
+    def clicked(self,x,y):
+        if self.rect.collidepoint(x,y):
+            return True
+        else:
+            return False
 
 class EnemyGroup:
     def __init__(self,player:int):
