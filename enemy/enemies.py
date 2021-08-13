@@ -18,7 +18,9 @@ class Enemy:
         self.path = PATH[player]
         self.path_index = 0
         self.move_count = 0
-        
+        self.slow_count = 0
+        self.slow_max = 90
+        self.slow = False
         # 根據關卡(變數stage=1~5 datatype:int)產生怪物 設定image、血量
         num = random.randint(1, 5*(stage+1))
         if num <= 5:
@@ -31,19 +33,27 @@ class Enemy:
             self.image = pygame.transform.scale(ENEMY_IMAGE2[player], (40, 50))
             self.health = 20
             self.max_health = 20
-            self.stride = 1.2
+            self.stride = 2
             self.level = 2
         else:
             self.image = pygame.transform.scale(ENEMY_IMAGE3[player], (40, 50))
             self.health = 30
             self.max_health = 30
-            self.stride = 1.5
+            self.stride = 3
             self.level = 3
         self.rect = self.image.get_rect()
         self.rect.center = self.path[self.path_index]
 
         
     def move(self):
+        if self.slow_count < self.slow_max:
+            self.slow_count += 1
+            if self.slow:
+                self.slow = False
+                return
+            else:
+                self.slow = True
+        
         x1, y1 = self.path[self.path_index]
         x2, y2 = self.path[self.path_index + 1]
         distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
@@ -95,6 +105,7 @@ class EnemyGroup:
         if self.campaign_count > self.campaign_max_count and self.__reserved_members:
             self.__expedition.append(self.__reserved_members.pop())
             self.campaign_count = 0
+            self.campaign_max_count = random.randint(30,90)
         else:
             self.campaign_count += 1
 

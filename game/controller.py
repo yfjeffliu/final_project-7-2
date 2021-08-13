@@ -58,7 +58,7 @@ class GameControl:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.events["mouse position"] = [x, y]
         
-        print(x,y)
+        
         
 
     def update_view(self):

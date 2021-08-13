@@ -67,6 +67,7 @@ class GameModel:
         if events["mouse position"] is not None:
             x, y = events["mouse position"]
             self.select(x, y)
+
             if self.selected_button is not None:
                 return self.selected_button.response
             return "nothing"
@@ -95,9 +96,10 @@ class GameModel:
                 self.selected_plot = pt
                 return
         for en in self.enemies.get():
-                if en.clicked(mouse_x,mouse_y):
-                    en.move_count = -10
-                    print('slow')
+            if en.clicked(mouse_x,mouse_y):
+                en.slow_count = 0
+                print('slow')
+                break
         # if the button is clicked, get the button response.
         # and keep selecting the tower/plot.
         if self.__menu is not None:

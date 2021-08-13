@@ -3,7 +3,7 @@ import pygame
 import os
 from settings import *
 import pygame.freetype
-
+from event.data import FIRST_NOTIFY
 class an_event:
     def __init__(self,question:an_question,select1:an_decision,select2:an_decision,select3:an_decision) -> None:
         self.question = question
@@ -14,9 +14,12 @@ class an_event:
 
 
 class an_decision():
-    def __init__(self, num:int,image:pygame.Surface , impact:list,notify_image:pygame.Surface) -> None:
+    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,first_notify = FIRST_NOTIFY) -> None:
         self.impact = impact
         self.notify =notify_image
+        self.first_notify = FIRST_NOTIFY
+        self.first_notify_rect = self.first_notify.get_rect()
+        self.first_notify_rect.center=(762,200+(num-1)*100+30)
         if image.get_height()>350:
             self.image = pygame.transform.scale(image, (400, 80))
         else:

@@ -235,6 +235,13 @@ class Events:
         self.win.blit(self.using_event.select3.image, self.using_event.select3.image_rect)     #show wfh
         self.start_round_rect = self.start_round.get_rect()
         self.start_round_rect.center = (365,520)
+        x, y = pygame.mouse.get_pos()
+        if self.using_event.select1.image_rect.collidepoint(x,y):
+            self.win.blit(self.using_event.select1.first_notify,self.using_event.select1.first_notify_rect)
+        if self.using_event.select2.image_rect.collidepoint(x,y):
+            self.win.blit(self.using_event.select2.first_notify,self.using_event.select2.first_notify_rect)
+        if self.using_event.select3.image_rect.collidepoint(x,y):
+            self.win.blit(self.using_event.select3.first_notify,self.using_event.select3.first_notify_rect)
         self.win.blit(self.start_round,self.start_round_rect)
         self.draw_event_frame()
         level_image_rect = LEVEL1.get_rect()
