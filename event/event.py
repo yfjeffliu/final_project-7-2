@@ -228,7 +228,7 @@ class Events:
             if event.type == pygame.QUIT:
                     run2 = False
         return run2
-        def events_draw(self):
+    def events_draw(self):
         self.win.blit(BACKGROUND_IMAGE_EVENT,(0,0)) #色碼,X點、Y點、寬、高
         self.win.blit(self.using_event.question.image, self.using_event.question.image_rect)     #show choose player
         
