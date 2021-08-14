@@ -85,7 +85,7 @@ class GameControl:
             self.view.draw_menu(self.model.menu)
         
         if self.wait > 0:
-            self.view.draw_progress(10,10)
+            self.view.draw_progress(0,10)
             self.view.draw_wait(self.wait)
             if self.count >= 25:
                 self.wait -=1

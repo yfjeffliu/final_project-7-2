@@ -86,6 +86,7 @@ class EnemyGroup:
         self.__reserved_members = []
         self.__expedition = []
         self.count = 0
+        self.count2 = 0
         self.player = player
     def advance(self, model:GameModel):
         """Bonus.2"""
@@ -107,11 +108,16 @@ class EnemyGroup:
             self.__expedition.append(self.__reserved_members.pop())
             self.campaign_count = 0
             self.campaign_max_count = random.randint(30,90)
+            self.campaign_progress()
         else:
             self.campaign_count += 1
 
+    def campaign_progress(self):
+        self.count2 += 1
+
     def add(self, num:int,stage:int):
         self.count = num
+        self.count2 = 0
         """Generate the enemies for next wave"""
         if self.is_empty():
             self.__reserved_members = [Enemy(self.player,stage) for _ in range(num)]
