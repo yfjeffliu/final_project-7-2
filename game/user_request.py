@@ -119,7 +119,7 @@ class Ability:
             print('use ability')
             print(model.player)
             if model.player == 0:
-                if model.money >= -1000: 
+                if model.money >= 30: 
                     model.money -= 30
                     en_list = model.enemies.get()
                     for i in range(len(en_list)-1,-1,-1):

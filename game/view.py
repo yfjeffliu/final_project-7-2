@@ -23,7 +23,7 @@ class GameView:
         self.win.blit(PROGRESS_LINE,(350,525))  #進度條的底
         color = (210, 209, 209)
         pygame.draw.rect(self.win, color, pygame.Rect(358, 532, 305 * num / total, 13))  # 劃出進度條(起點X, 起點Y, 寬度, 高度)
-        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (37, 48)),((354 + 305 * num / total), 526 - 18))  # enemy icon
+        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (37, 48)),((350 + 305 * num / total), 526 - 18))  # enemy icon
         
     def draw_bg(self):
         self.win.blit(BACKGROUND_IMAGE[self.player], (0, 0))

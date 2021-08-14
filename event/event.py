@@ -81,6 +81,7 @@ class Events:
                         self.using_event=None
                         game.mute(self.mute)
                         quit=game.run()
+                        self.mute = game.mute
                         if quit:
                             return False
                         elif game.all_pass:
