@@ -44,7 +44,7 @@ gov_impact_problem5 =[[10,0,1,-1,2,0],[30,20,-1,-3,2,0], [10,0,-1,-3,5,3]]
 
 gov_decision = [gov_decision_problem1,gov_decision_problem2,gov_decision_problem3,gov_decision_problem4,gov_decision_problem5]
 gov_impact = [gov_impact_problem1,gov_impact_problem2,gov_impact_problem3,gov_impact_problem4,gov_impact_problem5]
-FIRST_NOTIFY = pygame.image.load(os.path.join("images1/notify_message", "Border2.png"))
+FIRST_NOTIFY = pygame.image.load(os.path.join("images1/notify_message", "HINT2.png"))
 '''
 gov_problem = ['Q：國外爆發delta病毒，要怎麼處理呢','Q：某科技大廠出現確診…但疫調困難足跡還沒確定','Q：施打公費疫苗需要撥多少補助給醫療院所','Q：國內疫情每日只有20人確診 到底要不要解封呢','Q：疫調結果與現況出現嚴重落差']
 gov_decision_problem1 = ['A買爆疫苗，但半年後才會到','B大力投資國產疫苗','C限制非本國籍人士進入']
