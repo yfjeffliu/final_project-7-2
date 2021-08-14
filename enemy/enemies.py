@@ -72,6 +72,7 @@ class Enemy:
             self.move_count = 0
             self.path_index += 1
             self.rect.center = self.path[self.path_index]
+            
     def clicked(self,x,y):
         if self.rect.collidepoint(x,y):
             return True

@@ -3,7 +3,7 @@ import pygame
 import os
 from settings import *
 import pygame.freetype
-from event.data import FIRST_NOTIFY
+from event.data import HINT_BACK
 class an_event:
     def __init__(self,question:an_question,select1:an_decision,select2:an_decision,select3:an_decision) -> None:
         self.question = question
@@ -14,19 +14,26 @@ class an_event:
 
 
 class an_decision():
-    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,first_notify = FIRST_NOTIFY) -> None:
+    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,hint) -> None:
         self.impact = impact
         self.notify =notify_image
+        
         if image.get_height()>350:
             self.image = pygame.transform.scale(image, (424, 84))
-            self.first_notify = pygame.transform.scale(first_notify, (300, 84))
+            self.hint_back = pygame.transform.scale(HINT_BACK, (300, 84))
+            self.hint = pygame.transform.scale(hint, (300, 60))
             self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 40, 424, 84)
         else:
             self.image = pygame.transform.scale(image, (424, 53))
-            self.first_notify = pygame.transform.scale(first_notify, (300, 53))
+            self.hint_back = pygame.transform.scale(HINT_BACK, (300, 53))
+            self.hint = pygame.transform.scale(hint, (300, 35))
             self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 26, 424, 53)
-        self.first_notify_rect = self.first_notify.get_rect()
-        self.first_notify_rect.center = (165+250, 200 + (num - 1) * 95 + 25)
+
+        self.hint_back_rect = self.hint_back.get_rect()
+        self.hint_back_rect.center = (165+250, 200 + (num - 1) * 95 + 25)
+        self.hint_rect = self.hint.get_rect()
+        self.hint_rect.center = (165+250+40, 200 + (num - 1) * 95 + 25)
+
         self.image_rect = self.image.get_rect()
         self.image_rect.center = (165+200, 200+(num-1)*95+25)
 
