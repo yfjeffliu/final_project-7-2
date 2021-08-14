@@ -157,7 +157,7 @@ class GameModel:
 
     @property
     def get_progress(self):
-        return self.__enemies.count
+        return self.__enemies.count2
     
 
 
