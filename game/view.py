@@ -22,9 +22,9 @@ class GameView:
     def draw_progress(self,num:int,total:int):
         self.win.blit(PROGRESS_LINE,(350,525))  #進度條的底
         color = (210, 209, 209)
-        pygame.draw.rect(self.win, color, pygame.Rect(350,525, 330*(total-num)/total,25))   #劃出進度條(起點X, 起點Y, 寬度, 高度)
-        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (40, 50)),((350+330*(total-num)/total)-20,525-20)) #enemy icon
-
+        pygame.draw.rect(self.win, color, pygame.Rect(358, 532, 305 * num / total, 13))  # 劃出進度條(起點X, 起點Y, 寬度, 高度)
+        self.win.blit(pygame.transform.scale(ENEMY_IMAGE1[self.player], (37, 48)),((354 + 305 * num / total), 526 - 18))  # enemy icon
+        
     def draw_bg(self):
         self.win.blit(BACKGROUND_IMAGE[self.player], (0, 0))
     def draw_wait(self,wait:int):
@@ -33,7 +33,7 @@ class GameView:
         text_rect = text.get_rect()
         surface = pygame.Surface((WIN_WIDTH, WIN_HEIGHT), pygame.SRCALPHA)
         transparency = 120
-        pygame.draw.circle(surface, (128, 128, 128, transparency), (512,300),200)
+        pygame.draw.circle(surface, (224, 224, 224, transparency), (512,300),200)
         self.win.blit(surface, (0, 0))
         text_rect.center = (512,300)
         self.win.blit(text, text_rect)
