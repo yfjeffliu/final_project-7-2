@@ -228,7 +228,7 @@ class Events:
             if event.type == pygame.QUIT:
                     run2 = False
         return run2
-    def events_draw(self):
+        def events_draw(self):
         self.win.blit(BACKGROUND_IMAGE_EVENT,(0,0)) #色碼,X點、Y點、寬、高
         self.win.blit(self.using_event.question.image, self.using_event.question.image_rect)     #show choose player
         
@@ -238,34 +238,35 @@ class Events:
 
         if self.using_event.select1.image_rect.collidepoint(x,y):
             self.win.blit(self.using_event.select1.first_notify,self.using_event.select1.first_notify_rect)
-            self.using_event.select2.first_notify_rect.centerx = 660-112
-            self.using_event.select3.first_notify_rect.centerx = 660-112
+            self.using_event.select2.first_notify_rect.centerx = 165+250
+            self.using_event.select3.first_notify_rect.centerx = 165+250
             self.using_event.select2.move_count = 0
             self.using_event.select3.move_count = 0
             if self.using_event.select1.move_count < self.using_event.select1.move_max:
-                self.using_event.select1.first_notify_rect.centerx += 2 
+                self.using_event.select1.first_notify_rect.centerx += 20
                 self.using_event.select1.move_count += 1
   
         if self.using_event.select2.image_rect.collidepoint(x,y):
             self.win.blit(self.using_event.select2.first_notify,self.using_event.select2.first_notify_rect)
-            self.using_event.select1.first_notify_rect.centerx = 660-112
-            self.using_event.select3.first_notify_rect.centerx = 660-112
+            self.using_event.select1.first_notify_rect.centerx = 165+250
+            self.using_event.select3.first_notify_rect.centerx = 165+250
             self.using_event.select1.move_count = 0
             self.using_event.select3.move_count = 0
             if self.using_event.select2.move_count < self.using_event.select2.move_max:
-                self.using_event.select2.first_notify_rect.centerx += 2 
+                self.using_event.select2.first_notify_rect.centerx += 20
                 self.using_event.select2.move_count += 1
 
      
         if self.using_event.select3.image_rect.collidepoint(x,y):
             self.win.blit(self.using_event.select3.first_notify,self.using_event.select3.first_notify_rect)
-            self.using_event.select2.first_notify_rect.centerx = 660-112
-            self.using_event.select1.first_notify_rect.centerx = 660-112
+            self.using_event.select2.first_notify_rect.centerx = 165+250
+            self.using_event.select1.first_notify_rect.centerx = 165+250
             self.using_event.select2.move_count = 0
             self.using_event.select1.move_count = 0
             if self.using_event.select3.move_count < self.using_event.select3.move_max:
-                self.using_event.select3.first_notify_rect.centerx += 2 
+                self.using_event.select3.first_notify_rect.centerx += 20
                 self.using_event.select3.move_count += 1
+
         self.win.blit(self.using_event.select1.image, self.using_event.select1.image_rect)     #show gov
         self.win.blit(self.using_event.select2.image, self.using_event.select2.image_rect)     #show wfh
         self.win.blit(self.using_event.select3.image, self.using_event.select3.image_rect)     #show wfh
@@ -295,11 +296,11 @@ class Events:
     def draw_event_frame(self):
         
         if self.using_event.select1.selected:
-            pygame.draw.rect(self.win, BLACK, self.using_event.select1.frame, 10)
+            pygame.draw.rect(self.win, BLACK, self.using_event.select1.frame, 6)
         if self.using_event.select2.selected:
-            pygame.draw.rect(self.win, BLACK, self.using_event.select2.frame, 10)
+            pygame.draw.rect(self.win, BLACK, self.using_event.select2.frame, 6)
         if self.using_event.select3.selected:
-            pygame.draw.rect(self.win, BLACK, self.using_event.select3.frame, 10)
+            pygame.draw.rect(self.win, BLACK, self.using_event.select3.frame, 6)
     def set_using_event(self):
         
         self.using_event=get_using_event(self.using_player,self.event_list[self.num])
