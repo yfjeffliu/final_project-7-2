@@ -17,19 +17,22 @@ class an_decision():
     def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,first_notify = FIRST_NOTIFY) -> None:
         self.impact = impact
         self.notify =notify_image
-        self.first_notify = pygame.transform.scale(first_notify, (224, 60))
-        self.first_notify_rect = self.first_notify.get_rect()
-        self.first_notify_rect.center=(660-112,200+(num-1)*100+30)
         if image.get_height()>350:
-            self.image = pygame.transform.scale(image, (400, 80))
+            self.image = pygame.transform.scale(image, (424, 84))
+            self.first_notify = pygame.transform.scale(first_notify, (300, 84))
+            self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 40, 424, 84)
         else:
-            self.image = pygame.transform.scale(image, (400, 60))
+            self.image = pygame.transform.scale(image, (424, 53))
+            self.first_notify = pygame.transform.scale(first_notify, (300, 53))
+            self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 26, 424, 53)
+        self.first_notify_rect = self.first_notify.get_rect()
+        self.first_notify_rect.center = (165+250, 200 + (num - 1) * 95 + 25)
         self.image_rect = self.image.get_rect()
-        self.image_rect.center = (165+200,200+(num-1)*100+30)
-        self.frame = pygame.Rect(165+200 - 205, 200+(num-1)*100+30 - 35, 405 + 5, 60 + 10)
+        self.image_rect.center = (165+200, 200+(num-1)*95+25)
+
         self.selected = None
         self.move_count = 0
-        self.move_max = 61
+        self.move_max = 15
         
 class an_question:
     def __init__(self,num:int,image:pygame.Surface) -> None:
