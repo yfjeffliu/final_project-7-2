@@ -32,10 +32,10 @@ class AttackStrategy(ABC):
 
 class SingleAttack(AttackStrategy):
     """attack an enemy once a time"""
-    def attack(self, enemies: list, tower:Tower, cd_count:int):
+    def attack(self, enemies: list, tower:Tower, cd_count:int,bullet_list):
         for en in enemies:
             if in_range(en, tower):
-                en.health -= tower.damage
+                bullet_list.generate(en,tower.rect.center,en.rect.center)
                 cd_count = 0
                 return cd_count
         return cd_count

@@ -53,7 +53,9 @@ class GameView:
             bar_height = 5
             pygame.draw.rect(self.win, RED, [en.rect.x, en.rect.y - 10, max_bar_width, bar_height])
             pygame.draw.rect(self.win, GREEN, [en.rect.x, en.rect.y - 10, bar_width, bar_height])
-
+    def draw_bullets(self,bullets):
+        for bullet in bullets.get():
+            self.win.blit(bullet.image,bullet.rect)
     def draw_towers(self, towers:list):
         # draw tower
         for tw in towers:

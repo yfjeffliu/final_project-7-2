@@ -47,7 +47,7 @@ class Tower:
         return tv
     
 
-    def attack(self, enemy_group: list):
+    def attack(self, enemy_group: list,bullet_list):
         # cd
         if self.level < 1:
             self.image = TOWER1_IMAGE[0]
@@ -61,7 +61,7 @@ class Tower:
         # syntax: attack_strategy().attack(tower, enemy_group, cd_count)
         # It's something like you hire a "Strategist" to decide how to attack the enemy
         # You can add other ways of attack just by expanding the "attack_strategy.py"
-        self.cd_count = self.attack_strategy.attack(enemy_group, self, self.cd_count)
+        self.cd_count = self.attack_strategy.attack(enemy_group, self, self.cd_count,bullet_list)
 
     def get_upgrade_cost(self):
         

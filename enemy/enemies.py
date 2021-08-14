@@ -18,7 +18,7 @@ class Enemy:
         self.path = PATH[player]
         self.path_index = 0
         self.move_count = 0
-        self.slow_count = 0
+        self.slow_count = 90
         self.slow_max = 90
         self.slow = False
         # 根據關卡(變數stage=1~5 datatype:int)產生怪物 設定image、血量
@@ -72,7 +72,35 @@ class Enemy:
             self.move_count = 0
             self.path_index += 1
             self.rect.center = self.path[self.path_index]
+    def future(self):
+        x1, y1 = self.path[self.path_index]
+        x2, y2 = self.path[self.path_index + 1]
+        distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+        max_count = int(distance / self.stride)
+        # compute the unit vector
+        unit_vector_x = (x2 - x1) / distance
+        unit_vector_y = (y2 - y1) / distance
+        # compute the movement
+        delta_x = unit_vector_x * self.stride * self.move_count
+        delta_y = unit_vector_y * self.stride * self.move_count
+        # update the position and counter
+        if self.move_count+5 <= max_count or self.path_index+1 >= len(self.path) :
+            return  (x1 + 5*delta_x, y1 + 5*delta_y)
             
+        else:
+            more = self.move_count - max_count
+            x1, y1 = self.path[self.path_index+1]
+            x2, y2 = self.path[self.path_index+1 + 1]
+            distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+            max_count = int(distance / self.stride)
+            unit_vector_x = (x2 - x1) / distance
+            unit_vector_y = (y2 - y1) / distance
+            delta_x = unit_vector_x * self.stride * more
+            delta_y = unit_vector_y * self.stride * more
+            return (x1+delta_x,y1+delta_y)
+
+
+
     def clicked(self,x,y):
         if self.rect.collidepoint(x,y):
             return True
@@ -108,12 +136,12 @@ class EnemyGroup:
             self.__expedition.append(self.__reserved_members.pop())
             self.campaign_count = 0
             self.campaign_max_count = random.randint(30,90)
-            self.campaign_progress()
+            self.count2 += 1
         else:
             self.campaign_count += 1
 
-    def campaign_progress(self):
-        self.count2 += 1
+    #def campaign_progress(self):
+        
 
     def add(self, num:int,stage:int):
         self.count = num

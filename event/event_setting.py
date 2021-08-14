@@ -20,20 +20,22 @@ class an_decision():
         
         if image.get_height()>350:
             self.image = pygame.transform.scale(image, (424, 84))
-            self.hint_back = pygame.transform.scale(HINT_BACK, (300, 84))
-            self.hint = pygame.transform.scale(hint, (300, 60))
+            self.hint_back = pygame.transform.scale(HINT_BACK, (350, 84))
+            self.hint = pygame.transform.scale(hint, (350, 36))
             self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 40, 424, 84)
         else:
             self.image = pygame.transform.scale(image, (424, 53))
-            self.hint_back = pygame.transform.scale(HINT_BACK, (300, 53))
-            self.hint = pygame.transform.scale(hint, (300, 35))
+            self.hint_back = pygame.transform.scale(HINT_BACK, (350, 53))
+            self.hint = pygame.transform.scale(hint, (350, 18))
             self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 26, 424, 53)
 
         self.hint_back_rect = self.hint_back.get_rect()
         self.hint_back_rect.center = (165+250, 200 + (num - 1) * 95 + 25)
-        self.hint_rect = self.hint.get_rect()
-        self.hint_rect.center = (165+250+40, 200 + (num - 1) * 95 + 25)
 
+        self.hint_rect = self.hint.get_rect()
+        #self.hint_rect.center = (165+250+20, 200 + (num - 1) * 95 + 25)
+        self.hint_rect.centery = 200+(num - 1) * 95 + 25
+        self.hint_rect.left = 165+250+20-150
         self.image_rect = self.image.get_rect()
         self.image_rect.center = (165+200, 200+(num-1)*95+25)
 

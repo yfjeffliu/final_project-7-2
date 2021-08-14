@@ -32,9 +32,9 @@ class GameControl:
         if self.model.pause:
             return
         self.model.call_menu()
-        self.model.towers_attack()
+        self.model.towers_attack(self.model.bullets)
         self.model.enemies_advance()
-        
+        self.model.bullets_update()
     def receive_user_input(self):
         """receive user input from the events"""
         # event initialization
@@ -67,7 +67,7 @@ class GameControl:
         self.view.draw_towers(self.model.towers)
         self.view.draw_hp(self.model.hp,self.model.max_hp)
         self.view.draw_enemies(self.model.enemies)
-        
+        self.view.draw_bullets(self.model.bullets)
         self.view.draw_range(self.model.touched_tower)
         self.view.draw_range(self.model.selected_tower)
         self.view.draw_plots(self.model.plots)

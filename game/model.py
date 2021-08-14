@@ -4,6 +4,7 @@ import os
 
 from pygame.mixer import pause
 from tower.towers import Tower, Vacancy
+from tower.bullets import BulletGroup
 from enemy.enemies import EnemyGroup
 from menu.menus import Menu, UpgradeMenu, BuildMenu, MainMenu
 from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller,  Music,Show_Hide_Notify,Ability,Play
@@ -21,6 +22,7 @@ class GameModel:
         self.__main_menu = MainMenu()
         plot = [[Vacancy(283, 307), Vacancy(500, 200),Vacancy(600, 330)]]
         self.__plots = plot[player]
+        self.__bullet = BulletGroup()
         # selected item
         self.selected_plot = None
         self.selected_tower = None
@@ -127,18 +129,22 @@ class GameModel:
         return self.__main_menu.buttons
         
 
-    def towers_attack(self):
+    def towers_attack(self,bullet_list):
         for tw in self.__towers:
-            tw.attack(self.__enemies.get())
+            tw.attack(self.__enemies.get(),bullet_list)
 
     def enemies_advance(self):
         self.__enemies.advance(self)
     def enemies_empty(self):
         return True if self.enemies.is_empty() else False
+    def bullets_update(self):
+        self.bullets.update()
     @property
     def enemies(self):
         return self.__enemies
-
+    @property
+    def bullets(self):
+        return self.__bullet
     @property
     def towers(self):
         return self.__towers

@@ -242,8 +242,8 @@ class Events:
             self.win.blit(self.using_event.select1.hint,self.using_event.select1.hint_rect)
             self.using_event.select2.hint_back_rect.centerx = 165+250
             self.using_event.select3.hint_back_rect.centerx = 165+250
-            self.using_event.select2.hint_rect.centerx = 165+250+40
-            self.using_event.select3.hint_rect.centerx = 165+250+40
+            self.using_event.select2.hint_rect.left = 165+250+20-150
+            self.using_event.select3.hint_rect.left = 165+250+20-150
             self.using_event.select2.move_count = 0
             self.using_event.select3.move_count = 0
             if self.using_event.select1.move_count < self.using_event.select1.move_max:
@@ -256,8 +256,8 @@ class Events:
             self.win.blit(self.using_event.select2.hint,self.using_event.select2.hint_rect)
             self.using_event.select1.hint_back_rect.centerx = 165+250
             self.using_event.select3.hint_back_rect.centerx = 165+250
-            self.using_event.select1.hint_rect.centerx = 165+250+40
-            self.using_event.select3.hint_rect.centerx = 165+250+40
+            self.using_event.select1.hint_rect.left = 165+250+20-150
+            self.using_event.select3.hint_rect.left = 165+250+20-150
             self.using_event.select1.move_count = 0
             self.using_event.select3.move_count = 0
             if self.using_event.select2.move_count < self.using_event.select2.move_max:
@@ -271,8 +271,8 @@ class Events:
             self.win.blit(self.using_event.select3.hint,self.using_event.select3.hint_rect)
             self.using_event.select2.hint_back_rect.centerx = 165+250
             self.using_event.select1.hint_back_rect.centerx = 165+250
-            self.using_event.select2.hint_rect.centerx = 165+250+40
-            self.using_event.select1.hint_rect.centerx = 165+250+40
+            self.using_event.select2.hint_rect.left = 165+250+20-150
+            self.using_event.select1.hint_rect.left = 165+250+20-150
             self.using_event.select2.move_count = 0
             self.using_event.select1.move_count = 0
             if self.using_event.select3.move_count < self.using_event.select3.move_max:
