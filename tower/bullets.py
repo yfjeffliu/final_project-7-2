@@ -1,14 +1,14 @@
 from color_settings import BLACK
 import pygame
 import os
-import math
+from math import atan2, degrees, pi,sqrt
 class BulletGroup():
     def __init__(self) -> None:
         self.bullet_list = []
 
         pass
-    def generate(self,enemy,start,end):
-        self.bullet_list.append(Bullet(enemy,start,end))
+    def generate(self,tower,enemy,start,end):
+        self.bullet_list.append(Bullet(tower,enemy,start,end))
     def get(self):
         return self.bullet_list
     def update(self):
@@ -16,21 +16,36 @@ class BulletGroup():
             bullet.move(self)
     def remove(self,bullet):
         self.bullet_list.remove(bullet)
-BULLET_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "newspaper.png")), (30, 30))
+BULLET1_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet1.png")), (30, 30))
+BULLET2_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet2.png")), (30, 30))
+BULLET3_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet3.png")), (30, 30))
 class Bullet():
-    def __init__(self,enemy,start,end) -> None:
+    def __init__(self,enemy,tower,start,end) -> None:
         self.enemy = enemy
         self.start = start
         self.end = end
-        self.image = BULLET_IMAGE
+        if tower.level == 0:
+            self.image = BULLET1_IMAGE
+        elif tower.level == 1:
+            self.image = BULLET2_IMAGE
+        elif tower.level == 2:
+            self.image = BULLET3_IMAGE
         self.rect = self.image.get_rect()
         self.rect.center = start
         self.move_count = 0
+        x1,y1 = self.start
+        x2,y2 = self.end
+        dx = x2 - x1
+        dy = y2 - y1
+        rads = atan2(-dy,dx)
+        rads %= 2*pi
+        degs = degrees(rads)-90
+        self.image=pygame.transform.rotate(self.image,degs)
         pass
     def move(self,bullet_list):
         x1,y1 = self.start
         x2,y2 = self.end
-        distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+        distance = sqrt((x2 - x1)**2 + (y2 - y1)**2)
         max_count = int(distance / 10)
         # compute the unit vector
         unit_vector_x = (x2 - x1) / distance

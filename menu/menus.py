@@ -6,7 +6,7 @@ pygame.init()
 BUY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "buy.png")), (135, 70))
 UPGRADE_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (135,70 ))
 GREEN_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_yes.png")), (130, 30))
-NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(180,18))
+NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(170,18))
 
 
 

@@ -39,7 +39,8 @@ PATH2 = [PATH2_gov]
 # base
 BASE = [pygame.Rect(835, 192, 150, 150)]
 #tower position
-TOWER_POSITION = [[(75,319),(221,466),(302,71),(374,317),(513,147),(607,418),(737,189)]]
+TOWER_POSITION1 = [(75,319),(221,466),(302,71),(374,317),(513,175),(627,330),(737,189)]
+TOWER_POSITION = [TOWER_POSITION1]
 # image
 BACKGROUND_IMAGE =  [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "road3.png")),(WIN_WIDTH,WIN_HEIGHT))]
 HP_GRAY_IMAGE = pygame.transform.scale(pygame.image.load("images1/game_page/heart_empty.png"), (40, 40))

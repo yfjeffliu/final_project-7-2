@@ -46,8 +46,8 @@ class Events:
         self.last_page = False
         self.read = False
         self.decision_txt = None
-        self.hint1 = None
-        self.hint2 = None
+        self.message1 = None
+        self.message2 = None
         pass
     def run(self):
         clock = pygame.time.Clock()
@@ -339,9 +339,9 @@ class Events:
             self.chosen = self.using_event.select1.impact
             self.notify2 = self.using_event.select1.notify2
             self.chosen2 = self.using_event.select1.impact2
-            self.decision_txt = self.using_event.select1.image
-            self.hint1 = self.using_event.select1.hint
-            self.hint2 = self.using_event.select1.hint
+            self.text = self.using_event.select1.text
+            self.message1 = self.using_event.select1.message1
+            self.message2 = self.using_event.select1.message2
         elif self.using_event.select2.image_rect.collidepoint(x,y):
             self.using_event.select1.selected = False
             self.using_event.select2.selected = True
@@ -351,8 +351,9 @@ class Events:
             self.notify2 = self.using_event.select2.notify2
             self.chosen2 = self.using_event.select2.impact2
             self.decision_txt = self.using_event.select2.image
-            self.hint1 = self.using_event.select1.hint
-            self.hint2 = self.using_event.select1.hint
+            self.text = self.using_event.select1.text
+            self.message1 = self.using_event.select2.message1
+            self.message2 = self.using_event.select2.message2
         elif self.using_event.select3.image_rect.collidepoint(x,y):
             self.using_event.select1.selected = False
             self.using_event.select2.selected = False
@@ -362,8 +363,9 @@ class Events:
             self.chosen2 = self.using_event.select3.impact2
             self.notify2 = self.using_event.select3.notify2
             self.decision_txt = self.using_event.select3.image
-            self.hint1 = self.using_event.select1.hint
-            self.hint2 = self.using_event.select1.hint
+            self.text = self.using_event.select1.text
+            self.message1 = self.using_event.select3.message1
+            self.message2 = self.using_event.select3.message2
         else:
             self.using_event.select1.selected = False
             self.using_event.select2.selected = False
@@ -400,13 +402,14 @@ class Events:
         game.game_model.add_tower_2 = tower_upgrade2
         game.game_model.notify = self.notify
         game.game_model.notify2 = self.notify2
-        game.hint1 = self.hint1
-        self.hint2 = self.hint2
+        game.message1 = self.message1
+        game.message2 = self.message2
+        game.text = self.text
         game.game_model.tower_money += 3
         game.game_model.occur_time = random.randint(5,10)
         game.occur1 = True
         game.occur2 = False
-        game.decision_txt = self.decision_txt
+        
     def keep_going(self,game:Game):
         self.next = 0
         self.chosen = []
