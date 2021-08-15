@@ -31,7 +31,7 @@ class Game:
         self.keep_going = False
         while (not self.quit_game) and (not self.keep_going) and not self.all_pass and not self.fail:
             pygame.time.Clock().tick(FPS)  # control the frame rate
-            if game_control.model.enemies.count2 == game_control.model.occur_time: #產生第X隻怪物時發生突發事件
+            if game_control.model.enemies.count2 == game_control.model.occur_time and not game_control.model.had_occur: #產生第X隻怪物時發生突發事件
                 self.occur2 = True
                 self.occur1 = False
                 game_control.model.had_occur = True
@@ -44,7 +44,7 @@ class Game:
             if self.occur2:
                 game_control.model.pause = True
                 self.message = self.message2
-            print(self.message)
+            
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
             game_control.model.put_message(self.message)
