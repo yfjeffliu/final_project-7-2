@@ -137,4 +137,7 @@ class GameView:
                     self.win.blit(HEART_HALF_IMAGE, hp_image_rect)
             else:
                 self.win.blit(HEART_EMPTY_IMAGE, hp_image_rect)
+    def draw_message(self, message, continue_btn, continue_btn_rect):
+        self.win.blit(message, (0, 0))
+        self.win.blit( continue_btn, continue_btn_rect)
 
