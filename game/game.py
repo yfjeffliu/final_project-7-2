@@ -21,6 +21,8 @@ class Game:
         self.text = None #問題的字的圖檔
         self.message1 = None       #第一次的文字提示
         self.message2 = None       #突發事件文字提示
+        self.message = None
+        self.continue_game = None
         pass
     def run(self):
         # initialization
@@ -33,22 +35,26 @@ class Game:
                 self.occur2 = True
                 self.occur1 = False
                 game_control.model.had_occur = True
+            # 第一次的動畫
             if self.occur1:
                 game_control.model.had_occur = False
-                
-                #暫停
-                #game_control.model.pause = True
-                # 第一次的動畫
-                pass
+                game_control.model.pause = True             # 倒數暫停
+                self.message = self.message1
+            # 突發事件發生的動畫
             if self.occur2:
-                #暫停
-                #game_control.model.pause = True
-                # 突發事件發生的動畫
-                pass
+                game_control.model.pause = True
+                self.message = self.message2
+            print(self.message)
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
-            
-            game_control.update_view()  # update the view
+            game_control.model.put_message(self.message)
+            if game_control.update_view():
+                self.message = None
+                self.occur1 = False
+                self.occur2 = False
+                #print(self.message)
+                game_control.model.pause = False            # 倒數開始
+
             pygame.display.update()
             self.keep_going = game_control.keep_going
             self.fail = game_control.fail
@@ -68,3 +74,4 @@ class Game:
         return self.quit_game
     def mute(self,mute:bool):
         self.game_model.mute = mute
+
