@@ -31,11 +31,17 @@ class Game:
             pygame.time.Clock().tick(FPS)  # control the frame rate
             if game_control.model.enemies.count2 == game_control.model.occur_time: #產生第X隻怪物時發生突發事件
                 self.occur2 = True
+                self.occur1 = False
+                game_control.model.had_occur = True
             if self.occur1:
+                game_control.model.had_occur = False
+                
+                #暫停
                 #game_control.model.pause = True
                 # 第一次的動畫
                 pass
             if self.occur2:
+                #暫停
                 #game_control.model.pause = True
                 # 突發事件發生的動畫
                 pass

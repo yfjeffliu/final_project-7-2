@@ -183,6 +183,7 @@ class Events:
             else:
                 self.win.blit(player.lock_image, player.lock_image_rect)
                 show_text(self.win,'$ ' + str(player.cost),20,player.lock_image_rect.centerx-30,player.lock_image_rect.centery+5)
+        for player in self.players.player_btn:
             if player.show_buy:
                 self.win.blit(player.buy_message,player.buy_message_rect)
                 self.win.blit(player.buy,player.buy_rect)

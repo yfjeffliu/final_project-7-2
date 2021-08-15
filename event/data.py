@@ -12,9 +12,9 @@ gov_decision_problem1 = [pygame.image.load(os.path.join("event/gov_img", "Q1_A.p
 gov_notify_problem1 = [ pygame.image.load(os.path.join("event/gov_img", "M1_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M1_B.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M1_C.png"))]
-gov_notify2_problem1 = [ pygame.image.load(os.path.join("event/gov_img", "M1_A.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M1_B.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M1_C.png"))]
+gov_notify2_problem1 = [ pygame.image.load(os.path.join("event/gov_img", "M1_A2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M1_B2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M1_C2.png"))]
 gov_hint_problem1 =    [pygame.image.load(os.path.join("event/gov_img", "Q1_A_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q1_B_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q1_C_HINT.png"))]
@@ -30,9 +30,9 @@ gov_decision_problem2 = [pygame.image.load(os.path.join("event/gov_img", "Q2_A.p
 gov_notify_problem2 = [ pygame.image.load(os.path.join("event/gov_img", "M2_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M2_B.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M2_C.png"))]
-gov_notify2_problem2 = [ pygame.image.load(os.path.join("event/gov_img", "M2_A.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M2_B.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M2_C.png"))]
+gov_notify2_problem2 = [ pygame.image.load(os.path.join("event/gov_img", "M2_A2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M2_B2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M2_C2.png"))]
 gov_hint_problem2 =   [ pygame.image.load(os.path.join("event/gov_img", "Q2_A_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q2_B_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q2_C_HINT.png"))]
@@ -48,9 +48,9 @@ gov_decision_problem3 = [pygame.image.load(os.path.join("event/gov_img", "Q3_A.p
 gov_notify_problem3 = [ pygame.image.load(os.path.join("event/gov_img", "M3_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M3_B.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M3_C.png"))]
-gov_notify2_problem3 = [ pygame.image.load(os.path.join("event/gov_img", "M3_A.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M3_B.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M3_C.png"))]                        
+gov_notify2_problem3 = [ pygame.image.load(os.path.join("event/gov_img", "M3_A2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M3_B2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M3_C2.png"))]                        
 gov_hint_problem3 = [   pygame.image.load(os.path.join("event/gov_img", "Q3_A_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q3_B_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q3_C_HINT.png"))]
@@ -66,9 +66,9 @@ gov_decision_problem4 = [pygame.image.load(os.path.join("event/gov_img", "Q4_A.p
 gov_notify_problem4 = [ pygame.image.load(os.path.join("event/gov_img", "M4_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M4_B.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M4_C.png"))]
-gov_notify2_problem4 = [ pygame.image.load(os.path.join("event/gov_img", "M4_A.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M4_B.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M4_C.png"))]
+gov_notify2_problem4 = [ pygame.image.load(os.path.join("event/gov_img", "M4_A2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M4_B2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M4_C2.png"))]
 gov_hint_problem4 = [   pygame.image.load(os.path.join("event/gov_img", "Q4_A_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q4_B_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q4_C_HINT.png"))]
@@ -84,9 +84,9 @@ gov_decision_problem5 = [pygame.image.load(os.path.join("event/gov_img", "Q5_A.p
 gov_notify_problem5 = [ pygame.image.load(os.path.join("event/gov_img", "M5_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M5_B.png")),
                         pygame.image.load(os.path.join("event/gov_img", "M5_C.png"))]
-gov_notify2_problem5 = [ pygame.image.load(os.path.join("event/gov_img", "M5_A.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M5_B.png")),
-                        pygame.image.load(os.path.join("event/gov_img", "M5_C.png"))]
+gov_notify2_problem5 = [ pygame.image.load(os.path.join("event/gov_img", "M5_A2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M5_B2.png")),
+                        pygame.image.load(os.path.join("event/gov_img", "M5_C2.png"))]
 gov_hint_problem5 =  [  pygame.image.load(os.path.join("event/gov_img", "Q5_A_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q5_B_HINT.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q5_C_HINT.png"))]
