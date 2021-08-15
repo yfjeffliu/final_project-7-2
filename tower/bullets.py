@@ -16,7 +16,7 @@ class BulletGroup():
             bullet.move(self)
     def remove(self,bullet):
         self.bullet_list.remove(bullet)
-BULLET_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "newspaper.png")), (20, 20))
+BULLET_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "newspaper.png")), (30, 30))
 class Bullet():
     def __init__(self,enemy,start,end) -> None:
         self.enemy = enemy

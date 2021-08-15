@@ -52,8 +52,13 @@ class GameModel:
         self.pause = False
         self.stage = 0
         self.show_ability = False
-        
-        
+        self.add_money_1 = 0        #第一次的影響
+        self.add_tower_1 = 0
+        self.add_heart_1 = 0
+        self.add_money_2 = 0        #突發事件的影響
+        self.add_tower_2 = 0
+        self.add_heart_2 = 0
+        self.occur_time = 0
     def user_request(self, user_request: str):
         """ add tower, sell tower, upgrade tower"""
         self.subject.notify(user_request)

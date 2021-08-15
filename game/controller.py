@@ -18,14 +18,14 @@ class GameControl:
         self.request = None  # response of user input
         self.keep_going = False
         self.fail = False
-        self.wait = 5
+        self.wait = 3
         self.count = 0
     def update_model(self):
         """update the model and the view here"""
         if self.model.hp <= 0:
             self.fail = True
         if self.model.enemies_empty() and self.wait <0:
-            self.wait = 5
+            self.wait = 3
             self.keep_going = True
         self.request = self.model.get_request(self.events)
         self.model.user_request(self.request)

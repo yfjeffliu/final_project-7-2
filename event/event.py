@@ -43,7 +43,9 @@ class Events:
         self.notify = None
         self.last_page = False
         self.read = False
-        
+        self.decision_txt = None
+        self.hint1 = None
+        self.hint2 = None
         pass
     def run(self):
         clock = pygame.time.Clock()
@@ -329,18 +331,27 @@ class Events:
             self.using_event.select3.selected = False
             self.notify = self.using_event.select1.notify
             self.chosen = self.using_event.select1.impact
+            self.decision_txt = self.using_event.select1.image
+            self.hint1 = self.using_event.select1.hint
+            self.hint2 = self.using_event.select1.hint
         elif self.using_event.select2.image_rect.collidepoint(x,y):
             self.using_event.select1.selected = False
             self.using_event.select2.selected = True
             self.using_event.select3.selected = False
             self.notify = self.using_event.select2.notify
             self.chosen = self.using_event.select2.impact
+            self.decision_txt = self.using_event.select2.image
+            self.hint1 = self.using_event.select1.hint
+            self.hint2 = self.using_event.select1.hint
         elif self.using_event.select3.image_rect.collidepoint(x,y):
             self.using_event.select1.selected = False
             self.using_event.select2.selected = False
             self.using_event.select3.selected = True
             self.chosen = self.using_event.select3.impact
             self.notify = self.using_event.select3.notify
+            self.decision_txt = self.using_event.select3.image
+            self.hint1 = self.using_event.select1.hint
+            self.hint2 = self.using_event.select1.hint
         else:
             self.using_event.select1.selected = False
             self.using_event.select2.selected = False
@@ -366,11 +377,20 @@ class Events:
         money_get = random.randint(self.chosen[1],self.chosen[0])
         blood_get = random.randint(self.chosen[3],self.chosen[2])
         tower_upgrade = random.randint(self.chosen[5],self.chosen[4])+5
-        game.game_model.money += money_get
-        game.game_model.max_hp += blood_get
-        game.game_model.hp += blood_get
+        game.game_model.add_money_1 = money_get
+        game.game_model.add_heart_1 = blood_get
+        game.game_model.add_tower_1 = tower_upgrade
+        game.game_model.add_money_2 = money_get
+        game.game_model.add_heart_2 = blood_get
+        game.game_model.add_tower_2 = tower_upgrade
         game.game_model.notify = self.notify
-        game.game_model.tower_money += tower_upgrade + 3 
+        game.hint1 = self.hint1
+        self.hint2 = self.hint2
+        game.game_model.tower_money += 3
+        game.game_model.occur_time = random.randint(5,10)
+        game.occur1 = True
+        game.occur2 = False
+        game.decision_txt = self.decision_txt
     def keep_going(self,game:Game):
         self.next = 0
         self.chosen = []
@@ -383,7 +403,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,727,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,50,500,335) #中間遊戲幣
+            show_text(self.win,text,50,500,340) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,30,248,95,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
@@ -414,7 +434,7 @@ class Events:
             text = '#' + str(game.game_model.money)#金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money))#中間遊戲幣
-            show_text(self.win,text,50,500,335)
+            show_text(self.win,text,50,500,340)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -439,7 +459,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,50,500,335)#中間遊戲幣
+            show_text(self.win,text,50,500,340)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:

@@ -16,6 +16,11 @@ class Game:
         self.player = player
         self.fail = False
         self.quit_game = False
+        self.occur1 = True      #第一次動畫
+        self.occur2 = False     #突發事件動畫
+        self.decision_txt = None #問題的字的圖檔
+        self.hint1 = None       #第一次的文字提示
+        self.hint2 = None       #突發事件文字提示
         pass
     def run(self):
         # initialization
@@ -24,6 +29,16 @@ class Game:
         self.keep_going = False
         while (not self.quit_game) and (not self.keep_going) and not self.all_pass and not self.fail:
             pygame.time.Clock().tick(FPS)  # control the frame rate
+            if game_control.model.enemies.count2 == game_control.model.occur_time: #產生第X隻怪物時發生突發事件
+                self.occur2 = True
+            if self.occur1:
+                game_control.model.pause = True
+                # 第一次的動畫
+                pass
+            if self.occur2:
+                game_control.model.pause = True
+                # 突發事件發生的動畫
+                pass
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
             
