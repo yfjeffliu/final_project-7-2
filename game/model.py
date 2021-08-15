@@ -8,7 +8,7 @@ from tower.bullets import BulletGroup
 from enemy.enemies import EnemyGroup
 from menu.menus import Menu, UpgradeMenu, BuildMenu, MainMenu
 from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller,  Music,Show_Hide_Notify,Ability,Play
-from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE,TOWER_POSITION
+from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE,TOWER_POSITION, MESSAGE_CONTINUE
 
 
 class GameModel:
@@ -27,11 +27,13 @@ class GameModel:
             self.__plots.append(Vacancy(x+20,y+20))
         
         self.__bullet = BulletGroup()
+        self.message = None
         # selected item
         self.selected_plot = None
         self.selected_tower = None
         self.touched_tower = None
         self.selected_button = None
+        self.selected_continue_game = False
         # apply observer pattern
         self.subject = RequestSubject(self)
         self.play_req = Play(self.subject)
@@ -113,6 +115,7 @@ class GameModel:
                 en.slow_count = 0
                 print('slow')
                 break
+
         # if the button is clicked, get the button response.
         # and keep selecting the tower/plot.
         if self.__menu is not None:
@@ -126,6 +129,13 @@ class GameModel:
         for btn in self.__main_menu.buttons:
             if btn.clicked(mouse_x, mouse_y):
                 self.selected_button = btn
+
+        # when the mouse is clicked on continue in message window
+        if self.message is not None:
+            if self.message_continue_rect.collidepoint(mouse_x, mouse_y):
+                self.selected_continue_game = True
+            else:
+                self.selected_continue_game = False
 
     def call_menu(self):
         if self.selected_tower is not None:
@@ -150,6 +160,22 @@ class GameModel:
         return True if self.enemies.is_empty() else False
     def bullets_update(self):
         self.bullets.update()
+
+    def put_message(self, message):
+        if message is not None:
+            self.message = message
+        else:
+            self.message = None
+
+    def get_message_continue_rect(self):
+        self.message_continue_rect = MESSAGE_CONTINUE.get_rect()
+        self.message_continue_rect.center = (880, 421)
+        return MESSAGE_CONTINUE, self.message_continue_rect
+
+    @property
+    def take_out_message(self):
+        return self.message
+
     @property
     def enemies(self):
         return self.__enemies
@@ -175,6 +201,21 @@ class GameModel:
     @property
     def get_progress(self):
         return self.__enemies.count2
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 
