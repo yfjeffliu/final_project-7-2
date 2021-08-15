@@ -14,19 +14,23 @@ class an_event:
 
 
 class an_decision():
-    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,hint) -> None:
+    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,hint,impact2,notify2_image,hint2) -> None:
         self.impact = impact
         self.notify =notify_image
-        
+        self.impact2 = impact2
+        self.notify2 = notify2_image
+
         if image.get_height()>350:
             self.image = pygame.transform.scale(image, (424, 84))
             self.hint_back = pygame.transform.scale(HINT_BACK, (350, 84))
             self.hint = pygame.transform.scale(hint, (350, 36))
+            self.hint2 = pygame.transform.scale(hint, (350, 36))
             self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 40, 424, 84)
         else:
             self.image = pygame.transform.scale(image, (424, 53))
             self.hint_back = pygame.transform.scale(HINT_BACK, (350, 53))
             self.hint = pygame.transform.scale(hint, (350, 18))
+            self.hint2 = pygame.transform.scale(hint, (350, 18))
             self.frame = pygame.Rect(165 + 200 - 212, 200 + (num - 1) * 95 + 25 - 26, 424, 53)
 
         self.hint_back_rect = self.hint_back.get_rect()

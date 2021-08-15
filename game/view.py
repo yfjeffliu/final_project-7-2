@@ -32,18 +32,24 @@ class GameView:
         text = font.render(  str(wait), True, BROWNGRAY)
         text_rect = text.get_rect()
         surface = pygame.Surface((WIN_WIDTH, WIN_HEIGHT), pygame.SRCALPHA)
-        transparency = 120
-        pygame.draw.circle(surface, (224, 224, 224, transparency), (512,300),200)
+        transparency = 200
+        pygame.draw.circle(surface, (244, 244, 244, transparency), (512,300),139)
         self.win.blit(surface, (0, 0))
         text_rect.center = (512,300)
         self.win.blit(text, text_rect)
 
-    def draw_notify(self,notify:pygame.Surface):
-        notify_image =  pygame.transform.scale(notify,(180,160))
-        notify_image_rect = notify_image.get_rect()
-        notify_image_rect.center = (120,475)
-        self.win.blit(notify_image,notify_image_rect)
-        self.win.blit(notify_image,notify_image_rect)
+    def draw_notify(self,after,before:pygame.Surface,had_occur):
+        if had_occur:
+            notify_image =  pygame.transform.scale(after,(180,160))
+            notify_image_rect = notify_image.get_rect()
+            notify_image_rect.center = (120,475)
+            self.win.blit(notify_image,notify_image_rect)
+        else:
+            notify_image =  pygame.transform.scale(before,(180,160))
+            notify_image_rect = notify_image.get_rect()
+            notify_image_rect.center = (120,475)
+            self.win.blit(notify_image,notify_image_rect)
+
     def draw_enemies(self, enemies:EnemyGroup):
         for en in enemies.get():
             self.win.blit(en.image, en.rect)

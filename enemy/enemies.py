@@ -5,7 +5,7 @@ if TYPE_CHECKING:
 import pygame
 import math
 import os
-from settings import PATH, BASE
+from settings import PATH1,PATH2, BASE
 from color_settings import *
 import random
 pygame.init()
@@ -14,8 +14,11 @@ ENEMY_IMAGE2 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem2.
 ENEMY_IMAGE3 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem3.png"))]
 
 class Enemy:
-    def __init__(self,player:int,stage:int):
-        self.path = PATH[player]
+    def __init__(self,player:int,stage:int,change):
+        if change:
+            self.path = PATH1[player]
+        else:
+            self.path = PATH2[player]
         self.path_index = 0
         self.move_count = 0
         self.slow_count = 90
@@ -116,6 +119,7 @@ class EnemyGroup:
         self.count = 0
         self.count2 = 0
         self.player = player
+        self.change = False
     def advance(self, model:GameModel):
         """Bonus.2"""
         # use model.hp and model.money to access the hp and money information
@@ -137,10 +141,10 @@ class EnemyGroup:
             self.campaign_count = 0
             self.campaign_max_count = random.randint(30,90)
             self.count2 += 1
+            
         else:
             self.campaign_count += 1
 
-    #def campaign_progress(self):
         
 
     def add(self, num:int,stage:int):
@@ -148,7 +152,9 @@ class EnemyGroup:
         self.count2 = 0
         """Generate the enemies for next wave"""
         if self.is_empty():
-            self.__reserved_members = [Enemy(self.player,stage) for _ in range(num)]
+            for _ in range(num):
+                self.__reserved_members.append(Enemy(self.player,stage,self.change) )
+                self.change = not self.change
 
     def get(self):
         """Get the enemy list"""

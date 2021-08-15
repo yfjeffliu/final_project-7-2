@@ -32,11 +32,11 @@ class Game:
             if game_control.model.enemies.count2 == game_control.model.occur_time: #產生第X隻怪物時發生突發事件
                 self.occur2 = True
             if self.occur1:
-                game_control.model.pause = True
+                #game_control.model.pause = True
                 # 第一次的動畫
                 pass
             if self.occur2:
-                game_control.model.pause = True
+                #game_control.model.pause = True
                 # 突發事件發生的動畫
                 pass
             game_control.receive_user_input()  # receive user input

@@ -38,9 +38,11 @@ class Events:
         self.using_event=None
         #self.num=random.randint(1, 5)
         self.chosen = []
+        self.chosen2 = []
         self.next=0
         self.win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.notify = None
+        self.notify2 = None
         self.last_page = False
         self.read = False
         self.decision_txt = None
@@ -137,16 +139,17 @@ class Events:
         get = 0
         for player in self.players.player_btn:
             if player.buy_rect.collidepoint(x,y) and player.show_buy:
-                player.unlock = True
-                player.show_buy = False
+                
                 if int(dict_temp['money']) - player.cost >= 0:
                     dict_temp['money'] = str( int(dict_temp['money']) - player.cost)
                     dict_temp[player.name] = str(1)
-                print(dict_temp)
-                file = open('dict.txt', 'w') 
-                for k,v in dict_temp.items():
-	                file.write(str(k)+' '+str(v)+'\n')
-                file.close()
+                    player.unlock = True
+                    player.show_buy = False
+                    print(dict_temp)
+                    file = open('dict.txt', 'w') 
+                    for k,v in dict_temp.items():
+                        file.write(str(k)+' '+str(v)+'\n')
+                    file.close()
             if (player.icon_image_rect.collidepoint(x,y) or player.word_image_rect.collidepoint(x,y)) and player.unlock:
                 player.selected = True
                 self.player = player.num
@@ -174,13 +177,16 @@ class Events:
         self.win.blit(BACKGROUND_IMAGE_CHOOSE_PLAYER,(0,0))
         #icon of player
         for player in self.players.player_btn:
+            self.win.blit(player.word_image,player.word_image_rect)
             if player.unlock:
                 self.win.blit(player.icon_image, player.icon_image_rect)     #show gov
             else:
                 self.win.blit(player.lock_image, player.lock_image_rect)
+                show_text(self.win,'$ ' + str(player.cost),20,player.lock_image_rect.centerx-30,player.lock_image_rect.centery+5)
             if player.show_buy:
+                self.win.blit(player.buy_message,player.buy_message_rect)
                 self.win.blit(player.buy,player.buy_rect)
-            self.win.blit(player.word_image,player.word_image_rect)
+            
         #start button
         self.start_image_rect = self.start_image.get_rect() 
         self.start_image_rect.center = (512,500)
@@ -188,9 +194,8 @@ class Events:
         #back money
         bank_image = BACK_MENU
         self.win.blit(bank_image,(20,25))
-        font = pygame.font.Font(FONT, 22)
-        text = font.render('$ ' + str(dict_temp['money']), True, BROWNGRAY)
-        self.win.blit(text, (130,75))
+        
+        show_text(self.win,'$ ' + str(dict_temp['money']),22,130,75)
         
         self.draw_button_black()
     def message_page_show(self):
@@ -331,6 +336,8 @@ class Events:
             self.using_event.select3.selected = False
             self.notify = self.using_event.select1.notify
             self.chosen = self.using_event.select1.impact
+            self.notify2 = self.using_event.select1.notify2
+            self.chosen2 = self.using_event.select1.impact2
             self.decision_txt = self.using_event.select1.image
             self.hint1 = self.using_event.select1.hint
             self.hint2 = self.using_event.select1.hint
@@ -340,6 +347,8 @@ class Events:
             self.using_event.select3.selected = False
             self.notify = self.using_event.select2.notify
             self.chosen = self.using_event.select2.impact
+            self.notify2 = self.using_event.select2.notify2
+            self.chosen2 = self.using_event.select2.impact2
             self.decision_txt = self.using_event.select2.image
             self.hint1 = self.using_event.select1.hint
             self.hint2 = self.using_event.select1.hint
@@ -349,6 +358,8 @@ class Events:
             self.using_event.select3.selected = True
             self.chosen = self.using_event.select3.impact
             self.notify = self.using_event.select3.notify
+            self.chosen2 = self.using_event.select3.impact2
+            self.notify2 = self.using_event.select3.notify2
             self.decision_txt = self.using_event.select3.image
             self.hint1 = self.using_event.select1.hint
             self.hint2 = self.using_event.select1.hint
@@ -376,14 +387,18 @@ class Events:
     def impact_model(self,game:Game):
         money_get = random.randint(self.chosen[1],self.chosen[0])
         blood_get = random.randint(self.chosen[3],self.chosen[2])
-        tower_upgrade = random.randint(self.chosen[5],self.chosen[4])+5
+        tower_upgrade = random.randint(self.chosen[5],self.chosen[4])
+        money_get2 = random.randint(self.chosen2[1],self.chosen2[0])
+        blood_get2 = random.randint(self.chosen2[3],self.chosen2[2])
+        tower_upgrade2 = random.randint(self.chosen2[5],self.chosen2[4])
         game.game_model.add_money_1 = money_get
         game.game_model.add_heart_1 = blood_get
         game.game_model.add_tower_1 = tower_upgrade
-        game.game_model.add_money_2 = money_get
-        game.game_model.add_heart_2 = blood_get
-        game.game_model.add_tower_2 = tower_upgrade
+        game.game_model.add_money_2 = money_get2
+        game.game_model.add_heart_2 = blood_get2
+        game.game_model.add_tower_2 = tower_upgrade2
         game.game_model.notify = self.notify
+        game.game_model.notify2 = self.notify2
         game.hint1 = self.hint1
         self.hint2 = self.hint2
         game.game_model.tower_money += 3
@@ -403,7 +418,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,727,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,50,500,340) #中間遊戲幣
+            show_text(self.win,text,50,500,345) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,30,248,95,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
@@ -434,7 +449,7 @@ class Events:
             text = '#' + str(game.game_model.money)#金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money))#中間遊戲幣
-            show_text(self.win,text,50,500,340)
+            show_text(self.win,text,50,500,345)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -459,7 +474,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,50,500,340)#中間遊戲幣
+            show_text(self.win,text,50,500,345)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:

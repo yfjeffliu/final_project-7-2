@@ -8,7 +8,7 @@ from tower.bullets import BulletGroup
 from enemy.enemies import EnemyGroup
 from menu.menus import Menu, UpgradeMenu, BuildMenu, MainMenu
 from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller,  Music,Show_Hide_Notify,Ability,Play
-from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE
+from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE,TOWER_POSITION
 
 
 class GameModel:
@@ -21,7 +21,11 @@ class GameModel:
         self.__menu = None
         self.__main_menu = MainMenu()
         plot = [[Vacancy(283, 307), Vacancy(500, 200),Vacancy(600, 330)]]
-        self.__plots = plot[player]
+        self.__plots = []
+        for pos in TOWER_POSITION[self.player]:
+            x,y = pos
+            self.__plots.append(Vacancy(x+20,y+20))
+        
         self.__bullet = BulletGroup()
         # selected item
         self.selected_plot = None
@@ -47,6 +51,8 @@ class GameModel:
         self.hp = self.max_hp
         self.sound = pygame.mixer.Sound(os.path.join("sound", "sound.flac"))
         self.notify = None
+        self.notify2 = None
+        self.had_occur = False
         self.show_notify = True
         self.mute = False
         self.pause = False
