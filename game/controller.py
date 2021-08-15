@@ -84,7 +84,17 @@ class GameControl:
         """(Q2) Controller request View to render something"""
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)
-        
+# 畫出通知
+        if self.model.take_out_message is not None:
+            continue_btn, continue_btn_rect = self.model.get_message_continue_rect()
+            self.view.draw_message(self.model.take_out_message, continue_btn, continue_btn_rect)
+            if self.model.selected_continue_game == False:
+                return False
+            else:
+                self.model.selected_continue_game = False
+                print(self.model.selected_continue_game)
+                return True
+            
         if self.wait > 0:
             self.view.draw_progress(0,10)
             self.view.draw_wait(self.wait)
