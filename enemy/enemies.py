@@ -24,6 +24,8 @@ class Enemy:
         self.slow_count = 90
         self.slow_max = 90
         self.slow = False
+        self.ice = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "ice.svg")),(70,70))
+        self.ice_rect = self.ice.get_rect()
         # 根據關卡(變數stage=1~5 datatype:int)產生怪物 設定image、血量
         num = random.randint(1, 5*(stage+1))
         if num <= 5:

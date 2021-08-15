@@ -52,6 +52,10 @@ class GameView:
 
     def draw_enemies(self, enemies:EnemyGroup):
         for en in enemies.get():
+            
+            if en.slow_count < en.slow_max:
+                en.ice_rect.centerx, en.ice_rect.centery = en.rect.centerx+10,en.rect.centery+10 
+                self.win.blit(en.ice,en.ice_rect)
             self.win.blit(en.image, en.rect)
             # draw health bar
             bar_width = en.rect.w * (en.health / en.max_health)

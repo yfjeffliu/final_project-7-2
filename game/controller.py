@@ -78,6 +78,7 @@ class GameControl:
         if self.model.show_notify:
             self.view.draw_notify(self.model.notify,self.model.notify2,self.model.had_occur)
         self.view.draw_stage(self.model.stage)
+        
         self.view.draw_enemies(self.model.enemies)
        # self.view.draw_progress(self.model.get_progress,10)
         """(Q2) Controller request View to render something"""
