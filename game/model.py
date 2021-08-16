@@ -15,12 +15,12 @@ class GameModel:
     def __init__(self,player:int):
         self.player = player
         # data
-        self.bg_image = pygame.transform.scale(BACKGROUND_IMAGE[0], (WIN_WIDTH, WIN_HEIGHT))
+        self.bg_image = pygame.transform.scale(BACKGROUND_IMAGE[self.player], (WIN_WIDTH, WIN_HEIGHT))
         self.__towers = []
         self.__enemies = EnemyGroup(self.player)
         self.__menu = None
-        self.__main_menu = MainMenu()
-        plot = [[Vacancy(283, 307), Vacancy(500, 200),Vacancy(600, 330)]]
+        self.__main_menu = MainMenu(self.player)
+        
         self.__plots = []
         for pos in TOWER_POSITION[self.player]:
             x,y = pos
@@ -60,21 +60,17 @@ class GameModel:
         self.pause = False
         self.stage = 0
         self.show_ability = False
-        #self.add_money_times = 0
-        #self.add_tower_money_times = 0
-        self.add_time = 0
-        self.add_delay = 20
-        self.add_interval = 4
+        
+        self.add_clock = 0
+        self.add_delay = 15
+        self.add_interval = 2
         self.add_times = [0,0,0]
+        self.add_amount = 1
         self.add_which = 0
-
-        #self.add_money_1 = 0        #第一次的影響
-        #self.add_tower_1 = 0
-        #self.add_heart_1 = 0
-        self.add_1 = []
-        self.add_money_2 = 0        #突發事件的影響
-        self.add_tower_2 = 0
-        self.add_heart_2 = 0
+        self.animate_state = "Undone"
+        self.add_1 = [0,0,0]        #第一次的影響
+        self.add_value = [0, 0, 0]
+        self.add_2 = [0,0,0]        #突發事件的影響
         self.occur_time = 0
 
     def user_request(self, user_request: str):
@@ -143,9 +139,12 @@ class GameModel:
                 self.selected_button = btn
 
         # when the mouse is clicked on continue in message window
-        if self.message is not None:
+        if self.message is not None and self.animate_state == "Done":
             if self.message_continue_rect.collidepoint(mouse_x, mouse_y):
                 self.selected_continue_game = True
+                self.animate_state = "Undone"
+                self.add_which = 0
+                self.add_times = [0,0,0]
             else:
                 self.selected_continue_game = False
 
@@ -186,31 +185,36 @@ class GameModel:
 
     def impact_animate(self):
         self.add_times[self.add_which] += 1
-        if self.add_times[self.add_which] <= abs(self.add_1[self.add_which]):
+        if self.add_times[self.add_which] <= abs(self.add_value[self.add_which]):
+            # decide to +1 or -1
+            if self.add_value[self.add_which] > 0:
+                self.add_amount = 1
+            elif self.add_value[self.add_which] < 0:
+                self.add_amount = -1
+            # change hp, tower_money and money
             if self.add_which == 0:
-                self.hp -= 1
-            if self.add_which == 1:
-                self.tower_money += 1
+                self.hp += self.add_amount
+                if self.hp == 0:
+                    self.hp = 1
+            elif self.add_which == 1:
+                self.tower_money += self.add_amount
+                if self.tower_money <= 0:
+                    self.tower_money = 0
             elif self.add_which == 2:
-                self.money += 1
-
+                self.money += self.add_amount
+                if self.money <= 0:
+                    self.money = 0
         else:
-            self.add_time = 0
+            self.add_clock = 0
             if self.add_which == 2:
-                self.add_which = 0
+                self.animate_state = "Done"
             else:
                 self.add_which += 1
 
     def impact_animate_get_start(self):
-        self.add_time += 1
-        if self.add_time >= self.add_delay and self.add_time % self.add_interval == 0:
+        self.add_clock += 1
+        if self.add_clock >= self.add_delay and self.add_clock % self.add_interval == 0:
             self.impact_animate()
-
-    '''
-    @property
-    def take_out_message(self):
-        return self.message
-    '''
 
     @property
     def enemies(self):

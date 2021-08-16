@@ -76,7 +76,7 @@ class Events:
                         break
                     else:   #next page
                         run2 = True
-                game = Game(self.player)
+                game = Game(self.using_player-1)
                 while run2 :
                     run2 = self.event_happen()
                     if self.next == 1:
@@ -85,7 +85,7 @@ class Events:
                         self.using_event=None
                         game.mute(self.mute)
                         quit=game.run()
-                        self.mute = game.mute
+                        self.mute = game.game_model.mute
                         if quit:
                             return False
                         elif game.all_pass:
@@ -136,6 +136,7 @@ class Events:
         
         if self.start_image_rect.collidepoint(x,y) and self.player != 0:
             self.using_player = self.player
+
         get = 0
         for player in self.players.player_btn:
             if player.buy_rect.collidepoint(x,y) and player.show_buy:
@@ -200,10 +201,16 @@ class Events:
         
         self.draw_button_black()
     def message_page_show(self):
-        self.win.blit(BACKGROUND_IMAGE_MESSAGE,(0,0))
+        self.win.blit(BACKGROUND_IMAGE_MESSAGE[self.using_player-1],(0,0))
         self.draw_button_black()
-        read_button = Buttons('read',NEXT_BUTTON,925+10,485+10)
-        self.win.blit(NEXT_BUTTON,(925,485))
+        if self.using_player == 1:
+            read_button = Buttons('read',NEXT_BUTTON,925+10,485+10)
+            self.win.blit(NEXT_BUTTON,(925,485))
+        elif self.using_player == 2:
+            read_button = Buttons('read',NEXT_BUTTON,925+10-300,485+10)
+            self.win.blit(NEXT_BUTTON,(925-300,485))
+        
+        
         for event in pygame.event.get():
             # quit
             if event.type == pygame.QUIT:
@@ -238,7 +245,7 @@ class Events:
                     run2 = False
         return run2
     def events_draw(self):
-        self.win.blit(BACKGROUND_IMAGE_EVENT,(0,0)) #色碼,X點、Y點、寬、高
+        self.win.blit(BACKGROUND_IMAGE_EVENT[self.using_player-1],(0,0)) #色碼,X點、Y點、寬、高
         self.win.blit(self.using_event.question.image, self.using_event.question.image_rect)     #show choose player
         
         self.start_round_rect = self.start_round.get_rect()
@@ -388,19 +395,24 @@ class Events:
             pygame.mixer.music.unpause()
 
     def impact_model(self,game:Game):
+        game.player = self.using_player-1
         money_get = random.randint(self.chosen[1],self.chosen[0])
         blood_get = random.randint(self.chosen[3],self.chosen[2])
         tower_upgrade = random.randint(self.chosen[5],self.chosen[4])
         money_get2 = random.randint(self.chosen2[1],self.chosen2[0])
         blood_get2 = random.randint(self.chosen2[3],self.chosen2[2])
         tower_upgrade2 = random.randint(self.chosen2[5],self.chosen2[4])
-        print(blood_get,tower_upgrade,money_get)
-        game.game_model.add_1.append(blood_get)
-        game.game_model.add_1.append(tower_upgrade)
-        game.game_model.add_1.append(money_get)
-        game.game_model.add_money_2 = money_get2
-        game.game_model.add_heart_2 = blood_get2
-        game.game_model.add_tower_2 = tower_upgrade2
+        game.game_model.money += 20
+        game.game_model.tower_money += 10
+       	game.game_model.add_1[0] = blood_get
+        game.game_model.add_1[1] = tower_upgrade
+        game.game_model.add_1[2] = money_get
+        game.game_model.add_2[0] = blood_get2
+        game.game_model.add_2[1] = tower_upgrade2
+        game.game_model.add_2[2] = money_get2
+        print(game.game_model.add_1)
+        print(game.game_model.add_2)
+
         game.game_model.notify = self.notify
         game.game_model.notify2 = self.notify2
         game.message1 = self.message1
@@ -454,7 +466,7 @@ class Events:
             text = '#' + str(game.game_model.money)#金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money))#中間遊戲幣
-            show_text(self.win,text,50,500,345)
+            show_text(self.win,text,50,500,337)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -479,7 +491,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,50,500,345)#中間遊戲幣
+            show_text(self.win,text,50,500,337)#中間遊戲幣
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -495,6 +507,8 @@ class Events:
                     return True
 def get_using_event(player:int,num:int):
     if player == 1:
+        return set_gov(num)
+    if player == 2:
         return set_gov(num)
     pass
 def show_text(win:pygame.Surface,text:str,size:int,x:int,y:int,color:tuple = BROWNGRAY):

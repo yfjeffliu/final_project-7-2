@@ -5,9 +5,12 @@ import pygame
 
 
 PLOT_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "space.png")), (40, 40))
-TOWER1_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv1.png")), (70, 70))]
-TOWER2_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv2.png")), (70, 70))]
-TOWER3_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv3.png")), (70, 70))]
+TOWER1_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv1.png")), (70, 70)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_atm1.png")), (70, 70))]
+TOWER2_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv2.png")), (70, 70)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_atm2.png")), (70, 70))]
+TOWER3_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv3.png")), (70, 70)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_atm3.png")), (70, 70))]
 
 class Vacancy:
     def __init__(self, x:int, y:int):
@@ -38,23 +41,25 @@ class Tower:
         self.cd_max_count = 60  # used in self.is_cool_down()
         self.attack_strategy = attack_strategy  # chose an attack strategy (AOE, single attack ....)
         self.value = [100, 140, 200, 300, 380, 460]
+        self.player = 0
     @classmethod
     def TV(cls, x:int, y:int,player:int):
         tv = cls(x, y, SingleAttack(), TOWER1_IMAGE[player])
         tv._range = [130, 160,190]
         tv._damage = [2.0,  2.5, 3]
         tv.value = [100, 140, 200, 280, 360, 450]
+        tv.player = player
         return tv
     
 
     def attack(self, enemy_group: list,bullet_list):
         # cd
         if self.level < 1:
-            self.image = TOWER1_IMAGE[0]
+            self.image = TOWER1_IMAGE[self.player]
         elif self.level < 2:
-            self.image = TOWER2_IMAGE[0]
+            self.image = TOWER2_IMAGE[self.player]
         else:
-            self.image = TOWER3_IMAGE[0]
+            self.image = TOWER3_IMAGE[self.player]
         if self.cd_count < self.cd_max_count:
             self.cd_count += 1
             return

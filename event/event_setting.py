@@ -3,7 +3,7 @@ import pygame
 import os
 from settings import *
 import pygame.freetype
-from event.data import HINT_BACK
+from event.data_gov import HINT_BACK
 class an_event:
     def __init__(self,question:an_question,select1:an_decision,select2:an_decision,select3:an_decision) -> None:
         self.question = question
@@ -67,7 +67,8 @@ class Buttons:
         return True if self.image_rect.collidepoint(x,y)  else False
 #images
 BACKGROUND_IMAGE_CHOOSE_PLAYER = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "choose_character.png")), (WIN_WIDTH, WIN_HEIGHT))
-BACKGROUND_IMAGE_EVENT = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "make_a_choice.png")), (WIN_WIDTH, WIN_HEIGHT))
+BACKGROUND_IMAGE_EVENT = [pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "make_a_choice.png")), (WIN_WIDTH, WIN_HEIGHT)),
+                        pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "choice_background_wfh.png")), (WIN_WIDTH, WIN_HEIGHT))]
 START_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "yes.png")), (150, 60))
 START_ROUND = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "start_round.png")), (200, 60))
 LEVEL1 = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "level1.png")), (140, 40))
@@ -87,4 +88,5 @@ PLAY_IMAGE_BLACK = pygame.transform.scale(pygame.image.load(os.path.join("images
 LAST_PAGE_IMAGE_BLACK = pygame.transform.scale(pygame.image.load(os.path.join("images1/buttons", "return_black.png")), (25, 25))
 BACK_MENU = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "bank_menu.png")), (235, 100))
 NEXT_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "btn_next_page.png")), (20, 20))
-BACKGROUND_IMAGE_MESSAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "message_page.png")), (WIN_WIDTH, WIN_HEIGHT))
+BACKGROUND_IMAGE_MESSAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "message_page.png")), (WIN_WIDTH, WIN_HEIGHT)),
+                            pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "intro_background_wfh.png")), (WIN_WIDTH, WIN_HEIGHT))]

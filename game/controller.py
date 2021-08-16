@@ -79,23 +79,26 @@ class GameControl:
             self.view.draw_notify(self.model.notify,self.model.notify2,self.model.had_occur)
         self.view.draw_stage(self.model.stage)
         
-        self.view.draw_enemies(self.model.enemies)
+        
        # self.view.draw_progress(self.model.get_progress,10)
         """(Q2) Controller request View to render something"""
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)
-
-        # 畫出通知
+        self.view.draw_enemies(self.model.enemies)
+       # 畫出通知
+        
         if self.model.message is not None:
             continue_btn, continue_btn_rect = self.model.get_message_continue_rect()
             self.view.draw_message(self.model.message, continue_btn, continue_btn_rect)
-            self.model.impact_animate_get_start()
+            
+            if self.model.animate_state == "Undone":
+                self.model.impact_animate_get_start()
+
             if self.model.selected_continue_game == False:
                 return False
             else:
                 self.model.selected_continue_game = False
                 return True
-
         # 倒數
         if self.wait > 0:
             self.view.draw_progress(0,10)
@@ -116,6 +119,7 @@ class GameControl:
         else:
             self.view.draw_progress(self.model.get_progress,10)
             pass
+
     @property
     def quit_game(self):
         return self.events["game quit"]

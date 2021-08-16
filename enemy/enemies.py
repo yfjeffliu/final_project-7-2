@@ -9,9 +9,9 @@ from settings import PATH1,PATH2, BASE
 from color_settings import *
 import random
 pygame.init()
-ENEMY_IMAGE1 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem1.png"))]
-ENEMY_IMAGE2 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem2.png"))]
-ENEMY_IMAGE3 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem3.png"))]
+ENEMY_IMAGE1 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem1.png")),pygame.image.load(os.path.join("images1/game_page", "enemy_bill1.png"))]
+ENEMY_IMAGE2 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem2.png")),pygame.image.load(os.path.join("images1/game_page", "enemy_bill2.png"))]
+ENEMY_IMAGE3 = [pygame.image.load(os.path.join("images1/game_page", "enemy_lem3.png")),pygame.image.load(os.path.join("images1/game_page", "enemy_bill3.png"))]
 
 class Enemy:
     def __init__(self,player:int,stage:int,change):

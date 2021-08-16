@@ -126,7 +126,11 @@ class Ability:
                         if en_list[i].level == 1:
                             model.enemies.retreat(en_list[i])
                         print('kill')
-                
+            if model.player == 1:
+                if model.money >= 30: 
+                    model.money -= 30
+                    for en in model.enemies.get():
+                        en.path_index = 0
         if user_request == 'show_ability':
             print('show abiltiy')
             model.show_ability = not model.show_ability

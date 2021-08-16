@@ -2,7 +2,7 @@ import pygame
 import os
 from color_settings import *
 from event.event_setting import *
-from event.data import gov_problem,gov_decision,gov_impact,gov_notify,gov_hint,gov_impact2,gov_notify2,gov_text,gov_message1,gov_message2
+from event.data_gov import gov_problem,gov_decision,gov_impact,gov_notify,gov_hint,gov_impact2,gov_notify2,gov_text,gov_message1,gov_message2
    
 def set_gov(num:int):
     event_img = gov_problem[num-1]

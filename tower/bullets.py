@@ -16,20 +16,23 @@ class BulletGroup():
             bullet.move(self)
     def remove(self,bullet):
         self.bullet_list.remove(bullet)
-BULLET1_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet1.png")), (30, 30))
-BULLET2_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet2.png")), (30, 30))
-BULLET3_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet3.png")), (30, 30))
+BULLET1_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet1.png")), (30, 30)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet_money1.png")), (30, 30))]
+BULLET2_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet2.png")), (30, 30)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet_money2.png")), (30, 30))]
+BULLET3_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet3.png")), (30, 30)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet_money3.png")), (30, 30))]
 class Bullet():
     def __init__(self,enemy,tower,start,end) -> None:
         self.enemy = enemy
         self.start = start
         self.end = end
         if tower.level == 0:
-            self.image = BULLET1_IMAGE
+            self.image = BULLET1_IMAGE[tower.player]
         elif tower.level == 1:
-            self.image = BULLET2_IMAGE
+            self.image = BULLET2_IMAGE[tower.player]
         elif tower.level == 2:
-            self.image = BULLET3_IMAGE
+            self.image = BULLET3_IMAGE[tower.player]
         self.rect = self.image.get_rect()
         self.rect.center = start
         self.move_count = 0

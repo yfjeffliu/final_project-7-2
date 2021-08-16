@@ -40,10 +40,12 @@ class Game:
                 game_control.model.had_occur = False
                 game_control.model.pause = True             # 倒數暫停
                 self.message = self.message1
+                game_control.model.add_value = game_control.model.add_1
             # 突發事件發生的動畫
             if self.occur2:
                 game_control.model.pause = True
                 self.message = self.message2
+                game_control.model.add_value = game_control.model.add_2
             
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
