@@ -400,6 +400,8 @@ class Events:
         game.game_model.add_2[0] = blood_get2
         game.game_model.add_2[1] = tower_upgrade2
         game.game_model.add_2[2] = money_get2
+	print(game.game_model.add_1)
+        print(game.game_model.add_2)
         game.game_model.notify = self.notify
         game.game_model.notify2 = self.notify2
         game.message1 = self.message1
