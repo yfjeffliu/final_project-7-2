@@ -89,7 +89,7 @@ class GameControl:
        
         # 畫出通知
         if self.model.message is not None:
-            continue_btn = self.model.get_message_continue_rect()
+            continue_btn = self.model.get_message_continue()
             self.view.draw_message(self.model.message, continue_btn, self.model.message_continue_rect)
             if self.model.animate_state == "Undone":
                 self.model.impact_animate_get_start()
