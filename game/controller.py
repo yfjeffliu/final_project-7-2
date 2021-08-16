@@ -85,11 +85,14 @@ class GameControl:
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)
 
-        # 畫出通知
+       # 畫出通知
         if self.model.message is not None:
             continue_btn, continue_btn_rect = self.model.get_message_continue_rect()
             self.view.draw_message(self.model.message, continue_btn, continue_btn_rect)
-            self.model.impact_animate_get_start()
+            
+            if self.model.animate_state == "Undone":
+                self.model.impact_animate_get_start()
+
             if self.model.selected_continue_game == False:
                 return False
             else:
