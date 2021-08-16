@@ -60,13 +60,23 @@ class GameModel:
         self.pause = False
         self.stage = 0
         self.show_ability = False
-        self.add_money_1 = 0        #第一次的影響
-        self.add_tower_1 = 0
-        self.add_heart_1 = 0
+        #self.add_money_times = 0
+        #self.add_tower_money_times = 0
+        self.add_time = 0
+        self.add_delay = 20
+        self.add_interval = 4
+        self.add_times = [0,0,0]
+        self.add_which = 0
+
+        #self.add_money_1 = 0        #第一次的影響
+        #self.add_tower_1 = 0
+        #self.add_heart_1 = 0
+        self.add_1 = []
         self.add_money_2 = 0        #突發事件的影響
         self.add_tower_2 = 0
         self.add_heart_2 = 0
         self.occur_time = 0
+
     def user_request(self, user_request: str):
         """ add tower, sell tower, upgrade tower"""
         self.subject.notify(user_request)
@@ -91,12 +101,14 @@ class GameModel:
         self.touch_tower(x,y)
             
         return "nothing"
+
     def touch_tower(self,x,y):
         for tw in self.__towers:
             if tw.touched(x, y):
                 self.touched_tower = tw
                 return
         self.touched_tower = None
+
     def select(self, mouse_x: int, mouse_y: int) -> None:
         """change the state of whether the items are selected"""
         # if the item is clicked, select the item
@@ -148,7 +160,7 @@ class GameModel:
             self.__menu = None
     def get_main_menu(self):
         return self.__main_menu.buttons
-        
+
 
     def towers_attack(self,bullet_list):
         for tw in self.__towers:
@@ -172,9 +184,33 @@ class GameModel:
         self.message_continue_rect.center = (880, 421)
         return MESSAGE_CONTINUE, self.message_continue_rect
 
+    def impact_animate(self):
+        self.add_times[self.add_which] += 1
+        if self.add_times[self.add_which] <= abs(self.add_1[self.add_which]):
+            if self.add_which == 0:
+                self.hp -= 1
+            if self.add_which == 1:
+                self.tower_money += 1
+            elif self.add_which == 2:
+                self.money += 1
+
+        else:
+            self.add_time = 0
+            if self.add_which == 2:
+                self.add_which = 0
+            else:
+                self.add_which += 1
+
+    def impact_animate_get_start(self):
+        self.add_time += 1
+        if self.add_time >= self.add_delay and self.add_time % self.add_interval == 0:
+            self.impact_animate()
+
+    '''
     @property
     def take_out_message(self):
         return self.message
+    '''
 
     @property
     def enemies(self):
@@ -201,19 +237,6 @@ class GameModel:
     @property
     def get_progress(self):
         return self.__enemies.count2
-
-
-    
-
-
-
-
-
-
-
-
-
-
 
 
     
