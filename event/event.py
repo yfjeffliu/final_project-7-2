@@ -481,6 +481,8 @@ class Events:
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
             show_text(self.win,text,50,500,345)#中間遊戲幣
+	    fail_sound = mixer.Sound('music','lose_se') #音樂
+	    fail_sound.play()
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
