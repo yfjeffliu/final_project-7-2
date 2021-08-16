@@ -394,6 +394,7 @@ class Events:
         money_get2 = random.randint(self.chosen2[1],self.chosen2[0])
         blood_get2 = random.randint(self.chosen2[3],self.chosen2[2])
         tower_upgrade2 = random.randint(self.chosen2[5],self.chosen2[4])
+        print(blood_get,tower_upgrade,money_get)
         game.game_model.add_1.append(blood_get)
         game.game_model.add_1.append(tower_upgrade)
         game.game_model.add_1.append(money_get)
