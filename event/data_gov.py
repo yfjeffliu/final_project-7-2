@@ -1,5 +1,9 @@
 import pygame
 import os
+from pygame import mixer  #輸入音樂，若有bug將進行修改
+
+
+
 gov_problem = [pygame.image.load(os.path.join("event/gov_img", "Q1.png")),
                 pygame.image.load(os.path.join("event/gov_img", "Q2.png")),
                 pygame.image.load(os.path.join("event/gov_img", "Q3.png")),
@@ -27,8 +31,8 @@ gov_message1_problem1 =    [pygame.image.load(os.path.join("event/gov_img", "Q1_
 gov_message2_problem1 =    [pygame.image.load(os.path.join("event/gov_img", "Q1_A_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q1_B_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q1_C_hint2.png"))]
-gov_impact_problem1 = [[10,0,3,1,3,1],[30,20,1,-1,2,0],[20,10,-1,-3,5,3]]  
-gov_impact2_problem1 = [[10,0,3,1,3,1],[30,20,1,-1,2,0],[20,10,-1,-3,5,3]]  
+gov_impact_problem1 = [[0,-15,0,0,0,0],[20,0,0,0,0,0],[5,0,0,0,5,3]]  
+gov_impact2_problem1 = [[0,0,3,1,2,1],[0,0,0,0,-1,-3],[0,0,-1,-3,0,0]]  
 
 gov_decision_problem2 = [pygame.image.load(os.path.join("event/gov_img", "Q2_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q2_B.png")),
@@ -51,8 +55,8 @@ gov_message1_problem2 =   [ pygame.image.load(os.path.join("event/gov_img", "Q2_
 gov_message2_problem2 =   [ pygame.image.load(os.path.join("event/gov_img", "Q2_A_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q2_B_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q2_C_hint2.png"))]
-gov_impact_problem2 = [[20,10,-1,-3,5,3],[10,0,1,-1,2,0], [30,20,-1,-3,5,3]]
-gov_impact2_problem2 = [[20,10,-1,-3,5,3],[10,0,1,-1,2,0], [30,20,-1,-3,5,3]]
+gov_impact_problem2 =[[0,5,0,1,0,0],[0,0,-1,-2,0,0], [-5,-15,-1,-3,0,0]]
+gov_impact2_problem2 = [[0,0,0,0,-1,-3],[15,5,1,-1,4,2], [0,0,0,0,5,3]]
 
 gov_decision_problem3 = [pygame.image.load(os.path.join("event/gov_img", "Q3_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q3_B.png")),
@@ -75,8 +79,8 @@ gov_message1_problem3 = [   pygame.image.load(os.path.join("event/gov_img", "Q3_
 gov_message2_problem3 = [   pygame.image.load(os.path.join("event/gov_img", "Q3_A_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q3_B_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q3_C_hint2.png"))]
-gov_impact_problem3 = [[20,10,1,-1,3,1],[10,0,-1,-3,2,0], [10,0,2,0,5,3]]
-gov_impact2_problem3 = [[20,10,1,-1,3,1],[10,0,-1,-3,2,0], [10,0,2,0,5,3]]
+gov_impact_problem3 = [[5,0,1,0,2,0],[-5,-10,-1,-3,0,0], [-5,-15,0,0,0,0]]
+gov_impact2_problem3 = [[-5,-10,0,0,0,0],[0,0,0,0,-1,-3], [0,0,3,1,5,3]]
 
 gov_decision_problem4 = [pygame.image.load(os.path.join("event/gov_img", "Q4_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q4_B.png")),
@@ -99,8 +103,8 @@ gov_message1_problem4 = [   pygame.image.load(os.path.join("event/gov_img", "Q4_
 gov_message2_problem4 = [   pygame.image.load(os.path.join("event/gov_img", "Q4_A_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q4_B_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q4_C_hint2.png"))]
-gov_impact_problem4 =[[10,0,3,1,3,1],[30,0,3,-3,5,0], [30,20,-1,-3,2,0]]
-gov_impact2_problem4 =[[10,0,3,1,3,1],[30,0,3,-3,5,0], [30,20,-1,-3,2,0]]
+gov_impact_problem4 =[[0,0,2,0,5,3],[20,-20,3,-3,5,-5], [20,10,4,2,0,0]]
+gov_impact2_problem4 =[[-10,-15,0,0,0,0],[20,-20,3,-3,5,-5], [0,0,-1,-3,-1,-3]]
 
 gov_decision_problem5 = [pygame.image.load(os.path.join("event/gov_img", "Q5_A.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q5_B.png")),
@@ -123,8 +127,8 @@ gov_message1_problem5 =  [  pygame.image.load(os.path.join("event/gov_img", "Q5_
 gov_message2_problem5 =  [  pygame.image.load(os.path.join("event/gov_img", "Q5_A_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q5_B_hint2.png")),
                         pygame.image.load(os.path.join("event/gov_img", "Q5_C_hint2.png"))]
-gov_impact_problem5 =[[10,0,1,-1,2,0],[30,20,-1,-3,2,0], [10,0,-1,-3,5,3]]
-gov_impact2_problem5 =[[10,0,1,-1,2,0],[30,20,-1,-3,2,0], [10,0,-1,-3,5,3]]
+gov_impact_problem5 =[[0,0,2,0,5,3],[-5,-15,2,0,0,0], [0,0,-1,-3,0,0]]
+gov_impact2_problem5 =[[-10,-15,-1,-3,0,0],[0,0,0,0,-1,-3], [10,15,0,0,5,3]]
 
 gov_decision = [gov_decision_problem1,gov_decision_problem2,gov_decision_problem3,gov_decision_problem4,gov_decision_problem5]
 gov_impact = [gov_impact_problem1,gov_impact_problem2,gov_impact_problem3,gov_impact_problem4,gov_impact_problem5]

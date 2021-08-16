@@ -28,10 +28,10 @@ class StartMenu:
                         self.producer_bun,
                         self.start_btn]
         # music and sound
-        self.sound = pygame.mixer.Sound("./sound/sound.flac")
+        self.sound = pygame.mixer.Sound("./music/bg_music.wav")
 
     def play_music(self):
-        pygame.mixer.music.load("./sound/menu.wav")
+        pygame.mixer.music.load("./music/bg_music.wav")
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play(-1)
         self.sound.set_volume(0.2)

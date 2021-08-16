@@ -51,7 +51,7 @@ class GameModel:
         self.tower_money = 0
         self.max_hp = 10
         self.hp = self.max_hp
-        self.sound = pygame.mixer.Sound(os.path.join("sound", "sound.flac"))
+        #self.sound = pygame.mixer.Sound(os.path.join("sound", "sound.flac"))
         self.notify = None
         self.notify2 = None
         self.had_occur = False

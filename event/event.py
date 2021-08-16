@@ -48,6 +48,8 @@ class Events:
         self.decision_txt = None
         self.message1 = None
         self.message2 = None
+        self.dont_play = False
+        self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
         pass
     def run(self):
         clock = pygame.time.Clock()
@@ -77,9 +79,20 @@ class Events:
                     else:   #next page
                         run2 = True
                 game = Game(self.using_player-1)
+                
+                if self.mute:
+                    pass
+                else:
+                    self.dont_play = True
+                    pygame.mixer.music.pause()
+                    self.sound.play()
                 while run2 :
                     run2 = self.event_happen()
                     if self.next == 1:
+                        self.dont_play = False
+                        if not self.mute:
+                            pygame.mixer.music.unpause()
+                        self.sound.stop()
                         print(self.chosen)
                         self.impact_model(game)
                         self.using_event=None
@@ -383,42 +396,61 @@ class Events:
         if self.mute:
             self.win.blit(self.buttons[0].image,self.buttons[0].image_rect)
             pygame.mixer.music.pause()
+            self.sound.stop()
         else:
-            self.win.blit(self.buttons[1].image,self.buttons[1].image_rect)
-            pygame.mixer.music.unpause()
+            if not self.dont_play:
+                self.win.blit(self.buttons[1].image,self.buttons[1].image_rect)
+                pygame.mixer.music.unpause()
     def draw_button_white(self):
         if self.mute:
             self.win.blit(self.buttons_white[0].image,self.buttons_white[0].image_rect)
             pygame.mixer.music.pause()
+            self.sound.stop()
         else:
             self.win.blit(self.buttons_white[1].image,self.buttons_white[1].image_rect)
-            pygame.mixer.music.unpause()
+            if not self.dont_play:
+                pygame.mixer.music.unpause()
 
     def impact_model(self,game:Game):
         game.player = self.using_player-1
-        money_get = random.randint(self.chosen[1],self.chosen[0])
-        blood_get = random.randint(self.chosen[3],self.chosen[2])
-        tower_upgrade = random.randint(self.chosen[5],self.chosen[4])
-        money_get2 = random.randint(self.chosen2[1],self.chosen2[0])
-        blood_get2 = random.randint(self.chosen2[3],self.chosen2[2])
-        tower_upgrade2 = random.randint(self.chosen2[5],self.chosen2[4])
+        money_get = 0
+        blood_get = 0
+        tower_upgrade = 0
+        money_get2 = 0
+        blood_get2 = 0
+        tower_upgrade2 = 0
+        if self.chosen[1]!=self.chosen[0]:
+            money_get = random.randint(self.chosen[1],self.chosen[0])
+        if self.chosen[3]!=self.chosen[2]:
+            blood_get = random.randint(self.chosen[3],self.chosen[2])
+        if self.chosen[5]!=self.chosen[4]:
+            tower_upgrade = random.randint(self.chosen[5],self.chosen[4])
+        if self.chosen2[1]!=self.chosen2[0]:
+            money_get2 = random.randint(self.chosen2[1],self.chosen2[0])
+        if self.chosen2[3]!=self.chosen2[2]:
+            blood_get2 = random.randint(self.chosen2[3],self.chosen2[2])
+        if self.chosen2[5]!=self.chosen2[4]:
+            tower_upgrade2 = random.randint(self.chosen2[5],self.chosen2[4])
+
         game.game_model.money += 20
         game.game_model.tower_money += 10
+
        	game.game_model.add_1[0] = blood_get
         game.game_model.add_1[1] = tower_upgrade
         game.game_model.add_1[2] = money_get
         game.game_model.add_2[0] = blood_get2
         game.game_model.add_2[1] = tower_upgrade2
         game.game_model.add_2[2] = money_get2
+
         print(game.game_model.add_1)
         print(game.game_model.add_2)
+
 
         game.game_model.notify = self.notify
         game.game_model.notify2 = self.notify2
         game.message1 = self.message1
         game.message2 = self.message2
         game.text = self.text
-        game.game_model.tower_money += 3
         game.game_model.occur_time = random.randint(5,10)
         game.occur1 = True
         game.occur2 = False
@@ -492,6 +524,9 @@ class Events:
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
             show_text(self.win,text,50,500,337)#中間遊戲幣
+            #fail_sound = pygame.mixer.Sound('music','lose_se') #音樂
+            #fail_sound.play()
+
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
