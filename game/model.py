@@ -61,6 +61,11 @@ class GameModel:
         self.stage = 0
         self.show_ability = False
         
+        self.message_continue_rect = MESSAGE_CONTINUE.get_rect()
+        self.message_continue_rect.center = (880, 421)
+        self.message_move_count = 0
+        self.message_move_max = 6
+        
         self.add_clock = 0
         self.add_delay = 15
         self.add_interval = 2
@@ -178,10 +183,8 @@ class GameModel:
         else:
             self.message = None
 
-    def get_message_continue_rect(self):
-        self.message_continue_rect = MESSAGE_CONTINUE.get_rect()
-        self.message_continue_rect.center = (880, 421)
-        return MESSAGE_CONTINUE, self.message_continue_rect
+    def get_message_continue(self):
+        return MESSAGE_CONTINUE
 
     def impact_animate(self):
         self.add_times[self.add_which] += 1
