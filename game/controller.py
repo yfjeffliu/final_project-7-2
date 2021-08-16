@@ -86,19 +86,30 @@ class GameControl:
             self.view.draw_menu(self.model.menu)
 
         self.view.draw_enemies(self.model.enemies)
-       # 畫出通知
+       
+        # 畫出通知
         if self.model.message is not None:
-            continue_btn, continue_btn_rect = self.model.get_message_continue_rect()
-            self.view.draw_message(self.model.message, continue_btn, continue_btn_rect)
-            
+            continue_btn = self.model.get_message_continue_rect()
+            self.view.draw_message(self.model.message, continue_btn, self.model.message_continue_rect)
             if self.model.animate_state == "Undone":
                 self.model.impact_animate_get_start()
+            #print(self.model.add_which)
+            #print(self.model.add_times)
+            #print(self.model.animate_state)
+            else:
+                if self.model.message_move_count < self.model.message_move_max:
+                    self.model.message_continue_rect.centerx += 1
+                    self.model.message_move_count += 1
+                else :
+                    self.model.message_continue_rect.centerx = 880
+                    self.model.message_move_count = 0
 
             if self.model.selected_continue_game == False:
                 return False
             else:
                 self.model.selected_continue_game = False
                 return True
+            
         # 倒數
         if self.wait > 0:
             self.view.draw_progress(0,10)
