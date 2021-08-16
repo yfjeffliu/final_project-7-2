@@ -197,6 +197,14 @@ class GameModel:
                 if self.hp == 0:
                     self.hp = 1
             elif self.add_which == 1:
+                if self.tower_money == 0 and self.add_value[self.add_which]<-1:
+                    for tw in self.__towers:
+                        x,y = tw.rect.center
+                        self.plots.append(Vacancy(x, y))
+                        self.towers.remove(tw)
+                        print('destory')
+                        self.add_value[self.add_which]=0
+                        break
                 self.tower_money += self.add_amount
                 if self.tower_money <= 0:
                     self.tower_money = 0

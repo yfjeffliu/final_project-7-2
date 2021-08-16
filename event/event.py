@@ -450,7 +450,6 @@ class Events:
         game.game_model.notify2 = self.notify2
         game.message1 = self.message1
         game.message2 = self.message2
-        game.text = self.text
         game.game_model.occur_time = random.randint(5,10)
         game.occur1 = True
         game.occur2 = False

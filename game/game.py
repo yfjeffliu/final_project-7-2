@@ -18,7 +18,6 @@ class Game:
         self.quit_game = False
         self.occur1 = True      #第一次動畫
         self.occur2 = False     #突發事件動畫
-        self.text = None #問題的字的圖檔
         self.message1 = None       #第一次的文字提示
         self.message2 = None       #突發事件文字提示
         self.message = None
