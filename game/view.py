@@ -9,8 +9,7 @@ import math
 from event.event_setting import *
 from pygame import mixer
 
-mixer.music.load('music','bg_music.wav')
-mixer.music.play(-1)
+
 
 class GameView:
     def __init__(self,player:int):
