@@ -1,6 +1,7 @@
 from __future__ import annotations
 from color_settings import BLUE
 from event.event_gov import set_gov
+from event.event_wfh import set_wfh
 import random
 from event.player import *
 from event.event_setting import *
@@ -546,7 +547,7 @@ def get_using_event(player:int,num:int):
     if player == 1:
         return set_gov(num)
     if player == 2:
-        return set_gov(num)
+        return set_wfh(num)
     pass
 def show_text(win:pygame.Surface,text:str,size:int,x:int,y:int,color:tuple = BROWNGRAY):
     font = pygame.font.Font(FONT, size)
