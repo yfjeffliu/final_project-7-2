@@ -66,10 +66,10 @@ class UpgradeMenu(Menu):
 class MainMenu:
     def __init__(self,player):
         
-        self._buttons = [Button(muse_button_image, "mute", 753, 540),
-                        Button(music_button_image, "music", 753, 540),
-                         Button(continue_button_image, "continue", 720, 540),
-                         Button(pause_button_image, "pause", 720, 540),
+        self._buttons = [Button(muse_button_image, "mute", 760, 540),
+                        Button(music_button_image, "music", 760, 540),
+                         Button(continue_button_image, "continue", 716, 540),
+                         Button(pause_button_image, "pause", 716, 540),
                          Button(NOTIFY_IMAGE_SHOW,"show_notify", 120, 560),
                          Button(ABILITY_MENU_IMAGE[player],"show_ability",935,510),
                          Button(ABILITY_BTN_IMAGE[player],"nothing",935,385),

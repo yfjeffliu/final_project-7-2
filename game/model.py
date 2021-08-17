@@ -67,8 +67,8 @@ class GameModel:
         self.message_move_max = 6
         
         self.add_clock = 0
-        self.add_delay = 15
-        self.add_interval = 2
+        self.add_delay = 7
+        self.add_interval = 1
         self.add_times = [0,0,0]
         self.add_amount = 1
         self.add_which = 0

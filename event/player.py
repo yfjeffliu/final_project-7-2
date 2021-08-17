@@ -72,5 +72,5 @@ class Player_btn:
         self.unlock =  unlock
         self.cost = cost
         w, h = 200,200
-        self.frame = pygame.Rect(x - 105, y - 105, w + 10, h + 10)
+        self.frame = pygame.Rect(x - 105, y - 95, w + 10, h + 10)
         pass

@@ -252,7 +252,7 @@ class Events:
     def draw_player_frame(self):
         for btn in self.players.player_btn:
             if btn.selected :
-                pygame.draw.rect(self.win, BLACK, btn.frame, 10)
+                pygame.draw.rect(self.win, (150, 150, 150), btn.frame, 10)
     def event_happen(self):
         
         run2 = True
@@ -486,9 +486,9 @@ class Events:
             #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG[self.using_player-1],(0,0))
             text = '* ' + str(game.game_model.tower_money) #塔防幣
-            show_text(self.win,text,26,616,470)
+            show_text(self.win,text,23,616,473)
             text = '# ' + str(game.game_model.money) #金錢
-            show_text(self.win,text,26,765,470)
+            show_text(self.win,text,23,767,473)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
             show_text(self.win,text,50,510,332) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
@@ -523,9 +523,9 @@ class Events:
         while True:
             self.win.blit(ALL_PASS_BG[self.using_player-1],(0,0))
             text = '* ' + str(game.game_model.tower_money)#塔防幣
-            show_text(self.win,text,26,610,470)
+            show_text(self.win,text,23,610,473)
             text = '# ' + str(game.game_model.money)#金錢
-            show_text(self.win,text,26,765,470)
+            show_text(self.win,text,23,767,473)
             text = str(int(game.game_model.money))#中間遊戲幣
             show_text(self.win,text,50,510,337)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
@@ -555,9 +555,9 @@ class Events:
         while True:
             self.win.blit(FAIL_BG[self.using_player-1],(0,0))
             text = '* ' + str(game.game_model.tower_money)#塔防幣
-            show_text(self.win,text,26,610,470)
+            show_text(self.win,text,23,610,473)
             text = '# ' + str(game.game_model.money) #金錢
-            show_text(self.win,text,26,765,470)
+            show_text(self.win,text,23,767,473)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
             show_text(self.win,text,50,510,345)#中間遊戲幣
             #fail_sound = pygame.mixer.Sound('music','lose_se') #音樂
