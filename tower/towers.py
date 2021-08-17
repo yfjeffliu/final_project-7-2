@@ -45,7 +45,7 @@ class Tower:
     @classmethod
     def TV(cls, x:int, y:int,player:int):
         tv = cls(x, y, SingleAttack(), TOWER1_IMAGE[player])
-        tv._range = [130, 160,190]
+        tv._range = [130, 180,230]
         tv._damage = [2.0,  2.5, 3]
         tv.value = [100, 140, 200, 280, 360, 450]
         tv.player = player

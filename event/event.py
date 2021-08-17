@@ -476,7 +476,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,727,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,50,500,345) #中間遊戲幣
+            show_text(self.win,text,50,500,337) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,30,248,95,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
@@ -532,7 +532,7 @@ class Events:
             text = '#' + str(game.game_model.money) #金錢
             show_text(self.win,text,26,735,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,50,500,337)#中間遊戲幣
+            show_text(self.win,text,50,500,345)#中間遊戲幣
             #fail_sound = pygame.mixer.Sound('music','lose_se') #音樂
             #fail_sound.play()
 
