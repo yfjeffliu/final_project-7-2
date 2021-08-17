@@ -5,6 +5,10 @@ import random
 from event.player import *
 from event.event_setting import *
 from game.game import Game
+from pygame import mixer
+
+mixer.music.load('music','Choosing.wav')
+mixer.music.play(-1)
 
 dict_temp = {}
 # 打开文本文件
