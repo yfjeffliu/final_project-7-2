@@ -53,9 +53,10 @@ class Events:
         self.message1 = None
         self.message2 = None
         self.dont_play = False
+        pygame.mixer.init() 
         self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
         self.win_sound = pygame.mixer.Sound(os.path.join("music", "win_se.wav"))
-        #self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
+        self.lose_sound = pygame.mixer.Sound(os.path.join("music", "lose2.wav"))
         #self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
         pass
     def run(self):
@@ -68,6 +69,7 @@ class Events:
             if self.last_page: #上一頁
                 return True
             if self.using_player == 0:
+                self.dont_play = False
                 run = self.choose_player()
                 self.read = False
                 self.using_event = None
@@ -511,7 +513,13 @@ class Events:
                 if event.type == pygame.QUIT:
                     return True,True
     def all_pass(self,game:Game):
-        self.using_player=0
+        
+        if self.mute:
+            pass
+        else:
+            self.dont_play = True
+            pygame.mixer.music.pause()
+            self.win_sound.play()
         while True:
             self.win.blit(ALL_PASS_BG[self.using_player-1],(0,0))
             text = '* ' + str(game.game_model.tower_money)#塔防幣
@@ -533,9 +541,16 @@ class Events:
                         for k,v in dict_temp.items():
 	                        file.write(str(k)+' '+str(v)+'\n')
                         file.close()
+                        self.using_player=0
                         return False              
     def game_fail(self,game:Game):
-        self.using_player=0
+        if self.mute:
+            pass
+        else:
+            self.dont_play = True
+            pygame.mixer.music.pause()
+            self.lose_sound.play()
+        
         percentage = [0,10,20,40,60,100]
         while True:
             self.win.blit(FAIL_BG[self.using_player-1],(0,0))
@@ -558,8 +573,10 @@ class Events:
                         for k,v in dict_temp.items():
 	                        file.write(str(k)+' '+str(v)+'\n')
                         file.close()
+                        self.using_player=0
                         return False
                 if event.type == pygame.QUIT:
+                    self.using_player=0
                     return True
 def get_using_event(player:int,num:int):
     if player == 1:

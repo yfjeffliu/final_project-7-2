@@ -52,7 +52,7 @@ class an_decision():
         self.move_max = 15
         
 class an_question:
-    def __init__(self,num:int,image:pygame.Surface,move) -> None:
+    def __init__(self,num:int,image:pygame.Surface,move=False) -> None:
         
         if image.get_height()>300:
             self.image = pygame.transform.scale(image, (round(((80 / image.get_height()) * image.get_width())), 80))

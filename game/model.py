@@ -51,7 +51,7 @@ class GameModel:
         self.tower_money = 0
         self.max_hp = 10
         self.hp = self.max_hp
-        #self.sound = pygame.mixer.Sound(os.path.join("sound", "sound.flac"))
+        self.sound = pygame.mixer.Sound(os.path.join("music", "attack_se.wav"))
         self.notify = None
         self.notify2 = None
         self.had_occur = False
@@ -189,6 +189,8 @@ class GameModel:
     def impact_animate(self):
         self.add_times[self.add_which] += 1
         if self.add_times[self.add_which] <= abs(self.add_value[self.add_which]):
+            if not self.mute:
+                self.sound.play()
             # decide to +1 or -1
             if self.add_value[self.add_which] > 0:
                 self.add_amount = 1
