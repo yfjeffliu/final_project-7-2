@@ -356,8 +356,8 @@ class Events:
             pygame.draw.rect(self.win, BLACK, self.using_event.select3.frame, 6)
     def set_using_event(self):
         
-        self.using_event=get_using_event(self.using_player,6)
-        #self.event_list[self.num]
+        self.using_event=get_using_event(self.using_player,self.event_list[self.num])
+        #
         self.chosen = []
         self.num += 1
     def make_decision(self,x:int,y:int):
@@ -466,7 +466,7 @@ class Events:
         game.game_model.notify2 = self.notify2
         game.message1 = self.message1
         game.message2 = self.message2
-        game.game_model.occur_time = random.randint(5,10)
+        game.game_model.occur_time = random.randint(5,9)
         game.occur1 = True
         game.occur2 = False
         
