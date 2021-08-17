@@ -29,8 +29,8 @@ class Events:
         self.using_player = 0
         self.player=0
         self.event = None
-        self.event_list = [0,1,2,3,4,5]
-        random.shuffle(self.event_list)
+        self.event_list = []
+        
         self.num = 0
         self.buttons = [Buttons('mute',MUTE_IMAGE_BLACK,965,60),Buttons('sound',SOUND_IMAGE_BLACK,965,60),Buttons('play',PLAY_IMAGE_BLACK,920,60)
                         ,Buttons('pause',PAUSE_IMAGE_BLACK,920,60),Buttons('last_page',LAST_PAGE_IMAGE_BLACK,40,520)]
@@ -152,7 +152,12 @@ class Events:
         
         if self.start_image_rect.collidepoint(x,y) and self.player != 0:
             self.using_player = self.player
-
+            if self.using_player == 1:
+                self.event_list = [1,2,3,4,5]
+            elif self.using_player == 2:
+                self.event_list = [1,2,3,4,5,6]
+            random.shuffle(self.event_list)
+            print(self.event_list)
         get = 0
         for player in self.players.player_btn:
             if player.buy_rect.collidepoint(x,y) and player.show_buy:
@@ -344,7 +349,8 @@ class Events:
             pygame.draw.rect(self.win, BLACK, self.using_event.select3.frame, 6)
     def set_using_event(self):
         
-        self.using_event=get_using_event(self.using_player,self.event_list[self.num])
+        self.using_event=get_using_event(self.using_player,0)
+        
         self.chosen = []
         self.num += 1
     def make_decision(self,x:int,y:int):
