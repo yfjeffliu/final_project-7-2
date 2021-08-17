@@ -3,6 +3,7 @@ from game.controller import GameControl
 from game.model import GameModel
 from game.view import GameView
 from settings import FPS,ALL_PASS_BG, WIN_STAGE_BG
+from pygame import mixer
 
 
 class Game:
@@ -45,7 +46,8 @@ class Game:
                 game_control.model.pause = True
                 self.message = self.message2
                 game_control.model.add_value = game_control.model.add_2
-            
+            warn_Sound = mixer.Sound('music','warn_se.wav')    #聲音
+            warn_Sound.play()
             game_control.receive_user_input()  # receive user input
             game_control.update_model()  # update the model
             game_control.model.put_message(self.message)
