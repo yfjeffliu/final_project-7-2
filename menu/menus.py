@@ -42,6 +42,8 @@ class Menu:
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = (x-105, y-5)
+        if x-105 < 0:
+            self.rect.center = (x+105, y-5)
         self._buttons = []
 
     @property

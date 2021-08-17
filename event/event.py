@@ -591,15 +591,17 @@ def show_text(win:pygame.Surface,text:str,size:int,x:int,y:int,color:tuple = BRO
     win.blit(text, (x, y))
 def draw_hp(win:pygame.Surface, hp:int,max_hp:int):
     # draw_lives
+ 
     hp_image_rect = HEART_FULL_IMAGE.get_rect()
-    for i in range(1,max_hp, 2):
-        hp_image_rect.center = (200+i*18, 480)
+    for i in range(1, 16, 2):
+        hp_image_rect.center = (200 + ((i - 1) / 2) * (HEART_WIDTH + 13), 480 + (HEART_HEIGHT / 2))
         if i < hp:
-            win.blit(HEART_FULL_IMAGE, hp_image_rect.center)
+            win.blit(HEART_FULL_IMAGE, hp_image_rect)
         elif i == hp:
             if hp == 0:
-                win.blit(HEART_FULL_IMAGE, hp_image_rect.center)
+                win.blit(HEART_EMPTY_IMAGE, hp_image_rect)
             else:
-                win.blit(HEART_HALF_IMAGE, hp_image_rect.center)
+                win.blit(HEART_HALF_IMAGE, hp_image_rect)
         else:
-            win.blit(HEART_EMPTY_IMAGE, hp_image_rect.center)
+            win.blit(HEART_EMPTY_IMAGE, hp_image_rect)
+

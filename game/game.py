@@ -3,7 +3,7 @@ from game.controller import GameControl
 from game.model import GameModel
 from game.view import GameView
 from settings import FPS
-
+import os
 
 
 class Game:
@@ -23,6 +23,7 @@ class Game:
         self.message2 = None       #突發事件文字提示
         self.message = None
         self.continue_game = None
+        self.sound = None
         pass
     def run(self):
         # initialization
@@ -43,6 +44,10 @@ class Game:
                 game_control.model.add_value = game_control.model.add_1
             # 突發事件發生的動畫
             if self.occur2:
+                if self.sound is None:
+                    self.sound = pygame.mixer.Sound(os.path.join("music", "warning_sound.wav"))
+                    self.sound.set_volume(0.5)
+                    self.sound.play()
                 game_control.model.pause = True
                 self.message = self.message2
                 game_control.model.add_value = game_control.model.add_2
