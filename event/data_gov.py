@@ -2,6 +2,9 @@ import pygame
 import os
 from pygame import mixer  #輸入音樂，若有bug將進行修改
 
+mixer.music.load('music','Choosing.wav')
+mixer.music.play(-1)
+
 
 
 gov_problem = [pygame.image.load(os.path.join("event/gov_img", "Q1.png")),
