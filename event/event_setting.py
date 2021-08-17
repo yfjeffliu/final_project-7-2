@@ -14,7 +14,7 @@ class an_event:
 
 
 class an_decision():
-    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,hint,impact2,notify2_image,text,message1,message2) -> None:
+    def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,hint,impact2,notify2_image,text,message1,message2,player) -> None:
         self.impact = impact
         self.notify =notify_image
         self.impact2 = impact2
@@ -22,7 +22,12 @@ class an_decision():
         self.text = text
         self.message1 = message1
         self.message2 = message2
-        if image.get_height()>350:
+        if player == 2:
+            border = 330
+        elif player == 1:
+            border = 350
+        
+        if image.get_height()>border:
             self.image = pygame.transform.scale(image, (424, 84))
             self.hint_back = pygame.transform.scale(HINT_BACK, (350, 84))
             self.hint = pygame.transform.scale(hint, (350, 36))
@@ -47,14 +52,17 @@ class an_decision():
         self.move_max = 15
         
 class an_question:
-    def __init__(self,num:int,image:pygame.Surface) -> None:
+    def __init__(self,num:int,image:pygame.Surface,move) -> None:
         
         if image.get_height()>300:
             self.image = pygame.transform.scale(image, (round(((80 / image.get_height()) * image.get_width())), 80))
         else:
             self.image = pygame.transform.scale(image, (round(((38 / image.get_height()) * image.get_width())), 38))
         self.image_rect = self.image.get_rect()
-        self.image_rect.center = (380, 134)
+        if move:
+            self.image_rect.center = (380+120, 134)
+        else:
+            self.image_rect.center = (380, 134)
         pass
 
 class Buttons:

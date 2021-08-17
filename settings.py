@@ -63,7 +63,10 @@ TOWER_MONEY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("
 
 MESSAGE_CONTINUE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "special_event_continue.png")),(190, 21))
 
-ALL_PASS_BG = pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "ALL_PASS_BG_2.png")),(WIN_WIDTH,WIN_HEIGHT))
-WIN_STAGE_BG = pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "WIN_BG_2.png")),(WIN_WIDTH,WIN_HEIGHT))
-FAIL_BG = pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "LOSE_BG_2.png")),(WIN_WIDTH,WIN_HEIGHT))
+ALL_PASS_BG = [pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "ALL_PASS_BG_3.png")),(WIN_WIDTH,WIN_HEIGHT)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "ALL_PASS_wfh_BG.png")),(WIN_WIDTH,WIN_HEIGHT))]
+WIN_STAGE_BG = [pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "WIN_BG_3.png")),(WIN_WIDTH,WIN_HEIGHT)),
+                pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "WIN_wfh_BG.png")),(WIN_WIDTH,WIN_HEIGHT))]
+FAIL_BG = [pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "LOSE_BG_3.png")),(WIN_WIDTH,WIN_HEIGHT)),
+        pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "LOSE_wfh_BG.png")),(WIN_WIDTH,WIN_HEIGHT))]
 ABILITY_BTN_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "special_skill.png")), (95, 95))]

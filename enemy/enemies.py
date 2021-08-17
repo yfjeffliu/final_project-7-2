@@ -38,13 +38,13 @@ class Enemy:
             self.image = pygame.transform.scale(ENEMY_IMAGE2[player], (40, 50))
             self.health = 10
             self.max_health = 10
-            self.stride = 2
+            self.stride = 1.3
             self.level = 2
         else:
             self.image = pygame.transform.scale(ENEMY_IMAGE3[player], (40, 50))
             self.health = 15
             self.max_health = 15
-            self.stride = 3
+            self.stride = 1.6
             self.level = 3
         self.rect = self.image.get_rect()
         self.rect.center = self.path[self.path_index]

@@ -47,10 +47,12 @@ class TowerKiller:
         pass
 
     def update(self,model:GameModel):
-        for tw in model.towers:
-            x,y = tw.rect.center
-            model.plots.append(Vacancy(x, y))
-            model.towers.remove(tw)
+        tw_list = model.towers
+        for i in range(len(tw_list)-1,-1,-1):
+            x,y = tw_list[i].rect.center
+            model.plots.append(Vacancy(x,y))
+            model.towers.remove(tw_list[i])
+        
         
         model.selected_tower = None
             

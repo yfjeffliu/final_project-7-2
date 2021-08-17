@@ -54,6 +54,9 @@ class Events:
         self.message2 = None
         self.dont_play = False
         self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
+        self.win_sound = pygame.mixer.Sound(os.path.join("music", "win_se.wav"))
+        #self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
+        #self.sound = pygame.mixer.Sound(os.path.join("music", "Choosing.wav"))
         pass
     def run(self):
         clock = pygame.time.Clock()
@@ -84,12 +87,7 @@ class Events:
                         run2 = True
                 game = Game(self.using_player-1)
                 
-                if self.mute:
-                    pass
-                else:
-                    self.dont_play = True
-                    pygame.mixer.music.pause()
-                    self.sound.play()
+                
                 while run2 :
                     run2 = self.event_happen()
                     if self.next == 1:
@@ -254,9 +252,17 @@ class Events:
             if btn.selected :
                 pygame.draw.rect(self.win, BLACK, btn.frame, 10)
     def event_happen(self):
+        
         run2 = True
         if self.using_event == None:
             self.set_using_event()
+            if self.mute:
+                pass
+            else:
+                self.dont_play = True
+                pygame.mixer.music.pause()
+                self.sound.play()
+                self.sound.set_volume(0.5)
         self.events_draw()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -350,8 +356,8 @@ class Events:
             pygame.draw.rect(self.win, BLACK, self.using_event.select3.frame, 6)
     def set_using_event(self):
         
-        self.using_event=get_using_event(self.using_player,0)
-        
+        self.using_event=get_using_event(self.using_player,6)
+        #self.event_list[self.num]
         self.chosen = []
         self.num += 1
     def make_decision(self,x:int,y:int):
@@ -465,18 +471,24 @@ class Events:
         game.occur2 = False
         
     def keep_going(self,game:Game):
+        if self.mute:
+            pass
+        else:
+            self.dont_play = True
+            pygame.mixer.music.pause()
+            self.win_sound.play()
         self.next = 0
         self.chosen = []
         percentage = [0,10,20,40,60,100]
         while True:
             #print('keep going',stage,money)
-            self.win.blit(WIN_STAGE_BG,(0,0))
-            text = '*' + str(game.game_model.tower_money) #塔防幣
-            show_text(self.win,text,26,556,470)
-            text = '#' + str(game.game_model.money) #金錢
-            show_text(self.win,text,26,727,470)
+            self.win.blit(WIN_STAGE_BG[self.using_player-1],(0,0))
+            text = '* ' + str(game.game_model.tower_money) #塔防幣
+            show_text(self.win,text,26,616,470)
+            text = '# ' + str(game.game_model.money) #金錢
+            show_text(self.win,text,26,765,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage] / 100))
-            show_text(self.win,text,50,500,337) #中間遊戲幣
+            show_text(self.win,text,50,510,332) #中間遊戲幣
             text = str( percentage[game.game_model.stage])+'%'
             show_text(self.win,text,30,248,95,(99, 78, 66))#左上目前%數
             text = str( percentage[game.game_model.stage+1])+'%'
@@ -501,13 +513,13 @@ class Events:
     def all_pass(self,game:Game):
         self.using_player=0
         while True:
-            self.win.blit(ALL_PASS_BG,(0,0))
-            text = '*' + str(game.game_model.tower_money)#塔防幣
-            show_text(self.win,text,26,550,470)
-            text = '#' + str(game.game_model.money)#金錢
-            show_text(self.win,text,26,735,470)
+            self.win.blit(ALL_PASS_BG[self.using_player-1],(0,0))
+            text = '* ' + str(game.game_model.tower_money)#塔防幣
+            show_text(self.win,text,26,610,470)
+            text = '# ' + str(game.game_model.money)#金錢
+            show_text(self.win,text,26,765,470)
             text = str(int(game.game_model.money))#中間遊戲幣
-            show_text(self.win,text,50,500,337)
+            show_text(self.win,text,50,510,337)
             draw_hp(self.win, game.game_model.hp,game.game_model.max_hp)
             pygame.display.update()
             for event in pygame.event.get():
@@ -526,13 +538,13 @@ class Events:
         self.using_player=0
         percentage = [0,10,20,40,60,100]
         while True:
-            self.win.blit(FAIL_BG,(0,0))
-            text = '*' + str(game.game_model.tower_money)#塔防幣
-            show_text(self.win,text,26,550,470)
-            text = '#' + str(game.game_model.money) #金錢
-            show_text(self.win,text,26,735,470)
+            self.win.blit(FAIL_BG[self.using_player-1],(0,0))
+            text = '* ' + str(game.game_model.tower_money)#塔防幣
+            show_text(self.win,text,26,610,470)
+            text = '# ' + str(game.game_model.money) #金錢
+            show_text(self.win,text,26,765,470)
             text = str(int(game.game_model.money * percentage[game.game_model.stage-1] / 100))
-            show_text(self.win,text,50,500,345)#中間遊戲幣
+            show_text(self.win,text,50,510,345)#中間遊戲幣
             #fail_sound = pygame.mixer.Sound('music','lose_se') #音樂
             #fail_sound.play()
 

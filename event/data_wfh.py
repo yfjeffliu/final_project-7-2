@@ -4,7 +4,8 @@ wfh_problem = [pygame.image.load(os.path.join("event/wfh_img", "Q1.png")),
                 pygame.image.load(os.path.join("event/wfh_img", "Q2.png")),
                 pygame.image.load(os.path.join("event/wfh_img", "Q3.png")),
                 pygame.image.load(os.path.join("event/wfh_img", "Q4.png")),
-                pygame.image.load(os.path.join("event/wfh_img", "Q5.png"))]
+                pygame.image.load(os.path.join("event/wfh_img", "Q5.png")),
+                pygame.image.load(os.path.join("event/wfh_img", "Q6.png"))]
 
 wfh_decision_problem1 = [pygame.image.load(os.path.join("event/wfh_img", "Q1_A.png")),
                         pygame.image.load(os.path.join("event/wfh_img", "Q1_B.png")),

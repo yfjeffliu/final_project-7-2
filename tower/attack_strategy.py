@@ -33,11 +33,17 @@ class AttackStrategy(ABC):
 class SingleAttack(AttackStrategy):
     """attack an enemy once a time"""
     def attack(self, enemies: list, tower:Tower, cd_count:int,bullet_list):
+        en_keep = None
+        en_keep_index = 100
         for en in enemies:
             if in_range(en, tower):
-                bullet_list.generate(en,tower,tower.rect.center,en.rect.center)
-                cd_count = 0
-                return cd_count
+                if len(en.path) - en.path_index < en_keep_index:
+                    en_keep_index = len(en.path) - en.path_index
+                    en_keep = en
+        if en_keep is not None:
+            bullet_list.generate(en_keep,tower,tower.rect.center,en_keep.rect.center)
+            cd_count = 0
+            return cd_count
         return cd_count
 
 
