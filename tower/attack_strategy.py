@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from tower.towers import Tower
 import math
 from abc import ABC, abstractmethod
-
+import pygame ,os
 
 def in_range(enemy:Enemy, tower:Tower):
     x1, y1 = enemy.rect.center
@@ -32,7 +32,7 @@ class AttackStrategy(ABC):
 
 class SingleAttack(AttackStrategy):
     """attack an enemy once a time"""
-    def attack(self, enemies: list, tower:Tower, cd_count:int,bullet_list):
+    def attack(self, enemies: list, tower:Tower, cd_count:int,bullet_list,mute):
         en_keep = None
         en_keep_index = 100
         for en in enemies:
@@ -43,6 +43,10 @@ class SingleAttack(AttackStrategy):
         if en_keep is not None:
             bullet_list.generate(en_keep,tower,tower.rect.center,en_keep.rect.center)
             cd_count = 0
+            if not mute:
+                attack_Sound = pygame.mixer.Sound(os.path.join("music", "attack_se.wav"))            #聲音
+                attack_Sound.set_volume(0.5)
+                attack_Sound.play()
             return cd_count
         return cd_count
 

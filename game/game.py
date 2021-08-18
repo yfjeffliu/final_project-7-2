@@ -45,9 +45,9 @@ class Game:
             # 突發事件發生的動畫
             if self.occur2:
                 if self.sound is None:
-                    self.sound = pygame.mixer.Sound(os.path.join("music", "warning_sound.wav"))
-                    self.sound.set_volume(0.5)
-                    self.sound.play()
+                    if not game_control.model.mute:
+                        self.sound = pygame.mixer.Sound(os.path.join("music", "warning_se.wav"))
+                        self.sound.play()
                 game_control.model.pause = True
                 self.message = self.message2
                 game_control.model.add_value = game_control.model.add_2
@@ -71,6 +71,7 @@ class Game:
         elif self.fail:
             self.keep_going = False
         elif self.keep_going :
+            self.sound = None
             self.game_model.seller.update(self.game_model)
             if self.game_model.stage == 5:
                 self.all_pass = True

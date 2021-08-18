@@ -263,7 +263,7 @@ class Events:
             else:
                 self.dont_play = True
                 pygame.mixer.music.pause()
-                self.sound.play()
+                self.sound.play(loops=10)
                 self.sound.set_volume(0.5)
         self.events_draw()
         for event in pygame.event.get():
@@ -483,6 +483,7 @@ class Events:
         self.chosen = []
         percentage = [0,10,20,40,60,100]
         while True:
+            
             #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG[self.using_player-1],(0,0))
             text = '* ' + str(game.game_model.tower_money) #塔防幣

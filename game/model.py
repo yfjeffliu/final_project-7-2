@@ -125,8 +125,12 @@ class GameModel:
                 return
         for en in self.enemies.get():
             if en.clicked(mouse_x,mouse_y):
-                en.slow_count = 0
-                print('slow')
+                #en.selected_count += 1
+                if en.selected_count >= 5:
+                    en.slow_count = 0
+                    en.selected_count = 0
+                else:
+                    en.selected_count += 1
                 break
 
         # if the button is clicked, get the button response.
@@ -168,7 +172,7 @@ class GameModel:
 
     def towers_attack(self,bullet_list):
         for tw in self.__towers:
-            tw.attack(self.__enemies.get(),bullet_list)
+            tw.attack(self.__enemies.get(),bullet_list,self.mute)
 
     def enemies_advance(self):
         self.__enemies.advance(self)
@@ -202,12 +206,11 @@ class GameModel:
                 if self.hp == 0:
                     self.hp = 1
             elif self.add_which == 1:
-                if self.tower_money == 0 and self.add_value[self.add_which]<-1:
+                if self.tower_money == 0 and self.add_value[self.add_which]<-1 and abs(self.add_value[self.add_which])-self.add_times[self.add_which] >1:
                     for tw in self.__towers:
                         x,y = tw.rect.center
                         self.plots.append(Vacancy(x, y))
                         self.towers.remove(tw)
-                        print('destory')
                         self.add_value[self.add_which]=0
                         break
                 self.tower_money += self.add_amount

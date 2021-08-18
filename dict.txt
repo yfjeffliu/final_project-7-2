@@ -1,3 +1,3 @@
-money 0
+money 42
 gov 1
-wfh 0
+wfh 1

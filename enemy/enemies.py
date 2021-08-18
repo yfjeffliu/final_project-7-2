@@ -19,6 +19,7 @@ class Enemy:
             self.path = PATH1[player]
         else:
             self.path = PATH2[player]
+        self.selected_count = 0
         self.path_index = 0
         self.move_count = 0
         self.slow_count = 90
@@ -30,20 +31,20 @@ class Enemy:
         num = random.randint(1, 5*(stage+1))
         if num <= 5:
             self.image = pygame.transform.scale(ENEMY_IMAGE1[player], (40, 50))
-            self.health = 5
-            self.max_health = 5
+            self.health = 10
+            self.max_health = 10
             self.stride = 1
             self.level = 1
         elif (num % 2 == 0) & (num <= 17):
             self.image = pygame.transform.scale(ENEMY_IMAGE2[player], (40, 50))
-            self.health = 10
-            self.max_health = 10
+            self.health = 15
+            self.max_health = 15
             self.stride = 1.3
             self.level = 2
         else:
             self.image = pygame.transform.scale(ENEMY_IMAGE3[player], (40, 50))
-            self.health = 15
-            self.max_health = 15
+            self.health = 20
+            self.max_health = 20
             self.stride = 1.6
             self.level = 3
         self.rect = self.image.get_rect()

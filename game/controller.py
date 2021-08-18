@@ -66,7 +66,7 @@ class GameControl:
         self.view.draw_bg()
         self.view.draw_towers(self.model.towers)
         self.view.draw_hp(self.model.hp,self.model.max_hp)
-        
+        self.view.draw_enemies(self.model.enemies)
         self.view.draw_bullets(self.model.bullets)
         self.view.draw_range(self.model.touched_tower)
         self.view.draw_range(self.model.selected_tower)
@@ -85,7 +85,7 @@ class GameControl:
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)
 
-        self.view.draw_enemies(self.model.enemies)
+        
        
         # 畫出通知
         if self.model.message is not None:

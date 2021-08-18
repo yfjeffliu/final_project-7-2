@@ -24,6 +24,7 @@ BULLET3_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/
                 pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "bullet_money3.png")), (30, 30))]
 class Bullet():
     def __init__(self,enemy,tower,start,end) -> None:
+        self.tower = tower
         self.enemy = enemy
         self.start = start
         self.end = end
@@ -61,5 +62,5 @@ class Bullet():
             self.rect.center = (x1 + delta_x, y1 + delta_y)
             self.move_count += 1
         else:
-            self.enemy.health -= 1
+            self.enemy.health -= self.tower.damage
             bullet_list.remove(self)

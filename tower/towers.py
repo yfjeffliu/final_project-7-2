@@ -1,8 +1,10 @@
 from __future__ import annotations
+
+from pygame import mixer
 from tower.attack_strategy import AOE, SingleAttack, Snipe,AttackStrategy
 import os
 import pygame
-
+from pygame import mixer
 
 PLOT_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "space.png")), (40, 40))
 TOWER1_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "tower_tv1.png")), (70, 70)),
@@ -52,7 +54,7 @@ class Tower:
         return tv
     
 
-    def attack(self, enemy_group: list,bullet_list):
+    def attack(self, enemy_group: list,bullet_list,mute):
         # cd
         if self.level < 1:
             self.image = TOWER1_IMAGE[self.player]
@@ -66,9 +68,8 @@ class Tower:
         # syntax: attack_strategy().attack(tower, enemy_group, cd_count)
         # It's something like you hire a "Strategist" to decide how to attack the enemy
         # You can add other ways of attack just by expanding the "attack_strategy.py"
-        self.cd_count = self.attack_strategy.attack(enemy_group, self, self.cd_count,bullet_list)
-        attack_Sound = mixer.Sound(os.path.join("music","attack_se.wav")              #聲音
-        attack_Sound.play()
+        self.cd_count = self.attack_strategy.attack(enemy_group, self, self.cd_count,bullet_list,mute)
+
 
     def get_upgrade_cost(self):
         
