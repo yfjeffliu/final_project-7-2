@@ -67,7 +67,8 @@ class Tower:
         # It's something like you hire a "Strategist" to decide how to attack the enemy
         # You can add other ways of attack just by expanding the "attack_strategy.py"
         self.cd_count = self.attack_strategy.attack(enemy_group, self, self.cd_count,bullet_list)
-        attack_Sound = mixer.Sound(os.path.join("music","attack_se.wav"))
+        attack_Sound = mixer.Sound(os.path.join("music","attack_se.wav")              #聲音
+        attack_Sound.play()
 
     def get_upgrade_cost(self):
         
