@@ -21,14 +21,19 @@ class StartMenu:
         # button
         self.start_btn = Buttons(START_BTN,410, 280, 180, 65)  # x, y, width, height
         self.introduce_btn = Buttons(BTN_INTRO,425, 390, 160, 45)
-        self.producer_bun = Buttons(BTN_PRODUCER,425,460,160, 45)
+        self.producer_btn = Buttons(BTN_PRODUCER,425,460,160, 45)
         #self.sound_btn = Buttons(725, 525, 90, 70)
         #self.mute_btn = Buttons(830, 525, 90, 70)
         self.buttons = [self.introduce_btn,
-                        self.producer_bun,
+                        self.producer_btn,
                         self.start_btn]
+        self.buttons2 = Events().buttons
+        self.last_page_btn = Events().buttons[4]
         # music and sound
         self.sound = pygame.mixer.Sound("./music/bg_music.wav")
+        # page
+        self.last_page = False
+        self.producer_page = False
 
     def play_music(self):
         pygame.mixer.music.load("./music/bg_music.wav")
@@ -61,9 +66,22 @@ class StartMenu:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # check if hit start btn
                     if self.start_btn.clicked(x, y):
-                        #self.sound.play()
                         events = Events()
                         run = events.run()
+                    elif self.producer_btn.clicked(x, y):
+                        run2 = True
+                        while run2:
+                            self.menu_win.blit(PRODUCER_BACKGROUND, (0, 0))
+                            self.menu_win.blit(self.last_page_btn.image, self.last_page_btn.image_rect)
+                            quit, last, sound = self.producer_page_show()
+                            if quit:
+                                return False
+                            if last:
+                                run2 = False
+                            else:  # next page
+                                run2 = True
+
+                        pygame.display.update()
                         
                     """(Q1.1) music on/off according to the button"""
                     # (hint) pygame.mixer.music.pause/unpause
@@ -71,12 +89,35 @@ class StartMenu:
                     #    pygame.mixer.music.pause()
                     #if self.sound_btn.clicked(x,y):
                     #    pygame.mixer.music.unpause()
-                        
 
-            
             pygame.display.update()
         pygame.quit()
 
+    def producer_page_show(self):
+        for event in pygame.event.get():
+                # quit
+            '''
+                if event.type == pygame.QUIT:
+                    return True, False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    self.last_page_btn_clicked(x, y)
+                    if read_button.image_rect.collidepoint(x, y):
+                        self.read = True
+                    for btn in self.buttons2:
+                        if btn.image_rect.collidepoint(x, y):
+                            button_name = btn.name
+                            if button_name == 'last_page':
+                                return False, True
+            '''
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                if self.last_page_btn.image_rect.collidepoint(x, y):
+                    return False, True, False
+            if event.type == pygame.QUIT:
+                return True, False, False
+        pygame.display.update()
+        return False, False, False
 
 class Buttons:
     def __init__(self,image:pygame.Surface, x:int, y:int, width:int, height:int):

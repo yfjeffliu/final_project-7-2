@@ -70,3 +70,4 @@ WIN_STAGE_BG = [pygame.transform.scale(pygame.image.load(os.path.join("images1/e
 FAIL_BG = [pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "LOSE_BG_3.png")),(WIN_WIDTH,WIN_HEIGHT)),
         pygame.transform.scale(pygame.image.load(os.path.join("images1/end_page", "LOSE_wfh_BG.png")),(WIN_WIDTH,WIN_HEIGHT))]
 ABILITY_BTN_IMAGE = [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "special_skill.png")), (95, 95))]
+PRODUCER_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("images1/start_page", "producer.png")),(WIN_WIDTH,WIN_HEIGHT))
