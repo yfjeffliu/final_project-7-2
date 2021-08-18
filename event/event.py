@@ -28,7 +28,7 @@ class Events:
         self.start_image = START_IMAGE
         self.start_round = START_ROUND
         self.using_player = 0
-        self.player=0
+        self.player = 0
         self.event = None
         self.event_list = []
         
@@ -196,6 +196,7 @@ class Events:
             self.pause = not self.pause
         if button_name == 'last_page':
             self.last_page = True
+
     def draw_choose_player(self):
         self.win.blit(BACKGROUND_IMAGE_CHOOSE_PLAYER,(0,0))
         #icon of player
@@ -231,22 +232,21 @@ class Events:
         elif self.using_player == 2:
             read_button = Buttons('read',NEXT_BUTTON,925+10-300,485+10)
             self.win.blit(NEXT_BUTTON,(925-300,485))
-        
-        
+
         for event in pygame.event.get():
             # quit
             if event.type == pygame.QUIT:
-                return True,False
+                return True, False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-                self.button_clicked(x,y)
-                if read_button.image_rect.collidepoint(x,y):
+                self.button_clicked(x, y)
+                if read_button.image_rect.collidepoint(x, y):
                     self.read = True
                 for btn in self.buttons:
-                    if btn.image_rect.collidepoint(x,y):
+                    if btn.image_rect.collidepoint(x, y):
                         button_name = btn.name
                         if button_name == 'last_page':
-                            return False,True
+                            return False, True
         pygame.display.update()
         return False,False
     def draw_player_frame(self):
