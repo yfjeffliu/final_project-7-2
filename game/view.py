@@ -43,15 +43,22 @@ class GameView:
 
     def draw_notify(self,after,before:pygame.Surface,had_occur):
         if had_occur:
-            notify_image =  pygame.transform.scale(after,(180,160))
-            notify_image_rect = notify_image.get_rect()
-            notify_image_rect.center = (120,475)
+
+            if after.get_height()>800:
+                notify_image =  pygame.transform.scale(after,(180,180))
+                notify_image_rect = notify_image.get_rect()
+                notify_image_rect.center = (120,485)
+            else:
+                notify_image =  pygame.transform.scale(after,(180,160))
+                notify_image_rect = notify_image.get_rect()
+                notify_image_rect.center = (120,475)
             self.win.blit(notify_image,notify_image_rect)
         else:
             notify_image =  pygame.transform.scale(before,(180,160))
             notify_image_rect = notify_image.get_rect()
             notify_image_rect.center = (120,475)
             self.win.blit(notify_image,notify_image_rect)
+            
 
     def draw_enemies(self, enemies:EnemyGroup):
         for en in enemies.get():

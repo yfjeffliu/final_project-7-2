@@ -44,7 +44,7 @@ PATH2 = [PATH2_gov,PATH2_wfh]
 BASE = [pygame.Rect(835, 192, 150, 150),pygame.Rect(483, 73, 160, 155)]
 #tower position
 TOWER_POSITION_gov = [(75,319),(221,466),(302,71),(374,317),(513,175),(627,330),(737,189)]
-TOWER_POSITION_wfh = [(64,143),(124,308),(279,437),(430,312),(655,405),(832,415)]
+TOWER_POSITION_wfh = [(64,143),(124,308),(279,437),(430,312),(655,410),(832,415)]
 TOWER_POSITION = [TOWER_POSITION_gov,TOWER_POSITION_wfh]
 # image
 BACKGROUND_IMAGE =  [pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "road3.png")),(WIN_WIDTH,WIN_HEIGHT)),

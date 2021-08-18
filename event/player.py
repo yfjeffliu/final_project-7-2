@@ -38,7 +38,7 @@ class Players:
         
         self.player_rect_list=['',]
         self.player_btn = [Player_btn(1,'gov',GOV_ICON_IMAGE,LOCK_IMAGE,GOV_WORD_IMAGE,300,300,self.gov,1),
-                            Player_btn(2,'wfh',WFH_ICON_IMAGE,LOCK_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh,10)]
+                            Player_btn(2,'wfh',WFH_ICON_IMAGE,LOCK_IMAGE,WFH_WORD_IMAGE,720,300,self.wfh,50)]
         pass
 
     def get_click_choose_player(self,x:int,y:int):
@@ -60,7 +60,6 @@ class Player_btn:
         self.lock_image_rect.center=(x-40,y)
         self.icon_image_rect.center=(x,y)
         self.word_image_rect.center=(x,y+85)
-        
         self.show_buy = False
         self.buy_message = pygame.transform.scale(pygame.image.load(os.path.join("images1/choice_page", "buy_question.png")), (280, 156))
         self.buy_message_rect = self.buy_message.get_rect()

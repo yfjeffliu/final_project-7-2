@@ -97,7 +97,7 @@ class Events:
                         if not self.mute:
                             pygame.mixer.music.unpause()
                         self.sound.stop()
-                        print(self.chosen)
+
                         self.impact_model(game)
                         self.using_event=None
                         game.mute(self.mute)
@@ -206,7 +206,7 @@ class Events:
                 self.win.blit(player.icon_image, player.icon_image_rect)     #show gov
             else:
                 self.win.blit(player.lock_image, player.lock_image_rect)
-                show_text(self.win,'$ ' + str(player.cost),20,player.lock_image_rect.centerx-30,player.lock_image_rect.centery+5)
+                show_text(self.win,'$ ' + str(player.cost),20,player.lock_image_rect.centerx-40,player.lock_image_rect.centery+5)
         for player in self.players.player_btn:
             if player.show_buy:
                 self.win.blit(player.buy_message,player.buy_message_rect)
@@ -473,6 +473,7 @@ class Events:
         game.occur2 = False
         
     def keep_going(self,game:Game):
+        
         if self.mute:
             pass
         else:
@@ -483,8 +484,6 @@ class Events:
         self.chosen = []
         percentage = [0,10,20,40,60,100]
         while True:
-            
-            #print('keep going',stage,money)
             self.win.blit(WIN_STAGE_BG[self.using_player-1],(0,0))
             text = '* ' + str(game.game_model.tower_money) #塔防幣
             show_text(self.win,text,23,616,473)
