@@ -7,7 +7,7 @@ BUY_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/
 UPGRADE_MENU_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "upgrade.png")), (135,70 ))
 GREEN_BTN_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join("images1/game_page", "green_yes.png")), (130, 30))
 
-NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(170,18))
+NOTIFY_IMAGE_SHOW = pygame.transform.scale(pygame.image.load(os.path.join("images1/notify_message", "message_shrink.png")),(169,25))
 
 
 
@@ -71,7 +71,7 @@ class MainMenu:
                         Button(music_button_image, "music", 760, 540),
                          Button(continue_button_image, "continue", 716, 540),
                          Button(pause_button_image, "pause", 716, 540),
-                         Button(NOTIFY_IMAGE_SHOW,"show_notify", 120, 560),
+                         Button(NOTIFY_IMAGE_SHOW,"show_notify", 120, 560-5),
                          Button(ABILITY_MENU_IMAGE[player],"show_ability",935,510),
                          Button(ABILITY_BTN_IMAGE[player],"nothing",935,385),
                          Button(YELLOW_BTN_IMAGE,"use_ability",935,385+45)]

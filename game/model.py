@@ -8,7 +8,7 @@ from tower.bullets import BulletGroup
 from enemy.enemies import EnemyGroup
 from menu.menus import Menu, UpgradeMenu, BuildMenu, MainMenu
 from game.user_request import RequestSubject, TowerFactory,  TowerDeveloper, TowerKiller,  Music,Show_Hide_Notify,Ability,Play
-from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE,TOWER_POSITION, MESSAGE_CONTINUE
+from settings import WIN_WIDTH, WIN_HEIGHT, BACKGROUND_IMAGE,TOWER_POSITION, MESSAGE_CONTINUE, SHRINK_IMAGE
 
 
 class GameModel:
@@ -65,6 +65,12 @@ class GameModel:
         self.message_continue_rect.center = (880, 421)
         self.message_move_count = 0
         self.message_move_max = 6
+
+        self.click_to_shrink = SHRINK_IMAGE
+        self.click_to_shrink_rect = SHRINK_IMAGE.get_rect()
+        self.click_to_shrink_rect.center = (118, 580)
+        self.click_message_move_count = 0
+        self.click_message_move_max = 5
         
         self.add_clock = 0
         self.add_delay = 7

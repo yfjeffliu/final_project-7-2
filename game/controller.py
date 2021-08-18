@@ -74,13 +74,12 @@ class GameControl:
         self.view.draw_money(self.model.money)
         self.view.draw_tower_money(self.model.tower_money)
         self.view.draw_main_menu(self.model.get_main_menu(),self.model.mute,self.model.pause,self.model.show_ability)
-        
+
         if self.model.show_notify:
-            self.view.draw_notify(self.model.notify,self.model.notify2,self.model.had_occur)
+            self.view.draw_notify(self.model.notify,self.model.notify2,self.model.had_occur,self.model.click_to_shrink, self.model.click_to_shrink_rect.centery)
+
         self.view.draw_stage(self.model.stage)
-        
-        
-       # self.view.draw_progress(self.model.get_progress,10)
+
         """(Q2) Controller request View to render something"""
         if self.model.menu is not None:
             self.view.draw_menu(self.model.menu)

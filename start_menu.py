@@ -27,7 +27,6 @@ class StartMenu:
         self.buttons = [self.introduce_btn,
                         self.producer_btn,
                         self.start_btn]
-        self.buttons2 = Events().buttons
         self.last_page_btn = Events().buttons[4]
         # music and sound
         self.sound = pygame.mixer.Sound("./music/bg_music.wav")
@@ -73,12 +72,12 @@ class StartMenu:
                         while run2:
                             self.menu_win.blit(PRODUCER_BACKGROUND, (0, 0))
                             self.menu_win.blit(self.last_page_btn.image, self.last_page_btn.image_rect)
-                            quit, last, sound = self.producer_page_show()
+                            quit, last = self.producer_page_show()
                             if quit:
                                 return False
-                            if last:
+                            if last:  # last page
                                 run2 = False
-                            else:  # next page
+                            else:  # producer page
                                 run2 = True
 
                         pygame.display.update()
@@ -95,29 +94,14 @@ class StartMenu:
 
     def producer_page_show(self):
         for event in pygame.event.get():
-                # quit
-            '''
-                if event.type == pygame.QUIT:
-                    return True, False
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    self.last_page_btn_clicked(x, y)
-                    if read_button.image_rect.collidepoint(x, y):
-                        self.read = True
-                    for btn in self.buttons2:
-                        if btn.image_rect.collidepoint(x, y):
-                            button_name = btn.name
-                            if button_name == 'last_page':
-                                return False, True
-            '''
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 if self.last_page_btn.image_rect.collidepoint(x, y):
-                    return False, True, False
+                    return False, True
             if event.type == pygame.QUIT:
-                return True, False, False
+                return True, False
         pygame.display.update()
-        return False, False, False
+        return False, False
 
 class Buttons:
     def __init__(self,image:pygame.Surface, x:int, y:int, width:int, height:int):

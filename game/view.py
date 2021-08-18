@@ -32,7 +32,7 @@ class GameView:
         self.win.blit(BACKGROUND_IMAGE[self.player], (0, 0))
     def draw_wait(self,wait:int):
         font = pygame.font.Font(FONT, 100)
-        text = font.render(  str(wait), True, BROWNGRAY)
+        text = font.render(str(wait), True, BROWNGRAY)
         text_rect = text.get_rect()
         surface = pygame.Surface((WIN_WIDTH, WIN_HEIGHT), pygame.SRCALPHA)
         transparency = 200
@@ -41,24 +41,28 @@ class GameView:
         text_rect.center = (512,300)
         self.win.blit(text, text_rect)
 
-    def draw_notify(self,after,before:pygame.Surface,had_occur):
+    def draw_notify(self,after,before:pygame.Surface,had_occur,shrink=SHRINK_IMAGE, y=580):
         if had_occur:
-
             if after.get_height()>800:
-                notify_image =  pygame.transform.scale(after,(180,180))
+                notify_image = pygame.transform.scale(after,(180,180))
                 notify_image_rect = notify_image.get_rect()
-                notify_image_rect.center = (120,485)
+                notify_image_rect.center = (120,485-8)
             else:
-                notify_image =  pygame.transform.scale(after,(180,160))
+                notify_image = pygame.transform.scale(after,(180,160))
                 notify_image_rect = notify_image.get_rect()
-                notify_image_rect.center = (120,475)
+                notify_image_rect.center = (120,475-8)
             self.win.blit(notify_image,notify_image_rect)
         else:
-            notify_image =  pygame.transform.scale(before,(180,160))
+            notify_image = pygame.transform.scale(before,(180,160))
             notify_image_rect = notify_image.get_rect()
-            notify_image_rect.center = (120,475)
+            notify_image_rect.center = (120,475-8)
             self.win.blit(notify_image,notify_image_rect)
-            
+        # shrink_animation
+        shrink_image = pygame.transform.scale(shrink, (129, 11))
+        shrink_image_rect = shrink_image.get_rect()
+        shrink_image_rect.center = (118, y)
+        self.win.blit(shrink_image, shrink_image_rect)
+
 
     def draw_enemies(self, enemies:EnemyGroup):
         for en in enemies.get():

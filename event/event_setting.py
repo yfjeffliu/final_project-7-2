@@ -16,7 +16,7 @@ class an_event:
 class an_decision():
     def __init__(self, num:int,image:pygame.Surface,  impact:list,notify_image:pygame.Surface,hint,impact2,notify2_image,text,message1,message2,player) -> None:
         self.impact = impact
-        self.notify =notify_image
+        self.notify = notify_image
         self.impact2 = impact2
         self.notify2 = notify2_image
         self.text = text
