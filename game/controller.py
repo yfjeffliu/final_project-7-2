@@ -77,7 +77,15 @@ class GameControl:
 
         if self.model.show_notify:
             self.view.draw_notify(self.model.notify,self.model.notify2,self.model.had_occur,self.model.click_to_shrink, self.model.click_to_shrink_rect.centery)
-
+            # click_animation
+            '''
+            if self.model.click_message_move_count < self.model.click_message_move_max:
+                self.model.click_to_shrink_rect.centery += 1
+                self.model.click_message_move_count += 1
+            else:
+                self.model.click_to_shrink_rect.centery = 580
+                self.model.click_message_move_count = 0
+            '''
         self.view.draw_stage(self.model.stage)
 
         """(Q2) Controller request View to render something"""
