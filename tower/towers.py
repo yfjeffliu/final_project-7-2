@@ -38,7 +38,7 @@ class Tower:
         self.rect.center = (x, y-10)  # center of the tower
         self.level = 0  # level of the tower
         self._range = [130, 160,190]  # tower attack range
-        self._damage = [2.0,  2.5, 3]  # tower damage
+        self._damage = [1.5,  2, 2.5]  # tower damage
         self.cd_count = 0  # used in self.is_cool_down()
         self.cd_max_count = 60  # used in self.is_cool_down()
         self.attack_strategy = attack_strategy  # chose an attack strategy (AOE, single attack ....)
@@ -48,7 +48,7 @@ class Tower:
     def TV(cls, x:int, y:int,player:int):
         tv = cls(x, y, SingleAttack(), TOWER1_IMAGE[player])
         tv._range = [130, 180,230]
-        tv._damage = [2.0,  2.5, 3]
+        tv._damage = [1.5,  2, 2.5]
         tv.value = [100, 140, 200, 280, 360, 450]
         tv.player = player
         return tv
